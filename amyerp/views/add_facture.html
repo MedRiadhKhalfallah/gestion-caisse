@@ -1,0 +1,470 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#/products">Liste Factures</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Ajout Facture </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Ajout Facture 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a> 
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal form-bordered">
+                    <!--                    <div class="form-group col-sm-6">
+                                            <label class="control-label col-sm-4">Date D'Echéance</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" id="DateEcheance" class="form-control" placeholder="Date D'Echéance" readonly>
+                                                </div>
+                                                 /input-group 
+                                            </div>
+                                        </div>-->
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-4 control-label">Acompte</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="number" id="Accompte" placeholder="Acompte" name="Acompte" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-4 control-label">Objet</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="text" id="Object" placeholder="Objet" name="Object" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-4 control-label">Validité</label> 
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="text" id="Validation" placeholder="Validité" name="Validation" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-4 control-label">Modalité</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="text" id="Pourcentage" placeholder="Modalité" name="Modalité" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-4 control-label">Type Paiement</label>
+                        <div class="col-sm-8" ng-controller="PaymentsController">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                                <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Mode de Paiement..." id="paymentValue">
+                                    <option value=""></option>
+                                    <option value="{{item.Payment.id}}" ng-repeat="item in payments">{{item.Payment.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-4 control-label">Client</label>
+                        <div class="col-sm-8" ng-controller="UsersController">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Client..." id="clientValue">
+                                    <option value=""></option>
+                                    <option value="{{item.User.id}}" ng-repeat="item in clients">{{item.User.full_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-4 control-label">Remise Globale</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="number" min="0" id="RemiseGlob" ng-model="remiseGlobal" ng-change="remiseglobale()" placeholder="Remise Globale" value="0" name="remise globale" class="form-control" /> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div  class="col-sm-12" style="padding-left: 0; padding-right: 0;" ng-controller="FamilleController">
+                        <div class="form-group col-md-6">
+                            <label class="col-sm-3 control-label">Famille</label>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tags"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Famille..." id="familleValue" ng-model="familleID" ng-change="changeFamilleID()">
+                                        <option value=""></option>
+                                        <option value="{{item.Famille.id}}" ng-repeat="item in familles">{{item.Famille.name}}</option>
+                                    </select>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="clearfix"></div>
+                        <!--                        <div class="form-group col-md-3">
+                                                    <label class="col-sm-4 control-label">Produit</label>
+                                                    <div class="col-sm-8" ng-controller="ProductsController">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-arrows-alt"></i>
+                                                            </span>
+                                                            <div class="ui-widget">
+                                                                <select id="combobox">
+                                                                    <option value="">Select Product...</option>
+                                                                    <option value="{{item.Product.id}}" data-price="{{item.Product.price}}" ng-repeat="item in products">{{item.Product.name}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Produit</label>
+                            <div class="ui-widget">
+                                <select id="combobox" ng-model="data.model" ng-change="myFunc()">
+                                    <option value="">Select Product...</option>
+                                    <option value="{{item.Product.price}}" data-price-ttc="{{item.Product.price * (1 + item.Product.Tva.value / 100)}}" data-achat="{{item.Product.prix_achat}}" data-stock-entree="{{item.Stock}}" data-stock-sortie="{{item.Stock[0].countOut}}" data-marge="{{item.Product.marge}}" data-id="{{item.Product.id}}" data-ref="{{item.Product.ref}}" data-tva="{{item.Tva.value}}" data-tvaid="{{item.Tva.id}}" ng-repeat="item in productsfamille">{{item.Product.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Qte</label> 
+                            <div class="input-group">
+                                <input type="number" min="1" id="Qte" ng-model="qte" ng-focus="initQte()" ng-change="changeQte()" placeholder="Qte" name="qte" class="form-control" /> </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Remise</label>
+                            <div class="input-group">
+                                <input type="number" min="0" id="Remise" value="0" placeholder="Remise" name="remise" class="form-control" /> </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Prix unitaire</label>
+                            <div class="input-group">
+                                <input type="number" id="PU" ng-change="change()" ng-model="price" placeholder="Prix unitaire" value="{{data.model}}" name="price" class="form-control" /> </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Prix TTC</label>
+                            <div class="input-group">
+                                <input type="number" id="ttc" placeholder="Prix TTC" value="0" name="ttc" class="form-control" /> </div>
+                        </div>
+                        <!--                        <div class="form-group col-md-2">
+                                                    <label class="col-sm-4 control-label">Remise</label>
+                                                    <div class="col-sm-7">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-check"></i>
+                                                            </span>
+                                                            <input type="number" min="0" id="Remise" placeholder="Remise" value="0" name="Remise" class="form-control" /> </div>
+                                                    </div>
+                                                </div>-->
+                        <div class="col-sm-1 col-md-1" style="float: right;position: relative;margin-top: 60px;">
+                            <addbuttonsfacture></addbuttonsfacture>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="row col-md-12" style="padding-left: 50px;">
+                        <table class="table table-striped">
+                            <thead class="title-tab"> 
+                                <tr> 
+                                    <th>Réf</th>
+                                    <th>Article</th>
+                                    <th>PU</th>
+                                    <th>TTC</th>
+                                    <th>QTE</th>
+                                    <th>Remise</th>
+                                    <th>TOTAL HT</th>
+                                    <th>TOTAL TTC</th> 
+                                    <th>Action</th> 
+                                </tr> 
+                            </thead> 
+                            <tbody id="space-for-buttons">
+
+                            </tbody> 
+                            <tfoot>
+                                <tr>
+                                    <th colspan="8" class="text-right">Remise Globale</th>
+                                    <td id="remiseglobale">0</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" class="text-right">Total NET HT</th>
+                                    <td id="total_ht">0</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" class="text-right">Total TVA</th>
+                                    <td id="total_tva">0</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" class="text-right">Timbre Fiscal</th>
+                                    <td id="timbre_fiscale">{{config.Configuration.price_timbre|number:3}}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" class="text-right">Indicateur</th>
+                                    <td id="Indicateur">0</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" class="text-right">TOTAL NET À PAYER</th>
+                                    <td id="net_ttc">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>  
+                    <div class="clearfix"></div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn purple" ng-click="ajoutFacture($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Ajout</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="form_modal2" class="modal fade" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Datepickers In Modal</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="#" class="form-horizontal">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Date D'Echéance</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group input-medium date date-picker" data-date="" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                <input type="text" class="form-control" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <!-- /input-group -->
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<!-- END MAIN CONTENT -->
+<script>
+//    ComponentsDateTimePickers.init();
+            setTimeout(function () {
+                $('#DateEcheance').datepicker({dateFormat: "yy-mm-dd"});
+                (function ($) {
+                    $.widget("custom.combobox", {
+                        _create: function () {
+                            this.wrapper = $("<span>")
+                                    .addClass("custom-combobox")
+                                    .insertAfter(this.element);
+
+                            this.element.hide();
+                            this._createAutocomplete();
+                            this._createShowAllButton();
+                        },
+                        _createAutocomplete: function () {
+                            var selected = this.element.children(":selected"),
+                                    value = selected.val() ? selected.text() : "";
+
+                            this.input = $("<input>")
+                                    .appendTo(this.wrapper)
+                                    .val(value)
+                                    .attr("title", "")
+                                    .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                                    .autocomplete({
+                                        delay: 0,
+                                        minLength: 0,
+                                        source: $.proxy(this, "_source")
+                                    })
+                                    .tooltip({
+                                        tooltipClass: "ui-state-highlight"
+                                    });
+
+                            this._on(this.input, {
+                                autocompleteselect: function (event, ui) {
+                                    ui.item.option.selected = true;
+                                    this._trigger("select", event, {
+                                        item: ui.item.option
+                                    });
+                                },
+                                autocompletechange: "_removeIfInvalid"
+                            });
+                        },
+                        _createShowAllButton: function () {
+                            var input = this.input,
+                                    wasOpen = false;
+
+                            $("<a>")
+                                    .attr("tabIndex", -1)
+                                    .attr("title", "Show All Items")
+                                    .tooltip()
+                                    .appendTo(this.wrapper)
+                                    .button({
+                                        icons: {
+                                            primary: "ui-icon-triangle-1-s"
+                                        },
+                                        text: false
+                                    })
+                                    .removeClass("ui-corner-all")
+                                    .addClass("custom-combobox-toggle ui-corner-right")
+                                    .mousedown(function () {
+                                        wasOpen = input.autocomplete("widget").is(":visible");
+                                    })
+                                    .click(function () {
+                                        input.focus();
+
+                                        // Close if already visible
+                                        if (wasOpen) {
+                                            return;
+                                        }
+
+                                        // Pass empty string as value to search for, displaying all results
+                                        input.autocomplete("search", "");
+                                    });
+                        },
+                        _source: function (request, response) {
+                            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                            response(this.element.children("option").map(function () {
+                                var text = $(this).text();
+                                if (this.value && (!request.term || matcher.test(text)))
+                                    return {
+                                        label: text,
+                                        value: text,
+                                        option: this
+                                    };
+                            }));
+                        },
+                        _removeIfInvalid: function (event, ui) {
+
+                            // Selected an item, nothing to do
+                            if (ui.item) {
+                                return;
+                            }
+
+                            // Search for a match (case-insensitive)
+                            var value = this.input.val(),
+                                    valueLowerCase = value.toLowerCase(),
+                                    valid = false;
+                            this.element.children("option").each(function () {
+                                if ($(this).text().toLowerCase() === valueLowerCase) {
+                                    this.selected = valid = true;
+                                    return false;
+                                }
+                            });
+
+                            // Found a match, nothing to do
+                            if (valid) {
+                                return;
+                            }
+
+                            // Remove invalid value
+                            this.input
+//                	.val( "" )
+//                	.attr( "title", value + " didn't match any item" )
+//                            .tooltip("open");
+                            this.element.val("");
+                            this._delay(function () {
+//                        this.input.tooltip("close").attr("title", "");
+                                angular.element(document.getElementById('NewProduct')).append("<input type='text' id='NewRef' class='form-control' placeholder='Référence Produit'/>");
+                                $("#SelectNewTva").show();
+//                        $('i[id="addProfile"]').attr('ng-click','ajoutProduct()');
+                            }, 500);
+                            this.input.autocomplete("instance").term = "";
+                        },
+                        _destroy: function () {
+                            this.wrapper.remove();
+                            this.element.show();
+                        }
+                    });
+                })(jQuery);
+
+                $(function () {
+                    $("#combobox").combobox();
+                    $("#toggle").click(function () {
+                        $("#combobox").toggle();
+                    });
+                });
+            }, 500);
+</script>

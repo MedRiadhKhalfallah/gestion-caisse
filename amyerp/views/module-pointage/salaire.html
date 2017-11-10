@@ -1,0 +1,208 @@
+<style>
+    .rotateFullName {
+        /* Safari */
+        -webkit-transform: rotate(45deg);
+
+        /* Firefox */
+        -moz-transform: rotate(45deg);
+
+        /* IE */
+        -ms-transform: rotate(45deg);
+
+        /* Opera */
+        -o-transform: rotate(45deg);
+
+        /* Internet Explorer */
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+    }
+    .rotate {
+        text-transform: capitalize;
+        /* Safari */
+        -webkit-transform: rotate(-90deg);
+
+        /* Firefox */
+        -moz-transform: rotate(-90deg);
+
+        /* IE */
+        -ms-transform: rotate(-90deg);
+
+        /* Opera */
+        -o-transform: rotate(-90deg);
+
+        /* Internet Explorer */
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+    }
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .inclinne
+    {
+        transform: rotate(270deg);
+        position: relative;
+        top: -10px;
+    }
+    .selectize-input{padding: 5px;}
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Commandes </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Salaire
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/gestion-employees" class="btn btn-default btn-sm" ng-click="exportDataemploye()">
+                        Export To Excel
+                    </a>
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" ng-controller="ModalEmailCtrl" ng-click="open()"><i class="fa fa-send-o"></i> Envoyer par mail </a>
+
+                    <a href="#/dashboard-pointage" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Pointage et Paie
+                    </a>
+                    <a href="#/add-employee" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="clearfix"></div>
+                <div class="col-md-3">
+                    <label for="search" class="control-label col-md-3" style="margin-top: 7px;">Mois</label>
+                    <div class="col-md-8">
+                        <!--<select id="moisPointage" ng-model="//moisPointage" ng-change="filterNoteFrais()">-->
+                        <select id="moisPointage" ng-model="moisPointage" ng-change="datePaie('mois')">
+                            <option value="">Choix Mois...</option>
+                            <option value="01">Janvier</option>
+                            <option value="02">Février</option>
+                            <option value="03">Mars</option>
+                            <option value="04">Avril</option>
+                            <option value="05">Mai</option>
+                            <option value="06">Juin</option>
+                            <option value="07">Juillet</option>
+                            <option value="08">Öut</option>
+                            <option value="09">Septembre</option>
+                            <option value="10">Octobre</option>
+                            <option value="11">Novembre</option>
+                            <option value="12">Décembre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="search" class="control-label col-md-3" style="margin-top: 7px;">Année</label>
+                    <div class="col-md-8">
+                        <select id="anneePointage" ng-model="annesPointage" ng-change="datePaie('annee')">
+                            <option value="">Choix Année...</option>
+                            <option ng-repeat="annees in anneespointage" value="{{annees}}">{{annees}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!--                <div class="col-md-4">
+                                    <label class="control-label col-md-3" style="margin-top: 7px;">Employé</label>
+                                    <div class="input-group col-md-8">
+                                        <select class="form-control input-xlarge select2me col-sm-12"  data-placeholder="Choisir employé..." id="SelectEmploye" ng-model="choisEmployee" ng-change="changeEmployerPoitage()">
+                                            <option value=""></option>
+                                            <option value="{{user.User.id}}" ng-repeat="user in listeremploy">{{user.User.full_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>-->
+                <div class="clearfix"></div>
+                <!--<div class="col-md-5">-->
+                <form class="form-inline" style="float: right;position: relative;top: 30px;">
+                    <button class="btn btn-default btn-sm" ng-click="collapseDays()">+/-</button>
+                    <div class="form-group">
+                        <label>Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <!--</div>--> 
+                <div class="clearfix"></div>
+                <div style="overflow-x: scroll;padding-bottom: 10px;">
+                    <table class="table-responsive table-bordered table-hover" style="margin-top: 50px;">
+                        <thead>
+                        <th style="padding-left:0; padding-right:0; height: 100px;" class="rotateFullName">
+                            <div class="inclinne">Nom et Prénom</div>
+                        </th>
+                        <th  ng-show="listeEmpJour == true" ng-repeat="presence in Table" class="rotate">{{presence.dateSql| date : "EEEE"}} </th>
+                        <th style="padding-left:0; padding-right:0"> 
+                            <div class="inclinne"> NHT </div> 
+                        </th>
+                        <th style="padding-left:0; padding-right:0"> 
+                            <div class="inclinne"> NHTP</div> 
+                        </th>
+                        <th style="padding-left:0; padding-right:0"> 
+                            <div class="inclinne"> SNP</div> 
+                        </th>
+                        <th style="padding-left:0; padding-right:0 "> 
+                            <div class="inclinne"> SSJT</div> 
+                        </th>                            
+                        </thead>                       
+                        <tbody style="text-align: left;" id="listP">
+                            <tr ng-repeat="($index,pointage) in pointages | filter:search">
+                                <td>{{pointage.full_name}}</td>
+                                <!--<td ng-repeat="d in Table">{{showHoursCount(presence.User.id, d.dateSql)}} </td>-->
+                                <td ng-repeat="d in pointage.presence track by $index" ng-show="listeEmpJour == true" style="text-align: center;">
+                                    <span ng-if="d.TH == 'no-job'">
+                                        <label class="label label-info label-sm">OFF</label>
+                                    </span>
+                                    <span ng-if="d.TH != 'no-job'">
+                                        <a tabindex="0" class="btn btn-sm btn-default" role="button" data-toggle="popover" data-trigger="focus" title="Détails" data-content="<ul>
+                                           <li><strong>Entrée Matin</strong> : {{d.EM}}</li>
+                                           <li><strong>Sortie Matin</strong> : {{d.SM}}</li>
+                                           <li><strong>Entrée Soir</strong> : {{d.ES}}</li>
+                                           <li><strong>Sortie Soir</strong> : {{d.SS}}</li>
+                                           </ul>" data-html="true">                                           
+                                            {{d.TH}} <i class="fa fa-info-circle"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                                <td>{{pointage.THFinal}}</td>
+                                <td>168</td>
+                                <td>{{pointage.salaire| number:3}}</td>
+                                <td>{{pointage.salaireSJT| number:3}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function(){
+    $(function () {
+    $('a[data-toggle="popover"]').popover();
+    });
+    }, 1000);
+    var intervalSalaire = setInterval(function () {
+    if (document.readyState === 'complete') {
+    clearInterval(intervalSalaire);
+    $("select#moisPointage").selectize()[0].selectize.setValue('');
+    setTimeout(function(){
+    $("select#anneePointage").selectize()[0].selectize.setValue('');
+    }, 1000);
+    }
+    });</script>

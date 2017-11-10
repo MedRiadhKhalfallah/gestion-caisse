@@ -1,0 +1,179 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Affecter commandes
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/module-transporteur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Transporteur
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div id="form-username" class="form-horizontal form-bordered">
+                    <div class="col-md-12" style="margin-top: 20px;">
+                        <div class="form-group col-md-4">
+                            <label class="col-md-4 control-label" style="text-align: left;font-size: 15px;font-weight: 700;">Livreur </label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tag"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Livreur..." ng-change='focusSelectCodebarrre()' ng-model="SelectBarreCode" id="commercialeValue">
+                                        <option value=""></option>
+                                        <option  value="{{item.Livreur.id}}" ng-repeat="item in livreurs">{{item.Livreur.full_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form-group col-md-4">
+                            <label class="control-label col-md-4" style="text-align: left;font-size: 15px;font-weight: 700;">Date de livraison : </label>
+                            <div class="col-md-8">
+                                <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                    <!--<input type="date" id="DateLivraison" class="form-control" placeholder="Date de livraison">-->
+                                    <input type="text" id="dateLivraison" ng-change="focusCodebarrre()" ng-model="focusCodebarrreDate" class="form-control" placeholder="Date De livraison" readonly>
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group col-md-12" style="padding-left: 0; padding-right: 0;">
+                                <label class="control-label col-md-4" style="text-align: left;font-size: 15px;font-weight: 700;">Zone</label>
+                                <div class="col-md-7">
+                                    <div class="input-group input-medium" style="width: 100% !important;">
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button">
+                                                <i class="fa fa-list"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" id="Zone" class="form-control" placeholder="Zone" style="width: 100%;">
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group col-md-12" style="padding-left: 0; padding-right: 0;">
+                                <label class="control-label col-md-4" style="text-align: left;font-size: 15px;font-weight: 700;">Agence</label>
+                                <div class="col-md-7">
+                                    <div class="input-group input-medium" style="width: 100% !important;">
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button">
+                                                <i class="fa fa-list"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" id="Agence" class="form-control" placeholder="Agence" style="width: 100%;">
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group col-md-12" style="padding-left: 0; padding-right: 0;">
+                                <label class="control-label col-md-4" style="text-align: left;font-size: 15px;font-weight: 700;">Code barre</label>
+                                <div class="col-md-7">
+                                    <div class="input-group input-medium" style="width: 100% !important;">
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button">
+                                                <i class="fa fa-list"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" id="CodeBarreGroupe" class="form-control" placeholder="Code barre" style="width: 100%;" ng-keypress="myGroupecommande($event)">
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="margin-top: 20px;">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                <thead>
+                                    <tr>
+                                        <th> Num </th>
+                                        <th> Référence </th>
+                                        <th> Expéditeur </th>
+                                        <th> Destinataire </th>
+                                        <th> Adresse de destinataire</th>
+                                        <th> Ville </th>
+                                        <th> Code postal </th>
+                                        <th> Contre renbourcement </th>
+                                        <th> Signature </th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align: left;" id="CommandeLivreur">
+
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div> 
+                    <div class="clearfix"></div>
+                    <div class="form-actions"> 
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button id="submitGroupCommande" type="submit" class="btn purple" style="float: right" ng-click="affecterGroupeCommandeLivreur($event)">
+                                    <i class="fa fa-check"></i> Générer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<script>
+    var intervalLivreur = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalLivreur);
+            var userAgent = navigator.userAgent;
+            if (userAgent.indexOf("Firefox") > -1) {
+                $('#dateLivraison').datepicker({dateFormat: "dd-mm-yy"});
+            }
+            $('#CodeBarreGroupe').focus();
+        }
+    }, 100);
+</script>
+<script>
+//    setTimeout(function () {
+    setTimeout(function () {
+        $('#dateLivraison').datepicker({
+            altField: "#dateLivraison",
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "dd-mm-yy"});
+    }, 1000);
+//    }, 500);
+
+</script>

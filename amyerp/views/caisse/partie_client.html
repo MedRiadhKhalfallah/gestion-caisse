@@ -1,0 +1,58 @@
+<div id="COORDONNEES_CLIENT">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">       
+                        <form class="form-inline" >
+                            <div class="form-group">
+                                <span class="input-group-btn">
+                                    <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                                    <a href="javascript:;" class="btn green" id="username1_checker">
+                                        <i class="fa fa-check"></i>recherche un client </a>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="button" value="Creer un nouveau Client" class="btn purple btn-md" data-toggle="modal" data-target="#myModal" id="sample_editable_1_new"/>
+                    </div>
+                </div>
+                <div>
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label=" " style="width: 66px;">
+                                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                        <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes">
+                                        <span></span>
+                                    </label>
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Username : activate to sort column descending" style="width: 146px;" aria-sort="ascending"> Nom et Prenom </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email : activate to sort column ascending" style="width: 180px;"> Email </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Points : activate to sort column ascending" style="width: 118px;"> Numero portable </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Joined : activate to sort column ascending" style="width: 111px;"> Adresse </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Status : activate to sort column ascending" style="width: 118px;"> Code Postale </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Status : activate to sort column ascending" style="width: 100px;"> Ville</th>
+                                <!--                            <th><input type="checkbox" name="checkedAll" id="checkedAll" ng-controller="prospectionController"/>Sélèctionner tout </th>-->
+                            </tr>
+                        </thead>
+
+                        <tbody style="text-align: left;" id="listUser">
+                            <tr class="odd gradeX" dir-paginate="($index, item) in clients | filter:search |itemsPerPage:10" id="ClientRows" data-data-id="{{item.User.id}}" data-userclient="{{item.User.id}}">
+                                <td class="sorting_disabled" rowspan="1" colspan="1" aria-label=" " style="width: 66px;">
+                                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                        <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes">
+                                        <span></span>
+                                    </label>
+                                </td>
+                                <td style="width: 146px;">{{item.User.full_name}}</td>
+
+                                <td style="width: 180px;">{{item.User.email}}</td>
+                                <td style="width: 118px;">{{item.User.phone}}</td>
+                                <td style="width: 111px;">{{item.User.adress}}</td>
+                                <td style="width: 118px;">{{item.User.postal}}</td>
+                                <td style="width: 100px;">{{item.Ville.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>

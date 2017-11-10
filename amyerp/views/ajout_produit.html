@@ -1,0 +1,232 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#/products">Liste Produits</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Ajout Produit </li>
+</ul>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Ajout Produit 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="col-md-7">
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Code Barres</label>
+                            <div class="col-sm-4 col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-barcode"></i>
+                                    </span>
+                                    <input type="text" id="code_barre" placeholder="Code Barres" name="code barre" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Référence</label>
+                            <div class="col-sm-4 col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </span>
+                                    <input type="text" id="ref" placeholder="Référence" name="ref" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Nom Produit</label>
+                            <div class="col-sm-4 col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-arrows-alt"></i>
+                                    </span>
+                                    <input type="text" id="nom" placeholder="Nom Produit" name="nom" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Prix d'achat</label>
+                            <div class="col-sm-4 col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="PACHAT" placeholder="Prix d'achat" name="typeahead_example_4" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Marge</label>
+                            <div class="col-sm-4 col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="Marge" placeholder="Marge" ng-model="marge" ng-change="changeAchat()" name="typeahead_example_4" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Prix unitaire</label>
+                            <div class="col-sm-4 col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="PU" placeholder="Prix unitaire" name="typeahead_example_4" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Type</label>
+                            <div class="col-sm-4 col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Type Product..." id="typeValue">
+                                        <option value=""></option>
+                                        <option value="Stockable">Stockable</option>
+                                        <option value="Consommable">Consommable</option>
+                                        <option value="Service">Service</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Tva</label>
+                            <div class="col-sm-4 col-md-8" ng-controller="TvaController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select TVA..." id="tvaValue">
+                                        <option value=""></option>
+                                        <option value="{{item.Tva.id}}" ng-repeat="item in tvas">{{item.Tva.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Categorie</label>
+                            <div class="col-sm-4 col-md-8" ng-controller="CategorieController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tag"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Category..." id="categoryValue">
+                                        <option value=""></option>
+                                        <option value="{{item.Category.id}}" ng-repeat="item in categories">{{item.Category.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Unite</label>
+                            <div class="col-sm-4 col-md-8" ng-controller="UniteController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tag"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Unite..." id="uniteValue">
+                                        <option value=""></option>
+                                        <option value="{{item.Unite.id}}" ng-repeat="item in unites">{{item.Unite.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-controller="ModalADDFamilleCtrl">
+                            <label class="col-sm-3 control-label">Famille</label>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tags"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Famille..." id="familleValue">
+                                        <option value=""></option>
+                                        <option value="{{item.Famille.id}}" ng-repeat="item in familles">{{item.Famille.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <button ng-click="open($event)"  class="btn btn-submit btn-sm">
+                                    <i class="fa fa-plus fa-2x"></i>
+                                </button>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Fournisseur</label>
+                            <div class="col-sm-4 col-md-8" ng-controller="FournisseurController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Fournisseur..." id="fournisseurValue">
+                                        <option value=""></option>
+                                        <option value="{{item.Fournisseur.id}}" ng-repeat="item in fournisseurs">{{item.Fournisseur.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div class="col-md-5">
+                                            <p><strong>Nom Produit: </strong><span id="NameFicheProduct"></span></p>
+                                        </div>-->
+                    <div class="clearfix"></div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn purple" ng-click="ajoutProduct($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Ajout</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<div id="login-box" class="login-popup" data-id="" style="width: 35%;height: 200px;" data-index="" ng-controller="ModalADDFamilleCtrl">
+    <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+    <form method="post" class="signin" action="#" style="margin-top: 30px;">
+        <fieldset class="textbox">
+            <div class="form-group">   
+                <label class="col-sm-3 control-label" style="color: #fff;">
+                    Ajout Famille
+                </label>
+                <input id="nomFamilleModal" ng-model="nomFamilleModal" class="form-control" value="" type="text" placeholder="Nom de Famille">
+            </div>
+            <button class="submit button" style="position: relative;top: 40px;float: right;right: 5%;" type="button" ng-click="ajoutFamille($event)">Ajouter</button>
+        </fieldset>
+    </form> 
+</div>  
+<!-- END MAIN CONTENT -->
+<!--<script>
+            ComponentsFormTools.init(); // init todo page
+</script>-->

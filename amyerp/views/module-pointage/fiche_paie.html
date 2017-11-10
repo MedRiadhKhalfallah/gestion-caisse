@@ -1,0 +1,211 @@
+
+<style>
+    .modal-content{
+        width: 50%;
+        left: 27% !important;
+        position: relative; 
+    }
+    .print{display: none !important;}
+    .no-print .table-bordered>tbody>tr>td,.no-print .table-bordered>tbody>tr>th,.no-print .table-bordered>tfoot>tr>td,.no-print .table-bordered>tfoot>tr>th, .no-print .table-bordered>thead>tr>td, .no-print .table-bordered>thead>tr>th {
+        border: 1px solid #e7ecf1;
+        font-size: 12px !important;
+        font-weight: 600;
+    }
+    @media print and (color) {
+        .no-print {display: none;}
+        html{width: 100% !important;}
+        .portlet.box.red{border: none;}
+        body{width: 100% !important;}
+        /*        #footer{ 
+                    display: block !important;
+                    position: absolute; 
+                    bottom: 10px;
+                    font-size: 9px !important;
+                    top: 4px;
+                    right: 10%;
+                    left: 10%;
+                }*/
+    }
+    fieldset{
+        position: relative;
+        padding: 1rem;
+        margin: 1rem -1rem;
+        border: solid #c7c7c7;
+    }
+    fieldset strong{color: #777777;}
+    fieldset p{line-height: 25px;margin-bottom: .0001pt;}
+    .infoEmploye{
+        position: relative;
+        padding: 1rem;
+        border: solid #c7c7c7;
+        height: 200px;
+    }
+    th{text-align: center;}
+</style>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title no-print">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Fiche de paie 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;">
+                        <i class="fa fa-send-o"></i> Envoyer par mail 
+                    </a>
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick="print('block_border')">
+                        <i class="fa fa-print"></i> Imprimer </a>
+                    <a href="#/dashboard-pointage" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Pointage & Paie
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body"> 
+                <div class="col-xs-12" style="padding-left: 0;padding-right: 0;">
+                    <div class="col-xs-12" style="text-align: center;">
+                        <span style="font-size: 28.0pt;font-family: Montserrat;font-weight: 500;text-align: center;"> FICHE DE PAIE</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="form-group col-xs-12" style="padding-left: 0;padding-right: 0;">
+                            <!--<div class = 'form-horizontal well'>-->
+                            <div class="col-xs-7" style="padding-left: 10px;">
+                                <fieldset style="height: 100px;padding-top: 18px;">
+                                    <p><strong>{{config.Configuration.raison_social}} </strong> </p>
+                                    <p><strong>{{config.Configuration.adresse}} </strong> </p>
+                                </fieldset>
+                            </div>
+                            <div class="col-xs-4 col-xs-offset-1" style="padding-left: 10px;padding-right: 10px;">
+                                <fieldset style="height: 100px;padding-top: 18px;">
+                                    <p><strong>Anneé : </strong> <span my-current-time="anneeFiche"></span></p>
+                                    <p><strong>Mois de paie : </strong> <span my-current-time="moisFiche" style="text-transform:capitalize;"></span></p>
+                                </fieldset>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-xs-4 infoEmploye">
+                                <p><strong>CIN : </strong> {{employedit.User.num_cin}}</p>
+                                <p><strong>N° CNSS : </strong> {{employedit.User.num_cnss}}</p>
+                                <p><strong>Situation familiale : </strong> {{employedit.User.situation_familiale}}</p>
+                                <p><strong> Enfant à charge : </strong> {{employedit.User.count_kids}}</p>
+                            </div>
+                            <div class="col-xs-4 infoEmploye" style="border-left: none;">
+                                <p><strong>Emploi : </strong> {{employedit.User.status}}</p>
+                                <p><strong>Catégorie : </strong> 05</p>
+                                <p><strong>Echelon : </strong> 03</p>
+                                <p><strong>Salaire de base : </strong> {{employedit.User.salaire}}</p>
+                                <p><strong>Taix Horaire : </strong> {{employedit.User.salaire / 168| number:3}}</p>
+                            </div>
+                            <div class="col-xs-4 infoEmploye" style="border-left: none;">
+                                <p><strong>Nom & Prénom : </strong> {{employedit.User.last_name}} {{employedit.User.first_name}}</p>
+                                <br><br>
+                                <p><strong>Adresse : </strong> {{employedit.User.adress}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tableId">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" style="margin-top: 20px;">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="padding-bottom: 25px;">Désignation </th>
+                                    <th rowspan="2" style="padding-bottom: 25px;">Nombre </th>
+                                    <th rowspan="2" style="padding-bottom: 25px;">Base </th>
+                                    <th colspan="3">Part salariale  </th>
+                                    <th colspan="3">Part patronale  </th>
+                                </tr>
+                                <tr>
+                                    <th>Taux %  </th>
+                                    <th>Gain </th>
+                                    <th>Retenu </th>
+                                    <th>Taux %  </th>
+                                    <th>Gain </th>
+                                    <th>Retenu </th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: left;" id="rowsFiche">
+                                <tr class="rowFiche">
+                                    <td style="text-align: left; padding-left: 15px;border-bottom: none;">Nombre de jours de présence</td>
+                                    <td style="text-align: right;border-bottom: none;">{{TH}}</td>
+                                    <td style="text-align: right;border-bottom: none;">{{employedit.User.salaire / 168| number:3}}</td>
+                                    <td style="border-bottom: none;"></td>
+                                    <td style="text-align: right;border-bottom: none;">{{(employedit.User.salaire / 168) * TH | number:3}}</td>
+                                    <td style="border-bottom: none;"></td>
+                                    <td style="border-bottom: none;"></td>
+                                    <td style="border-bottom: none;"></td>
+                                    <td style="border-bottom: none;"></td>
+                                </tr>
+                                <tr ng-repeat="prime in employedit.PrimesUser" class="rowFiche">
+                                    <td style="text-align: left; padding-left: 15px;border-top: none !important;border-bottom: none;">{{prime.Prime.name}}</td>
+                                    <td style="text-align: right;border-top: none !important;border-bottom: none;">1</td>
+                                    <td style="text-align: right;border-top: none !important;border-bottom: none;">{{prime.montant}}</td>
+                                    <td style="border-top: none !important;border-bottom: none;"></td>
+                                    <td style="text-align: right;border-top: none !important;border-bottom: none;">{{prime.montant}}</td>
+                                    <td style="border-top: none !important;border-bottom: none;"></td>
+                                    <td style="border-top: none !important;border-bottom: none;"></td>
+                                    <td style="border-top: none !important;border-bottom: none;"></td>
+                                    <td style="border-top: none !important;border-bottom: none;"></td>
+                                </tr>
+                                <tr class="rowFiche"> 
+                                    <td style="text-align: left; padding-left: 15px;border-bottom: none;border-top: none;">Heures supplémentaires</td>
+                                    <td style="text-align: right;border-top: none;border-bottom: none;">{{HS}}</td>
+                                    <td style="text-align: right;border-top: none;border-bottom: none;">{{config.Configuration.price_hs}}</td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="text-align: right;border-bottom: none;border-top: none;">{{config.Configuration.price_hs * HS| number:3}}</td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                </tr>
+                                <tr style="height: 30px;"> 
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                    <td style="border-top: none;border-bottom: none;"></td>
+                                </tr>
+                                <tr> 
+                                    <td style="border-top: none;text-align: right;padding-right: 20px;"><strong>Total Net</strong></td>
+                                    <td style="border-top: none;"></td>
+                                    <td style="border-top: none;"></td>
+                                    <td style="border-top: none;"></td>
+                                    <td style="border-top: none; text-align: center;"><strong> {{total_net}}</strong></td>
+                                    <td style="border-top: none;"></td>
+                                    <td style="border-top: none;"></td>
+                                    <td style="border-top: none;"></td>
+                                    <td style="border-top: none;"></td>
+                                </tr>
+                            </tbody>
+                            <!--                            <tfoot>
+                                                            <tr>
+                                                                <td>Net à payer </td>
+                                                                <td>{{employedit.User.salaire}}</td>
+                                                            </tr>
+                                                        </tfoot>-->
+                        </table>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

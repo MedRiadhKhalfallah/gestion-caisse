@@ -1,0 +1,189 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Commandes </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Présence 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/gestion-employees" class="btn btn-default btn-sm" ng-click="exportDataemploye()">
+                        <i class="fa fa-align-right"></i> Export To Excel
+                    </a>
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" ng-controller="ModalEmailCtrl" ng-click="open()"><i class="fa fa-send-o"></i> Envoyer par mail </a>
+
+
+                    <a href="#/simulateur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Simulateur de Paie
+                    </a>
+                    <a href="#/salaire" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Salaire
+                    </a>
+                    <a href="#/add-employee" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer
+                    </a>
+
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="clearfix"></div>
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+
+                <div class="clearfix"></div>
+                <div id="tableId">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" style="margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th colspan="2"></th>
+                                <th colspan='2'>MATIN</th>
+                                <th colspan='2'>APRES MIDI</th>
+                            </tr>
+                            <tr>
+                                <th>Nom & Prénom</th>
+                                <th>Date</th>                                
+                                <th>Entrée</th>
+                                <th>Sortie</th>
+                                <th>Entrée</th>
+                                <th>Sortie</th>
+                                <th>Absence</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="presence in listerpresence">
+                                <td>{{presence.User.full_name}} </td>
+                                <td>{{presence.Presence.date_entree.split(' ')[0]}}</td>
+                                <td>
+
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input value="{{presence.Presence.date_entree.split(' ')[1].split(':')[0]}}:{{presence.Presence.date_entree.split(' ')[1].split(':')[1]}}" type="time" name="wakeup"  id="entree"/> </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input value="{{presence.Presence.date_sortie.split(' ')[1].split(':')[0]}}:{{presence.Presence.date_sortie.split(' ')[1].split(':')[1]}}" type="time" name="wakeup" id="sortie"/> </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input value="{{presence.Presence.date_entree_midi.split(' ')[1].split(':')[0]}}:{{presence.Presence.date_entree_midi.split(' ')[1].split(':')[1]}} " type="time" name="wakeup" id="entree_midi"/> </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input value ="{{presence.Presence.date_sortie_midi.split(' ')[1].split(':')[0]}}:{{presence.Presence.date_sortie_midi.split(' ')[1].split(':')[1]}}" type="time" name="wakeup" id="sortie_midi"/> </div>
+                                    </div>
+                                </td>
+                                <td>     </td>
+                                <td>
+                                    <div>
+                                        <button type="submit" class="btn purple" ng-click="pointage($event)" style="float: right">
+                                            <i>pointer</i>
+                                        </button>
+                                    </div>                                        
+                                </td>
+                                <td>
+                                    <div>
+                                        <a href="#" data-target="#myModal_client" role="button" class="btn" data-toggle="modal" style="padding-top: 0;"> <i class="glyphicon glyphicon-plus btn btn-info btn-sm btn-embossed icon" style="width: 90px !important;height: 30px !important;">Absent</i> </a>
+                                    </div>                                        
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal_client" class="modal fade myModal_client" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">CAUSE ABSENCE</h4>
+            </div>
+            <div class="modal-body form" style="padding-top: 15px !important;">
+
+
+                <!--votre code-->
+                <div class="portlet-body">
+                    <div class="clearfix"></div>
+                    <div ng-app ng-controller="Ctrl">
+                        <h3>  Absence du "{{date| date:'yyyy-MM-dd'}}"</h3>  
+                    </div>
+                    <form action="#" class="form-horizontal form-bordered ">
+                        <div class="col-md-6" style="margin-top: 30px;">
+
+                            <div class="form-group col-md-12">
+                                <label class="col-md-5 control-label">  Autorisation </label>
+                                <div class="col-md-8">  
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                        <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select cause..." id="causeid" ng-model="refcause" ng-change="autorisation()">
+                                            <option value="congé">Congée</option>
+                                            <option value="absence">Absence</option>
+                                            <option value="permiss">Permission de sortir</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="display:none;" id="showaut">
+
+
+                                <input type="checkbox" id="isRebut" ng-model="checkbox" ng-true-value="1" ng-false-value="0" ng-checked="checkbox == 1" value="0" class="ng-pristine ng-valid ng-empty ng-touched">
+                                autorisée <br>
+
+
+                            </div> 
+                            <br>
+
+                        </div>
+                    </form>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" ng-click="pointage($event)">
+                    <i class="fa fa-check"></i> Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>

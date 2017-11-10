@@ -1,0 +1,306 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<style>
+    @media print and (color) {
+        #footer{ 
+            display: block !important;
+            /*position: absolute;*/ 
+            /*bottom: 10px;*/
+            font-size: 9px !important;
+            /*top: 4px;*/
+            /*        right: 10%;
+                    left: 10%;*/
+        }
+        .block_signature{position: relative;left: 180px !important;}
+    }
+</style>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="portlet box green-turquoise no-print">
+    <div class="portlet-title no-print">
+        <div style="width: 50px;float: left !important;" class="actions">
+            <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+            </a>
+        </div>
+        <div class="actions">
+            <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick=""><i class="fa fa-send-o"></i> Envoyer par mail </a>
+            <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick="print('block_border')"><i class="fa fa-print"></i> Imprimer </a>
+            <button class="no-print btn btn-primary btn-sm" style="background-color: transparent;border-color: #fff;" onclick="generatePDF()"><i class="fa fa-file-pdf-o"></i> Exporter en PDF </button>
+            <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                <i class="fa fa-align-right"></i> Dashboard
+            </a>
+            <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                <i class="fa fa-align-right"></i> Gestion commerciale
+            </a>
+            <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i>  
+            </a>
+        </div>
+    </div>
+</div>
+<div class="main-content" id="block_border">
+    <div class="main-content-inner">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet">
+            <!--<a class="no-print btn btn-success btn-sm pull-right" onclick="print('block_border')">Print</a>-->
+<!--            <div class="portlet-title no-print" >  
+                <a href="#/avoir-product/{{commande.Commande.id}}" class="btn btn-info"><i class="fa fa-user"></i> Article avoir</a>
+            </div>-->
+            <div class="col-md-12 portlets" id="contentToPrint" style="width: 100%;margin: -10px 10px 10px 10px; background: #fff;">
+                <!--<h3 class="rotationBlock" style="color: #24445c; position: absolute !important;" ng-controller="ErpCtrl"><strong>COMMANDE <span my-current-time="format1"><span></strong><strong>-N°{{count}}</strong>-->
+                <h3 class="rotationBlock" style="color: #24445c; position: absolute !important;" ng-controller="ErpCtrl"><strong>COMMANDE: {{ref3}}- {{count}}</strong>
+                </h3>
+                <div class="panel-header panel-controls"> 
+                    <!--                    <input type="text" ng-model="name" /> {{name | words}}-->
+                    <!--<div class="col-md-10 pull-left" >-->
+                    <h3 class="text-center DateDevis" style="color: #24445c;"><strong my-current-time="formatCreated"></strong>
+                        <!--                    <span my-current-time="format"></span>-->
+
+                    </h3>
+                    <!--                        <br>-->
+                    <!--<p my-current-time="format"></p>-->
+                    <!--                    </div>-->
+                    <div class="col-xs-5 PrintBlock">
+                        <div  class="image" style="margin-left: 53px;">
+                            <img src='assets/pages/img/logo.png' class="pull-left img-responsive logo-amyevolut" style="max-width:150px;margin-left: 15px;" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <div style="margin-top: -15px !important;" class=" text-center">
+                            <h3 style="color:#26619c;font-size: 15px;"> 
+                                <strong> {{config.Configuration.raison_social}} </strong>
+                            </h3>  
+                            <address class="text-center" style="font-size: 12px;">
+                                <!--<strong style="color:#26619C;"> {{config.Configuration.raison_social}} </strong><br>-->
+                                <strong style="color:#26619C;"> {{config.Configuration.telephone_1}} </strong><br>
+                                <strong style="color:#26619C;"> {{config.Configuration.telephone_2}} </strong><br>
+                                <strong style="color:#26619C;"> {{config.Configuration.telephone_3}} </strong><br>
+                                <strong style="color:#26619C;"> {{config.Configuration.email}} </strong><br> 
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-4"></div>
+                    <!--                                    <h5 style="color:#26619C; text-align: right">Réf. Devis : <strong>{{commande.Commande.ref}}</strong></h5>-->
+                    <!--                                    <h5 style="font-weight: 700;color:#26619c; text-align: right">Client: Code TVA:  <strong>{{commande.User.codetva}}</strong></h5>-->
+                    <div class="col-xs-5 col-md-4 PrintBlock raisonSocial pull-right" style="font-size: 11px;margin-top: 80px;" ng-if="commande.User.type_client == 'Professionnel'"> 
+                        <address  class="PrintBlock" style="padding-left: 55px; color:#26619c;">
+                            <span style="line-height: 10px;"></span><strong>Client: </strong><br>
+                            <span style="line-height: 10px;">Matricule Fiscale: </span> <strong>{{commande.User.mf}}/{{commande.User.codetva}}/{{commande.User.code_category}}/{{commande.User.num_etab}}</strong><br>
+                            <span style="line-height: 10px;">Raison Sociale: </span><strong>{{commande.User.raison_social}}</strong><br>
+                            <span style="line-height: 10px;">Interlocuteur: </span><strong>{{commande.User.full_name}}</strong><br>
+                            <span style="line-height: 10px;">Adresse: </span><strong>{{commande.User.adress}}</strong><br>
+                            <span style="line-height: 10px;">Code postal: </span><strong>{{commande.User.postal}}<span style="line-height: 10px;">   Ville: </span>{{commande.User.Ville.name}}</strong><br>
+                            <span style="line-height: 10px;">Email: </span> <strong>{{commande.User.email}}</strong><br>
+                            <span style="line-height: 10px;">Contact: +(216) </span> <strong>{{commande.User.phone}}</strong>
+                        </address>
+                    </div>
+                    <div class="col-xs-5 col-md-4 PrintBlock raisonSocial pull-right" style="font-size: 11px;margin-top: 80px;" ng-if="commande.User.type_client == 'Particulier'"> 
+                        <address  class="PrintBlock" style="padding-left: 55px; color:#26619c;">
+                            <span style="line-height: 10px;"></span><strong>Client: </strong><br>
+                            <span style="line-height: 10px;">Nom et Prenom </span><strong>{{commande.User.full_name}}</strong><br>
+                            <span style="line-height: 10px;">Adresse: </span><strong>{{commande.User.adress}}</strong><br>
+                            <span style="line-height: 10px;">Code postal: </span><strong>{{commande.User.postal}}<span style="line-height: 10px;">   Ville: </span>{{commande.User.Ville.name}}</strong><br>
+                            <span style="line-height: 10px;">Email: </span> <strong>{{commande.User.email}}</strong><br>
+                            <span style="line-height: 10px;">Contact: +(216) </span> <strong>{{commande.User.phone}}</strong>
+                        </address>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <p class="Object"><strong>Objet de Commande: </strong>{{commande.Commande.object}}</p>
+                <div class="panel-content">
+                    <table class="table table-bordered table-hover tableToPrint">
+                        <thead>
+                            <tr style="background: #F2F2F2">
+                                <th>Ref</th>
+                                <th>Désignation</th>
+                                <th>Qte</th>
+                                <th>Unité</th>
+                                <th>R.%</th>
+                                <th style="width: 60px;">Prix U.HT</th>
+                                <th style="width: 68px;">Prix U.TTC</th>
+                                <th style="width: 68px;">TOTAL HT</th>
+                                <th style="width: 73px;">TOTAL TTC</th>
+                                <th  style="width: 35px !important;">TVA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listItem">
+                            <tr ng-repeat="item in commande.Bon">
+                                <td style="width: 100px;">{{item.Product.ref}}</td>
+                                <td>{{item.Product.name}}</td>
+                                <td>{{item.qte}}</td>
+                                <td>{{item.Product.Unite.name}}</td>
+                                <td>{{item.remise}}%</td>
+                                <td>{{item.last_unit_price * (1 - item.remise / 100) | number:3}}</td>
+                                <td>{{item.last_unit_price * (1 + item.Product.Tva.value / 100) * (1 - item.remise / 100) | number:3}}</td>
+                                <td>{{item.last_unit_price * item.qte * (1 - item.remise / 100) | number:3}}</td>
+                                <td>{{item.last_unit_price * (1 + item.Product.Tva.value / 100) * (1 - item.remise / 100) * item.qte | number:3}}</td>
+                                <td style="width: 35px !important;">{{item.Product.Tva.name}}</td>  
+                            </tr>
+                            <tr>
+                                <td class='devisNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='6'></td>
+                                <td class='text-right' colspan='2'><strong>Total HT</strong></td>
+                                <td colspan='2'> {{total_ht_net| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='devisNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='6'></td>
+                                <td class='text-right' colspan='2'><strong>Remise G.</strong></td>
+                                <td colspan='2'> {{(total_ht_net * commande.Commande.remise_globale / 100) + remiseProduit| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='devisNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='6'></td>
+                                <td class='text-right' colspan='2'><strong>Total NET HT</strong></td>
+                                <td colspan='2'> {{total_ht| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='factureNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='6'></td>
+                                <td class='text-right' colspan='2'><strong>Total Tva</strong></td>
+                                <td colspan='2'>{{total_tva| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='devisNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='6'></td>
+                                <td class='text-right' colspan='2'><strong>Timbre Fiscal</strong></td>
+                                <td colspan='2'>{{commande.Commande.last_timbre_price| number:3}}</td> 
+                            </tr>
+                            <tr>
+                                <td class='devisNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='6'></td>
+                                <td class='text-right' colspan='2'><strong>NET À PAYER</strong></td>
+                                <td colspan='2'>{{total_tva + total_ht - (-commande.Commande.last_timbre_price) | number
+                                    :3}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-xs-7 col-sm-7 col-md-4" style="padding: 0; margin-top: -170px; height: 150px;">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Base HT</th>
+                                    <th>Taux TVA</th>
+                                    <th>Montant TVA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tva in taux">
+                                    <td>{{tva.price_ht}}</td>
+                                    <td>{{tva.taux}}</td>
+                                    <td>{{tva.mantant}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <strong  class="text-left">Total</strong>
+                                    <td>{{total_tva| number:3}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="margin-top: 100px;font-size: 12px; position: relative; left: -20px !important;" class="validation">
+                    <strong> * Validité de l'offre :</strong> {{commande.Commande.validate}} 
+                    <br> 
+                    <h4 style="margin-bottom: -12px;margin-top: 0px !important; margin-left: 1px; display: none;" class="displayBlock" >* {{commande.Commande.pourcentage}}</h4>
+                    <p class="text-left displayBlock" style="display: none;  width: 450px !important; margin-left: 250px !important; margin-top: 0px !important;">* Arrêté la présente commande à la somme de {{totalFinalText}} TTC </p> 
+                </div> 
+                <p class="text-center SommeText" >Arrêté la présente commande à la somme de {{totalFinalText}} TTC </p>
+                <!--<p class="text-center">Arrêté le présent commande à la somme de {{totalFinal[0]| words}} Dinars et {{totalFinal[1]| words}} Millimes TTC </p>-->
+                <div class="cbPrint"></div>
+                <div class="footerCommande">
+                    <div style="color:#26619c;margin-top: -5px;" class="Condition">
+                        <!--<span style="font-size: 10px;">CONDITIONS & MODES DE PAIEMENT</span><br>-->
+                        <h4 style="margin-bottom: -12px;" class="Pourcentage position">{{commande.Commande.pourcentage}}</h4><br>
+                        <strong><input type="checkbox"/>Virement bancaire * </strong> <span>Veuillez nous envoyer l'avis d'opéré sur {{config.Configuration.email}}</span><br>
+                        <strong><input type="checkbox"/> Chéque * </strong> <span>Veuillez le mettre à l'ordre de {{config.Configuration.name}}</span><br>
+                        <strong><input type="checkbox"/> Espéce </strong>  
+                    </div>
+                    <div class="col-xs-12 PourcentageDevis " style="margin-left: 35px;">
+                        <div style="border: 1px solid #95d5f5; margin-left: -50px;margin-top: 10px; color: #2E8B57; " class="col-xs-6 PourcentageDevis col-md-4 block_border border-color">
+                            * RIB BANCAIRE: {{config.Configuration.rib}}<br>
+                            * {{config.Configuration.banque}}<br>
+                            * IBAN: {{config.Configuration.iban}}<br>
+                            * CODE SWIFT: {{config.Configuration.swift}}
+                        </div>
+                        <!--<div class="col-md-3"> </div>-->
+
+                        <div style="border: 1px solid #95d5f5; width: 242px;height: 95px;margin-top: 10px; margin-right: 55px;" class="col-xs-4 pull-right text-center block_border">
+                            <span style="position: relative; top: 78%;  color: #2E8B57;"> Signature Client</span>
+                        </div>
+                    </div>
+                    <div class="text-center merci" style=" color: #2E8B57;top: 18px; position: relative;"> 
+                        En cas d'accord de la présente commande, merci de nous le retouner signé et cacheté.
+                    </div>
+                    <div>
+                        <address class="text-center no-print" style=" top: 25px; position: relative; font-size: 10px;" >
+                            {{config.Configuration.name}}<br>
+                            RC: {{config.Configuration.rc}} M.F: {{config.Configuration.matricule_fiscale}}<br>
+                            Siége Social: {{config.Configuration.siege}}  Agence: {{config.Configuration.agence}}<br>
+                            {{config.Configuration.email}}  Tel: +(216) {{config.Configuration.telephone_2}}  +(33) {{config.Configuration.telephone_3}}<br>
+                        </address>        
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="cb no-print"></div><br>
+    <div class="clearfix"></div>
+</div>
+<script>
+    var userAgent = navigator.userAgent;
+    if (userAgent.indexOf("Chrome") > -1) {
+        //Add Print for Chrome
+        $("head").append(" <link href='" + base_url() + "assets/pages/css/print_chrome.css' rel='stylesheet' type='text/css' />")
+    }
+    if (userAgent.indexOf("Firefox") > -1) {
+        //Add Print for Firefox
+        $("head").append(" <link href='" + base_url() + "assets/pages/css/print_firefox.css' rel='stylesheet' type='text/css' />")
+
+    }
+    if (userAgent.indexOf("Firefox") === -1 && userAgent.indexOf("Chrome") === -1) {
+        //Add Print for Any Browser
+        $("head").append(" <link href='" + base_url() + "assets/pages/css/print_other.css' rel='stylesheet' type='text/css' />")
+    }
+    setTimeout(function () {
+//            function print(elementId) {
+//            var a = document.getElementById('printing-css').value;
+//                    var b = document.getElementById(elementId).innerHTML;
+//                    console.log(a);
+//                    console.log("b: " + b);
+//                    window.frames["print_frame"].document.title = document.title;
+//                    window.frames["print_frame"].document.body.innerHTML = '<style>' + a + '</style>' + b;
+//                    window.frames["print_frame"].window.focus();
+//                    window.frames["print_frame"].window.print();
+//            }
+//            $(".tableToPrint td, .tableToPrint th").each(function(){
+//            $(this).css("width", $(this).width() + "px")  });
+//                    $(".tableToPrint tr").wrap("<div class='avoidBreak'></div>");
+//            var ifPageBreak = $("#listItem tr:eq(9)").length;
+//                    if (ifPageBreak === 1) {
+////            $("#listItem tr:eq(15)").before('<div class="clearfix page-break"></div>');
+//            $("#listItem tr:eq(5)").after('<div class="page-break"></div>');
+////            $("#listItem tr:eq(9)").attr('class', 'ng-scope page-break');
+//            }
+    }, 1000);
+//            var ifRefresh = sessionStorage.getItem('ifRefresh');
+//            var currentUrl = document.location.href;
+//            console.log(ifRefresh);
+//            console.log(ifRefresh == null);
+//            console.log(ifRefresh === null);
+//            console.log(ifRefresh === 'null');
+//            if (ifRefresh == null || ifRefresh === 'null'){
+//    document.location.reload(currentUrl);
+//            sessionStorage.setItem('ifRefresh', 'refreshed');
+//    }
+    setTimeout(function () {
+        var ifPageBreak = $("#listItem tr:eq(9)").length;
+        if (ifPageBreak === 1) {
+//            $("#listItem tr:eq(5)").before('<p style="page-break-after:always;"></p><p><!-- pagebreak --></p>');
+        } else {
+            $("head").append("<style>\n\
+            @media print{\n\
+            html, body {\n\
+                height:100%; \n\
+                overflow: hidden;\n\
+                        }\n\
+                    }\n\
+                </style>");
+        }
+    }, 1000);
+</script>
+<textarea id="printing-css" style="display:none;">html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{font:normal normal .8125em/1.4 Arial,Sans-Serif;background-color:white;color:#333}strong,b{font-weight:bold}cite,em,i{font-style:italic}a{text-decoration:none}a:hover{text-decoration:underline}a img{border:none}abbr,acronym{border-bottom:1px dotted;cursor:help}sup,sub{vertical-align:baseline;position:relative;top:-.4em;font-size:86%}sub{top:.4em}small{font-size:86%}kbd{font-size:80%;border:1px solid #999;padding:2px 5px;border-bottom-width:2px;border-radius:3px}mark{background-color:#ffce00;color:black}p,blockquote,pre,table,figure,hr,form,ol,ul,dl{margin:1.5em 0}hr{height:1px;border:none;background-color:#666}h1,h2,h3,h4,h5,h6{font-weight:bold;line-height:normal;margin:1.5em 0 0}h1{font-size:200%}h2{font-size:180%}h3{font-size:160%}h4{font-size:140%}h5{font-size:120%}h6{font-size:100%}ol,ul,dl{margin-left:3em}ol{list-style:decimal outside}ul{list-style:disc outside}li{margin:.5em 0}dt{font-weight:bold}dd{margin:0 0 .5em 2em}input,button,select,textarea{font:inherit;font-size:100%;line-height:normal;vertical-align:baseline}textarea{display:block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}pre,code{font-family:"Courier New",Courier,Monospace;color:inherit}pre{white-space:pre;word-wrap:normal;overflow:auto}blockquote{margin-left:2em;margin-right:2em;border-left:4px solid #ccc;padding-left:1em;font-style:italic}table[border="1"] th,table[border="1"] td,table[border="1"] caption{border:1px solid;padding:.5em 1em;text-align:left;vertical-align:top}th{font-weight:bold}table[border="1"] caption{border:none;font-style:italic}.no-print{display:none}</textarea>

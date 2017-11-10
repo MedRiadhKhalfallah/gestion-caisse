@@ -1,0 +1,1611 @@
+
+<style>
+    .globalSearch {
+        display: inherit;
+        clear: none;
+        width: 200px;
+        float: left;
+        margin-right: 10px;
+        height: 26px;
+    }
+    table tr th{
+        font-size: 12px !important;
+    }
+    table tr td{
+        font-weight: 600;
+        font-size: 11.5px !important;
+    }
+    table#listeExpediteur tr th{
+        font-size: 13.5px !important;
+    }
+    table#listeExpediteur tr td{
+        font-weight: 600;
+        font-size: 13.5px !important;
+    }
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    @media (min-width: 768px){
+        .modal-dialog{width: 80% !important;}
+    }
+    table.ui-datepicker-calendar thead tr:first-child {
+        background: #0097A7;
+        color: #fff;
+        border: 1px solid #080a0a !important;
+    }
+    .nav-tabs>li>a {
+        font-size: 13px !important;
+    }
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 6.5px !important;
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Commandes </div>
+                <div class="actions">
+                    <input type='text' ng-model="globalSearchRef" ng-keypress="searchGloablCmd($event)" placeholder="Recherche globale" class="form-control globalSearch" id="globalSearch" /> 
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/gestion-livreurs" class="btn btn-default btn-sm">
+                        <i class="fa fa-list"></i> Liste livreurs
+                    </a>
+                    <a href="#/ajout-commande-client" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer 
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">   
+
+                <div class="tab_left">
+                    <ul  class="nav nav-tabs nav-red">
+                        <!--<li class="active"><a href="#" data-target="#tab3_1" data-toggle="tab" ng-click="update_en_attente_ramassage()">En attente ramassage ou dépôt </a></li>-->
+                        <li class="active"><a href="#" data-state-cmd="Non Traitée" data-target="#tab3_1" data-toggle="tab" ng-click="update_client_ramassage_depot()">En attente ramassage ou dépôt </a></li>
+                        <!--<li><a href="#" data-target="#tab3_2" data-toggle="tab">Commandes dépot en attente</a></li>-->
+                        <li><a href="#" data-state-cmd="En Cours" data-target="#tab3_2" data-toggle="tab" ng-click="update_en_recuperee()">Récupérées</a></li>
+                        <li><a href="#" data-state-cmd="En stock" data-target="#tab3_3" data-toggle="tab" ng-click="update_en_stock()" id="noFocus">Stock</a></li>
+                        <li><a href="#" data-state-cmd="AttenteLivraison" data-target="#tab3_4" data-toggle="tab" ng-controller="CmdsEnCoursLivraisonController" ng-click="update_en_attente_livraison()">En cours de livraison</a></li>
+                        <li><a href="#" data-state-cmd="Livrée" data-target="#tab3_5" data-toggle="tab" ng-click="update_livraison()">Livrées</a></li>
+                        <li><a href="#" data-state-cmd="Retour" data-target="#tab3_6" data-toggle="tab" ng-click="update_retour()">Retours</a></li>
+                        <li><a href="#" data-state-cmd="Annulée" data-target="#tab3_7" data-toggle="tab" ng-click="update_annulation()">Annulations</a></li>
+                        <li><a href="#" data-state-cmd="Facturée" data-target="#tab3_8" data-toggle="tab" ng-click="update_facturees()">Facturées</a></li>
+                        <li><a href="#" data-state-cmd="Retour Expéditeur" data-target="#tab3_9" data-toggle="tab" ng-click="update_retour_expediteur()">Retour expéditeur</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab3_1"> 
+                            <div class="col-md-12" style="padding-left: 0;padding-right: 0;">
+                                <div class="page-header">
+                                    <h3 class="col-md-5"><span class="glyphicon glyphicon-user"></span> Liste expéditeurs : </h3>
+                                    <div class="clearfix"></div>
+                                </div> 
+                                <div class="panel-content">
+                                    <div class="col-md-12" style="padding-left: 0;padding-right: 0;"> 
+                                        <div class="form-group col-md-6">
+                                            <label class="col-md-4 control-label">Expediteur</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-tag"></i>
+                                                    </span>
+                                                    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Expediteur*..." id="ExpediteurValue" ng-model="ficheExpediteurTRS">
+                                                        <option value=""></option>
+                                                        <option  value="{{item.User.id}}" ng-repeat="item in clientstransporteur">{{item.User.raison_social}} {{item.User.nom_commercial}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button ng-click="ficheExpediteur()" class="btn btn-warning btn-sm pull-right">recherche</button>
+                                            </div>  
+                                        </div> 
+                                        <div class="clearfix"></div>
+                                        <form class="form-inline" style="float: right">
+                                            <div class="form-group">
+                                                <label >Recherche</label>
+                                                <input type="text" ng-model="searchRamassageDepot" ng-change="searchRamassageDepotFunc(searchRamassageDepot)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                            </div>
+                                        </form>
+                                        <div class="clearfix"></div><br>
+                                        <div class="defileParent" style="border: none; margin-top: 0;margin-bottom: 20px;">
+                                            <span class="defile" data-text=""> 
+                                                <i class="fa fa-feed"></i>&nbsp;
+                                                <strong ng-repeat="($index, com) in clientNotAffect">
+                                                    <!--<label class="label label-success" style="font-size: 18px; background-color: transparent; border: none; color: #039BE5 !important;font-weight: bold;"><i class="fa fa-user">&nbsp;{{com.User.nom_commercial}} {{com.User.raison_social}}</i></label>-->
+                                                    <label class="label label-success" style="font-size: 18px; background-color: transparent; border: none; color: #039BE5 !important;font-weight: bold;"><i class="fa fa-user">&nbsp;{{com.User.full_name}}</i></label>
+                                                </strong>
+                                                <!--                                                <strong ng-repeat="($index, com) in listramassagedepots">
+                                                                                                    <label ng-if="($index % 2) == 0" class="label label-success" style="font-size: 18px;"><i class="fa fa-chain"></i>&nbsp;{{com.Commande.ref}}</label> 
+                                                                                                    <label ng-if="($index % 2) == 0" class="label label-success" style="font-size: 18px;"><i class="fa fa-user">&nbsp;{{com.User.full_name}}</i></label>
+                                                                                                    <label ng-if="($index % 2) !== 0" class="label label-info" style="font-size: 18px;"><i class="fa fa-chain"></i>&nbsp;{{com.Commande.ref}}</label> 
+                                                                                                    <label ng-if="($index % 2) !== 0" class="label label-info" style="font-size: 18px;"><i class="fa fa-user">&nbsp;{{com.User.full_name}}</i></label>
+                                                                                                </strong>-->
+                                            </span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="form-group col-md-12" style="">
+                                            <label class="control-label col-md-2" style="padding-left: 0;">Total clients : <label class="label label-sm label-info">{{countRamassageDepot}}</label></label>
+                                            <label class="control-label col-md-2" style="padding-left: 0;">Total commandes : <label class="label label-sm label-success">{{countcommandes}}</label></label>
+                                            <label class="control-label col-md-2" style="padding-left: 0;">Total ramassages : <label class="label label-sm label-success">{{countRamassage}}</label></label>
+                                            <label class="control-label col-md-2" style="padding-left: 0;">Total dépôt : <label class="label label-sm label-success">{{countDepot}}</label></label>
+                                            <label class="control-label col-md-2" style="padding-left: 0;">Total Affectées: <label class="label label-sm label-success">{{countcommandesaffectees}}</label></label>
+                                            <label class="control-label col-md-2" style="padding-left: 0;padding-right: 0;">Total Non Affectées: <label class="label label-sm label-success">{{countcommandesnotaffectees}}</label></label>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <!--                                        <form class="form-inline" style="float: right">
+                                                                                    <div class="form-group">
+                                                                                        <label >Recherche</label>
+                                                                                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                                                                                    </div>
+                                                                                </form>-->
+                                        <div class="clearfix"></div>
+                                        <table id="listeExpediteur" class="table table-striped table-bordered table-hover table-checkable order-column">
+                                            <thead>
+                                                <tr>
+                                                    <th> Nbre Affectées </th>
+                                                    <th style=" width: 110px;"> Nbre Non Affectées </th>
+                                                    <th> État commandes </th>
+                                                    <th> RS ou NC </th>
+                                                    <th> Nom client </th>
+                                                    <th> Email </th>
+                                                    <th> Téléphone </th>
+                                                    <th> Adresse </th>
+                                                    <th> Ville </th>
+                                                    <th> Frais de livraison </th>
+                                                    <th> Frais d'annulation </th>
+                                                    <th> Actions </th>
+                                                    <th> </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="text-align: left;" id="ramassageDepotPaginate">
+                                                <tr class="odd gradeX" ng-repeat="($index, client) in CmdsRamassageDepot" id="CommandeRows" data-data-id="{{client.User.id}}">
+                                                    <td>{{client.User.countCmdWaitAffect}}</td>
+                                                    <td>{{client.User.countCmdWaitNotAffect}}</td>
+                                                    <td><label class="label label-sm label-success">R ({{client.User.countCmdRamassage}})</label>, <label class="label label-sm label-info">D ({{client.User.countCmdDepot}})</label></td>
+                                                    <td>{{client.User.nom_commercial}} {{client.User.raison_social}}</td>
+                                                    <td>{{client.User.full_name}}</td>
+                                                    <td>{{client.User.email}}</td>
+                                                    <td>{{client.User.phone}}</td> 
+                                                    <td>{{client.User.adress}}</td> 
+                                                    <td>{{client.Ville.name}}</td> 
+                                                    <td>{{client.User.frais_livraison}}</td> 
+                                                    <td>{{client.User.frais_annulation}}</td> 
+                                                    <td>  
+                                                        <ul class="nav nav-pills">
+                                                            <li>
+                                                                <div>
+                                                                    <a href="#/view-commande-for-client/{{client.User.id}}"  class="btn btn-info btn-sm">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                </div>                                        
+                                                            </li>
+                                                        </ul> 
+                                                    </td>
+                                                    <td ng-controller="AffecterCommandeUserController">
+                                                        <form name="myForm"  class="nav nav-pills">
+                                                            <input  type="checkbox" id="CheckedBox" class="CheckedBoxCostom" value="{{checkboxModel.value}}" ng-model="checkboxModel.value">
+                                                        </form> 
+                                                    </td>
+                                                </tr>
+                                            </tbody> 
+                                            <tfoot>
+                                                <tr ng-controller="AffecterCommandeUserController">
+                                                    <td colspan="13" id="affecterGroupeClient">
+                                                        <div>
+                                                            <button ng-click="affecterGroupeClient()" class="btn btn-info btn-sm pull-right">affecter</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+
+                                        <div class="clearfix"></div><br>
+                                        <div class="pull-right">
+                                            <ul uib-pagination
+                                                next-text="Suivant"
+                                                previous-text="Précédent"
+                                                ng-if="totalItems" 
+                                                class="pagination-sm" 
+                                                boundary-link-numbers="true" 
+                                                max-size="5" 
+                                                rotate="false" 
+                                                total-items="totalItems" 
+                                                force-ellipses="true" 
+                                                items-per-page="itemsPerPage"
+                                                ng-model="paging.page" 
+                                                ng-change="pageChanged(paging.page)"></ul>
+                                            <!--                                            <button id="previousPageRamassageDepot" ng-click="previousPageRamassageDepot()" class="btn btn-default">Précédent</button>
+                                                                                        <button id="firstPageRamassageDepot" ng-click="firstPageRamassageDepot()" class="btn btn-default">1</button>
+                                                                                        <button class="btn btn-default active" disabled="disabled" id="currentPageRamassageDepot"><strong>{{currentPageRamassageDepot}}</strong></button>
+                                                                                        <div id="otherPagesRamassageDepot" style="clear: none;display: initial;"></div>
+                                                                                        <button class="btn btn-default" id="nextPageRamassageDepot" ng-click="nextPageRamassageDepot()">Suivant</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_2">
+                            <div class="page-header">
+                                <h3 class="col-md-5"> Commandes récupérées:</h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchClientRecuperees" ng-change="searchClientRecupereesFunc(searchClientRecuperees)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div><br>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">Nbre de clients : <label class="label label-sm label-info">{{countClientRecuperees}}</label></label>
+                                        <label class="control-label col-md-3">Nbre total de commandes : <label class="label label-sm label-success">{{countRecuperees}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table id="listeExpediteur" class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> Nbre Commandes </th>
+                                                <th> RS ou NC </th>
+                                                <th> Nom client </th>
+                                                <th> Email </th>
+                                                <th> Téléphone </th>
+                                                <th> Adresse </th>
+                                                <th> Ville </th>
+                                                <th> Frais de livraison </th>
+                                                <th> Frais d'annulation </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;">
+                                            <tr class="odd gradeX" ng-repeat="($index, client) in CmdsClientRecuperees" id="CommandeRows" data-data-id="{{commande.Commande.id}}">
+                                                <td>{{client.User.countCmdRecup}}</td>
+                                                <td>{{client.User.nom_commercial}} {{client.User.raison_social}}</td>
+                                                <td>{{client.User.full_name}}</td>
+                                                <td>{{client.User.email}}</td>
+                                                <td>{{client.User.phone}}</td> 
+                                                <td>{{client.User.adress}}</td> 
+                                                <td>{{client.Ville.name}}</td> 
+                                                <td>{{client.User.frais_livraison}}</td> 
+                                                <td>{{client.User.frais_annulation}}</td> 
+                                                <td>  
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-recuperee-for-client/{{client.User.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li>
+                                                    </ul> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <button id="previousPageClientRecuperees" ng-click="previousPageClientRecuperees()" class="btn btn-default">Précédent</button>
+                                        <button id="firstPageClientRecuperees" ng-click="firstPageClientRecuperees()" class="btn btn-default">1</button>
+                                        <button class="btn btn-default active" disabled="disabled" id="currentPageClientRecuperees"><strong>{{currentPageClientRecuperees}}</strong></button>
+                                        <div id="otherPagesClientRecuperees" style="clear: none;display: initial;"></div>
+                                        <button class="btn btn-default" id="nextPageClientRecuperees" ng-click="nextPageClientRecuperees()">Suivant</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_3" ng-controller="CmdsEnStockController">
+                            <div class="page-header">
+                                <div class="col-md-4">
+                                    <h3 class="col-md-12"> Commandes en stock:</h3>
+                                    <label class="control-label col-md-12" style="position: relative; top: 30px;">Nbre total de commandes : <label class="label label-sm label-info" id="countTotal">{{countEnStock}}</label></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <div style="position: relative;float: right;top: -20px;">
+                                        <a href="#/gestion-bon-chargement" class="btn btn-success btn-sm">Bon de chargement de livraison</a>
+                                    </div>
+                                    <div class="form-group col-md-12" style="padding-left: 0; padding-right: 0;">
+                                        <label class="control-label col-md-4" style="text-align: left;font-size: 15px;font-weight: 700;">Affecter commande</label>
+                                        <div class="col-md-7">
+                                            <div class="input-group input-medium" style="width: 100% !important;">
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-user"></i>
+                                                    </button>
+                                                </span>
+                                                <input type="text" id="CodeBarreAffect" class="form-control" placeholder="Code barre" style="width: 100%;" ng-keypress="myAffect($event)">
+                                            </div>
+                                            <!-- /input-group --> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" style="padding-left: 0;">
+                                        <div class="form-group col-md-12" style="padding-left: 0; padding-right: 0;">
+                                            <label class="control-label col-md-4" style="text-align: left;font-size: 15px;font-weight: 700;">Entrer en stock</label>
+                                            <div class="col-md-7" style="padding-right: 0;">
+                                                <div class="input-group input-medium" style="width: 100% !important;">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-list"></i>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" id="CodeBarre" class="form-control" placeholder="Code barre" style="width: 100%;" ng-keypress="myFunct($event)">
+                                                </div>
+                                                <!-- /input-group -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-content">
+                                <div class="clearfix"></div>
+                                <form class="form-inline" style="float: right">
+                                    <div class="form-group">
+                                        <label >Recherche</label>
+                                        <input type="text" ng-model="searchEnStock" ng-change="searchEnStockFunc(searchEnStock)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                    </div>
+                                </form>
+                                <div class="clearfix"></div><br>
+
+                                <div class="form-group col-md-12">
+                                    <label class="control-label col-md-4">Nbre de commandes Nouvelles entrées : <label class="label label-sm label-info" id="countwaitdone">{{countwaitdone}}</label></label>
+                                    <label class="control-label col-md-4">Nbre de commandes Retours : <label class="label label-sm label-success" id="countwaitback">{{countwaitback}}</label></label>
+                                    <label class="control-label col-md-4">Nbre de commandes Annulées : <label class="label label-sm label-success" id="countwaitcancel">{{countwaitcancel}}</label></label>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence </th>
+                                                <th> Statut </th>
+                                                <th> Cause Statut </th>
+                                                <th> Source </th>
+                                                <th> Récupérateur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th style="min-width: 120px;width: 200px;"> Adresse de destinataire</th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                                <th> Affectation </th>
+                                                <th> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="CommaneInStock" class="CommaneInStock">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsEnStock" id="CommandeEnterStock" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td ng-if="commande.Commande.state == 'Annulée'"><label class="label label-danger label-sm">Annulation ({{commande.Commande.countRetour}})</label></td>
+                                                <td ng-if="commande.Commande.state == 'Retour'"><label class="label label-info label-sm">Retour ({{commande.Commande.countRetour}})</label></td>
+                                                <td ng-if="commande.Commande.state == 'En stock'"><label style="background-color: #36c6d3;font-weight: 300;color: #fff;font-family: 'Open Sans',sans-serif;text-shadow: none!important;border-radius: .25em;padding: 2px 5px;">En attente livraison</label></td>
+                                                <td ng-if="commande.Commande.state == 'En Cours'"><label style="background-color: #36c6d3;font-weight: 300;color: #fff;font-family: 'Open Sans',sans-serif;text-shadow: none!important;border-radius: .25em;padding: 2px 5px;">En attente livraison</label></td>
+                                                <!--<td ng-if="commande.Commande.state === 'Retour'"><label class="btn btn-sm btn-info">{{commande.Commande.cause_nonlivraison}} ({{commande.Commande.countRetour}})</label></td>-->
+                                                <td ng-if="commande.Commande.state === 'Retour'">{{commande.Commande.cause_nonlivraison}}</td>
+                                                <!--<td ng-if="commande.Commande.state === 'Annulée'"><label class="btn btn-sm btn-danger">{{commande.Commande.cause_nonlivraison}} ({{commande.Commande.countRetour}})</label></td>-->
+                                                <td ng-if="commande.Commande.state === 'Annulée'">{{commande.Commande.cause_nonlivraison}}</td>
+                                                <td ng-if="commande.Commande.state === 'En stock'"></td>
+                                                <td>{{commande.Commande.source}}</td>
+                                                <!--<td></td>-->
+                                                <td ng-if="commande.Commande.livreur_id != 0">
+                                                    <div style="background-color: #3a80d7;border-radius: .25em;border-color: #286ec5;text-align: center;">
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="" style="font-size: 11px;background-color: #3a80d7;color: #fff;text-decoration: none;">{{commande.Livreur.first_name}} {{commande.Livreur.last_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <td ng-if="commande.Commande.livreur_id == 0">
+                                                    Déposée
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td>
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <td>
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td style="width: 120px;">  
+                                                    <ul class="nav nav-pills">
+                                                        <li  ng-if="commande.Commande.isAnnule == false">
+                                                            <div>
+                                                                <a href="#/affecter-commande-livreur/{{commande.Commande.id}}" class="btn btn-success btn-sm">Affecter livreur</a>
+                                                            </div>                                        
+                                                        </li>
+                                                        <li  ng-if="commande.Commande.state == 'Annulée'">
+                                                            <div id="Annulationcmd">
+
+                                                            </div>                                        
+                                                        </li>
+                                                        <!--                                                        <li  ng-if="commande.Commande.state != 'Annulée'">
+                                                                                                                    <div>
+                                                                                                                        <a href="#/affecter-commande-livreur/{{commande.Commande.id}}" class="btn btn-success btn-sm">Affecter livreur</a>
+                                                                                                                    </div>                                        
+                                                                                                                </li>
+                                                                                                                <li  ng-if="commande.Commande.state == 'Annulée'">
+                                                                                                                    <div id="Annulationcmd">
+                                                        
+                                                                                                                    </div>                                        
+                                                                                                                </li>-->
+                                                        <!--
+                                                        <li ng-if="commande.Commande.isLivraison == 1">
+                                                            <div>
+                                                                <a href="#/fiche-commerciale/{{commande.Commercial.id}}" class="btn btn-info btn-sm">{{commande.Commercial.first_name}} {{commande.Commercial.last_name}}</a>
+                                                            </div>                                        
+                                                        </li>-->
+                                                        <!--                                                        <li>
+                                                                                                                    <div ng-controller="ModalCommandeCtrl">
+                                                                                                                        <button id="commandeSumbit" data-index="{{$index}}" data-commande="{{commande.Commande.id}}"  ng-click="open(commande.Commande.id, $index, commande.User.full_name)" data-name="{{commande.Commande.ref}}" data-cmd="{{commande.Commande.id}}" class="btn btn-danger btn-embossed btn-sm">
+                                                                                                                            <i class="fa fa-times"></i>
+                                                                                                                        </button>
+                                                                                                                    </div>                                                                            
+                                                                                                                </li>-->
+                                                    </ul> 
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <form name="myForm" ng-if="commande.Commande.isAnnule == false">
+                                                            <input  type="checkbox" id="CheckedBox" value="{{checkboxModel.value}}" ng-model="checkboxModel.value">
+                                                        </form> 
+                                                    </div>
+                                                    <div id="formAnnulation">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="14">
+                                                    <div ng-controller="ContactController">
+                                                        <button ng-click="affecterGroupeCommande(1)" class="btn btn-info btn-sm pull-right">affecter</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <button id="previousPageEnStock" ng-click="previousPageEnStock()" class="btn btn-default">Précédent</button>
+                                        <button id="firstPageEnStock" ng-click="firstPageEnStock()" class="btn btn-default">1</button>
+                                        <button class="btn btn-default active" disabled="disabled" id="currentPageEnStock"><strong>{{currentPageEnStock}}</strong></button>
+                                        <div id="otherPagesEnStock" style="clear: none;display: initial;"></div>
+                                        <button class="btn btn-default" id="nextPageEnStock" ng-click="nextPageEnStock()">Suivant</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                     
+                        <div class="tab-pane fade" id="tab3_4">
+                            <div class="page-header">
+                                <h3> Commandes en cours de livraison:</h3>
+                            </div>
+
+                            <div class="panel-content">
+                                <div class="clearfix"></div>
+                                <form class="form-inline" style="float: right">
+                                    <div class="form-group">
+                                        <label >Recherche</label>
+                                        <input type="text" ng-model="searchAttLivraison" ng-change="searchAttLivraisonFunc(searchAttLivraison)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                    </div>
+                                </form>
+                                <div class="col-md-2">
+                                    <label>Ligne par page</label>
+                                    <select data-search="true" id="limitPerPageAttLivraison" ng-model="limit" ng-change="filterAttLivraison()" class="form-control">
+                                        <option ng-repeat="item in limits" value="{{item.l}}">{{item.l}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Filtre Expé.</label>
+                                    <select data-search="true" id="filterClient" ng-model="clientAttLivraison" ng-change="filterAttLivraison()"  class="form-control input-xlarge select2me col-md-12" data-placeholder="Filtre Expediteur...">
+                                        <option value="">Tous</option>
+                                        <option ng-repeat="item in clientstransporteur" value="{{item.User.id}}">{{item.User.raison_social|| item.User.nom_commercial|| item.User.full_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Filtre Livreur</label>
+                                    <select data-search="true" id="filterLivreur" ng-model="livreurAttLivraison" ng-change="filterAttLivraison()"  class="form-control input-xlarge select2me col-md-12" data-placeholder="Filtre Livreur...">
+                                        <option value="">Tous</option>
+                                        <option ng-repeat="item in livreurs" value="{{item.Livreur.id}}">{{item.Livreur.full_name}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="clearfix"></div><br>
+                                <div class="pull-right">
+                                    <ul uib-pagination
+                                        next-text="Suivant"
+                                        previous-text="Précédent"
+                                        ng-if="totalItemsAttLivraison" 
+                                        class="pagination-sm" 
+                                        boundary-link-numbers="true" 
+                                        max-size="5" 
+                                        rotate="false" 
+                                        total-items="totalItemsAttLivraison" 
+                                        force-ellipses="true" 
+                                        items-per-page="itemsPerPageAttLivraison"
+                                        ng-model="pagingAttLivraison.page" 
+                                        ng-change="pageChangedAttLivraison(pagingAttLivraison.page)"></ul>
+                                    <!--                                    <button id="previousPageAttLivraison" ng-click="previousPageAttLivraison()" class="btn btn-default">Précédent</button>
+                                                                        <button id="firstPageAttLivraison" ng-click="firstPageAttLivraison()" class="btn btn-default">1</button>
+                                                                        <button class="btn btn-default active" disabled="disabled" id="currentPageAttLivraison"><strong>{{currentPageAttLivraison}}</strong></button>
+                                                                        <div id="otherPagesAttLivraison" style="clear: none;display: initial;"></div>
+                                                                        <button class="btn btn-default" id="nextPageAttLivraison" ng-click="nextPageAttLivraison()">Suivant</button>-->
+                                </div>
+                                <div class="clearfix"></div>
+                                <!--<button class="pull-left btn btn-info" ng-click="showAdvancedSearchAttLivraison()">Recherche Avancée <i class="fa fa-search"></i></button>-->
+                                <div class="clearfix"></div>
+                                <br>
+                                <br>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre de commandes : <label class="label label-sm label-info">{{countEnattentelivraison}}</label></label>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                                <th> Réaffecter </th>
+                                                <th> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="enCoursLivraisonPaginate">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsEnCoursLivraison" id="CommandeRows" data-data-id="{{commande.Commande.id}}" data-livree="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td>  
+                                                <td>
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                         
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td style="width: 190px;">  
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/affecter-commande-livreur/{{commande.Commande.id}}" class="btn btn-success btn-sm">Réaffecter</a>
+                                                            </div>                                        
+                                                        </li>
+                                                        <!--                                                        <li>
+                                                                                                                    <div>
+                                                                                                                        <button ng-controller="ModalLivreeCommandeCtrl" type="button" class="btn btn-warning btn-sm" style="background: #673ab7 !important; border:  #673ab7 !important;" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Commande.created, commande.User.full_name, commande.User.adress, commande.User.Ville.name)">Modif statut</button>
+                                                                                                                    </div>                                        
+                                                                                                                </li>-->
+                                                        <!--
+                                                        <li ng-if="commande.Commande.isLivraison == 1">
+                                                            <div>
+                                                                <a href="#/fiche-commerciale/{{commande.Commercial.id}}" class="btn btn-info btn-sm">{{commande.Commercial.first_name}} {{commande.Commercial.last_name}}</a>
+                                                            </div>                                        
+                                                        </li>-->
+                                                        <li>
+                                                            <div>
+                                                                <button ng-controller="ModalLivraisonRetourCommandeCtrl" type="button" class="btn btn-warning btn-sm" style="background: #673ab7 !important; border:  #673ab7 !important;" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Receiver.full_name, commande.User.full_name, commande.User.adress, commande.User.Ville.name)">Modif statut</button>
+                                                            </div>                                        
+                                                        </li>
+                                                        <!--                                                        <li>
+                                                                                                                    <div ng-controller="ModalCommandeCtrl">
+                                                                                                                        <button id="commandeSumbit" data-index="{{$index}}" data-commande="{{commande.Commande.id}}"  ng-click="open(commande.Commande.id, $index, commande.User.full_name)" data-name="{{commande.Commande.ref}}" data-cmd="{{commande.Commande.id}}" class="btn btn-danger btn-embossed btn-sm">
+                                                                                                                            <i class="fa fa-times"></i>
+                                                                                                                        </button>
+                                                                                                                    </div>                                                                            
+                                                                                                                </li>-->
+                                                    </ul> 
+                                                </td>
+                                                <td>
+                                                    <form name="myForm">
+                                                        <input  type="checkbox" id="CheckedBox" value="{{checkboxModel.value}}" ng-model="checkboxModel.value">
+                                                    </form> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="12">
+                                                    <div ng-controller="ContactController">
+                                                        <button ng-click="affecterGroupeCommande(3)" class="btn btn-info btn-sm pull-right">Réaffecter</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="tab-pane fade" id="tab3_5">
+                            <div class="page-header">
+                                <h3> Commandes livrées:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchLivree" ng-change="searchLivreeFunc(searchLivree)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <button id="previousPageLivree" ng-click="previousPageLivree()" class="btn btn-default">Précédent</button>
+                                        <button id="firstPageLivree" ng-click="firstPageLivree()" class="btn btn-default">1</button>
+                                        <button class="btn btn-default active" disabled="disabled" id="currentPageLivree"><strong>{{currentPageLivree}}</strong></button>
+                                        <div id="otherPagesLivree" style="clear: none;display: initial;"></div>
+                                        <button class="btn btn-default" id="nextPageLivree" ng-click="nextPageLivree()">Suivant</button>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre de commandes : <label class="label label-sm label-info">{{countLivree}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <!--<th> Destinataire </th>-->
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="livreePaginate">
+                                            <!--<tr class="odd gradeX"  ng-repeat="($index, commande) in CmdsLivree" dir-paginate="($index, commande) in commandeslivrees | filter:search |itemsPerPage:30" id="CommandeRowsLivree" data-data-id="{{commande.Commande.id}}">-->
+                                            <tr class="odd gradeX"  ng-repeat="($index, commande) in CmdsLivree" id="CommandeRowsLivree" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <!--<td>{{commande.Receiver.full_name}}</td>-->
+                                                <td style="width: 190px;">   
+                                                    <ul class="nav nav-pills">
+                                                        <ul class="nav nav-pills">
+                                                            <li>
+                                                                <div>
+                                                                    <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                </div>                                        
+                                                            </li>
+                                                            <li>
+                                                                <div>
+                                                                    <button ng-controller="ModalRetourLivreeCtrl" type="button" class="btn btn-warning btn-sm" style="background: #673ab7 !important; border:  #673ab7 !important;" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Commande.created, commande.User.full_name, commande.User.adress, commande.User.Ville.name, $index)">Retour Commande</button>
+                                                                </div>                                        
+                                                            </li>
+                                                        </ul>
+                                                    </ul> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_6">
+                            <div class="page-header">
+                                <h3> Retour Commandes:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" id='searchRetour' ng-model="searchRetour" ng-change="searchRetourFunc(searchRetour)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="form-group col-md-9">
+                                        <label class="col-md-7 control-label" style="position: relative; font-size: 22px;">Filtrer état de retour de commande: </label>
+                                        <div class="col-md-5">
+                                            <div class="input-group" style="min-width: 250px !important;height: 34px !important;">
+                                                <select class="selectpicker" title="Select état de retour..." style="min-height: 34px !important; min-width: 200px !important" ng-model="etatRatoures" id="searchRetourees" ng-change="etatRetourees()">
+                                                    <option value="" style="display: none;"></option>
+                                                    <option value="tous">Tous</option>
+                                                    <option value="enstock">En stock</option>
+                                                    <option value="horsstock">Hors stock</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <button id="previousPageRetour" ng-click="previousPageRetour()" class="btn btn-default">Précédent</button>
+                                        <button id="firstPageRetour" ng-click="firstPageRetour()" class="btn btn-default">1</button>
+                                        <button class="btn btn-default active" disabled="disabled" id="currentPageRetour"><strong>{{currentPageRetour}}</strong></button>
+                                        <div id="otherPagesRetour" style="clear: none;display: initial;"></div>
+                                        <button class="btn btn-default" id="nextPageRetour" ng-click="nextPageRetour()">Suivant</button>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre de commandes : <label class="label label-sm label-info">{{countRetour}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr> 
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Cause retour </th>
+                                                <th style="width: 200px;"> Actions </th>
+                                                <th> Réaffecter </th>
+                                                <th> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="commandeRetours">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsRetour" id="CommandeRowsRetours" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div  style="background-color: #36c6d3;font-weight: 300;color: #fff;font-family: 'Open Sans',sans-serif;text-shadow: none!important;border-radius: .25em;padding: 2px 5px;">
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" style="text-decoration: none;font-weight: 300; color: #fff;">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <td>{{commande.Commande.cause_nonlivraison}}</td>
+                                                <td style="width: 200px;">
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li>
+                                                        <li> 
+                                                            <div>
+                                                                <button ng-controller="ModalAnnuleCommandeCtrl" type="button" class="btn btn-danger btn-sm" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Commande.created, commande.User.full_name, commande.User.adress, commande.User.Ville.name, $index)">Annulée</button>
+                                                            </div>                                        
+                                                        </li>  
+                                                    </ul>
+                                                </td>
+                                                <td style="width: 230px;">  
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/affecter-commande-livreur/{{commande.Commande.id}}" class="btn btn-success btn-sm">Réaffecter livreur</a>
+                                                            </div>                                        
+                                                        </li>
+                                                    </ul> 
+                                                </td>
+                                                <td>
+                                                    <form name="myForm">
+                                                        <input  type="checkbox" id="CheckedBox" value="{{checkboxModel.value}}" ng-model="checkboxModel.value">
+                                                    </form> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="13">
+                                                    <div ng-controller="ContactController">
+                                                        <button ng-click="affecterGroupeCommande(4)" class="btn btn-info btn-sm pull-right">affecter</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_7">
+                            <div class="page-header">
+                                <h3> Commandes annulées:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchAnnulee" ng-change="searchAnnuleeFunc(searchAnnulee)" id="searchAnnulees" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+
+                                    <div class="form-group col-md-9">
+                                        <!--<label class="col-md-3 control-label" style="position: relative; font-size: 24px;">Fournisseur: </label>-->
+                                        <label class="col-md-7 control-label" style="position: relative; font-size: 22px;">Filtrer état d'annulation de commande: </label>
+                                        <div class="col-md-5">
+                                            <div class="input-group" style="min-width: 250px !important;height: 34px !important;">
+                                                <!--<filter-select-annulation class="col-md-10" item='name' change-event="change()" />-->
+                                                <select class="selectpicker" title="Select état d'annulation..." style="min-height: 34px !important; min-width: 200px !important" ng-model="etatFactures" id="etatFactures" ng-change="etatFactureAnnulees(etatFactures)">
+                                                    <option value="" style="display: none;"></option>
+                                                    <option value="tous">Tous</option>
+                                                    <option value="facturer">Attente facturation</option>
+                                                    <option value="notfacture">En cours d'annulation</option>
+                                                    <option value="annuleactive">Affectation activée</option>
+                                                    <option value="enstock">En stock</option>
+                                                    <option value="horsstock">Hors stock</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre total de commandes : <label class="label label-sm label-info" id="countwaitdone">{{countAnnuleeTotal}}</label></label>
+                                        <label class="control-label col-md-4">Nbre de commandes Attente facturation : <label class="label label-sm label-success" id="countwaitback">{{countannuleenotfacture}}</label></label>
+                                        <label class="control-label col-md-4">Nbre de commandes en cours d'annulation : <label class="label label-sm label-success" id="countwaitcancel">{{countannuleefacture}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <!--<th> Cause annulation </th>-->
+                                                <th> Actions </th>
+                                                <!--<th> </th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="CommandeannulationAll">
+                                            <tr class="CommandeRowsAnnulee odd gradeX" ng-repeat="($index, commande) in CmdsAnnulee" id="CommandeRowsAnnulee" data-data-id="{{commande.Commande.id}}" data-annulation-id="{{commande.Commande.id}}">
+                                                <!--<tr class="CommandeRowsAnnulee odd gradeX" ng-repeat="($index, commande) in commandesannulee" id="CommandeRowsAnnulee" data-data-id="{{commande.Commande.id}}" data-annulation-id="{{commande.Commande.id}}">-->
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <td style="min-width: 150px;">
+                                                    <!--                                                    <ul class="nav nav-pills">
+                                                                                                            <li>
+                                                                                                                <div>
+                                                                                                                    <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                                                                        <i class="fa fa-eye"></i>
+                                                                                                                    </a>
+                                                                                                                </div>                                        
+                                                                                                            </li>
+                                                                                                        </ul>-->
+                                                    <div class="btn-group">
+                                                        <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                            <i class="fa fa-eye"></i>  Voir
+                                                        </a>
+                                                        <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left: solid 1px #ddd;">
+                                                            <span class="caret"></span>
+                                                            <span class="sr-only">Listes actions</span>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <!--                                                            <li ng-if="commande.Commande.isFacture == true || commande.Commande.isFacture == 'true' || commande.Commande.isFacture == 1">
+                                                                                                                            <div>
+                                                                                                                                <a href="#/affecter-commande-livreur/{{commande.Commande.id}}" class="btn btn-default btn-sm" style="border: none;color: #673ab7; font-size: 13px; font-weight: bold;">Réaffecter livreur</a>
+                                                                                                                            </div>                                        
+                                                                                                                        </li>-->
+                                                            <li ng-if="commande.Commande.isAnnule == true && commande.Commande.isFacture == true">
+                                                                <div id="showAnnulationCommande">
+                                                                    <button ng-controller="ModalActiveAnnulationCtrl" type="button" class="btn btn-default btn-sm" style="border: none;color: #673ab7; font-size: 13px; font-weight: bold;" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Commande.created, commande.User.full_name, commande.User.adress, commande.User.Ville.name, $index)">Activer l'affectation</button>
+                                                                </div>                                        
+                                                            </li>
+                                                            <li ng-if="commande.Commande.isAnnule == false && commande.Commande.isFacture == true">
+                                                                <div>
+                                                                    <label class="label label-sm label-info" style="background-color: #4285F4; border-color: #4285F4;">Affectation activée</label>
+                                                                </div>                                        
+                                                            </li>
+                                                            <li ng-if="commande.Commande.isAnnule == true && commande.Commande.isFacture == true">
+                                                                <div id="showFacturerCommande">
+                                                                    <button ng-controller="ModalFactureeCommandeClientCtrl" type="button" class="btn btn-default btn-sm" style="border: none;color: #36c6d3; font-size: 13px; font-weight: bold;" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Commande.created, commande.User.full_name, commande.User.adress, commande.User.Ville.name, $index)">Passer à la facturation</button>
+                                                                </div>                                        
+                                                            </li>
+                                                            <li ng-if="commande.Commande.isFacture == false || commande.Commande.isFacture == 'false' || commande.Commande.isFacture == 0">
+                                                                <div id="showFacturerCommande" style="padding-top: 5px;">
+                                                                    <label class="label label-sm label-info" style="background-color: #4285F4; border-color: #4285F4;">Attente facturation</label>
+                                                                </div>                                        
+                                                            </li>
+                                                            <!--                                                            <li ng-if="commande.Commande.isFacture == true || commande.Commande.isFacture == 'true' || commande.Commande.isFacture == 1">
+                                                                                                                            <div>
+                                                                                                                                <button ng-controller="ModalExpediteurCommandeCtrl" type="button" class="btn btn-default btn-sm" style="border: none;color: #ed6b75; font-size: 13px; font-weight: bold;" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Commande.created, commande.User.full_name, commande.User.adress, commande.User.Ville.name, $index)">Retour à l'expéditeur</button>
+                                                                                                                            </div>                                        
+                                                                                                                        </li>-->
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItems" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItems" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPage"
+                                            ng-model="paging.page" 
+                                            ng-change="pageChanged(paging.page)"></ul>
+
+                                        <!--                                        <button id="previousPageAnnulee" ng-click="previousPageAnnulee()" class="btn btn-default">Précédent</button>
+                                                                                <button id="firstPageAnnulee" ng-click="firstPageAnnulee()" class="btn btn-default">1</button>
+                                                                                <button class="btn btn-default active" disabled="disabled" id="currentPageAnnulee"><strong>{{currentPageAnnulee}}</strong></button>
+                                                                                <div id="otherPagesAnnulee" style="clear: none;display: initial;"></div>
+                                                                                <button class="btn btn-default" id="nextPageAnnulee" ng-click="nextPageAnnulee()">Suivant</button>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_8">
+                            <div class="page-header">
+                                <h3> Commandes facturées:</h3>
+                            </div>
+                            <div class="panel-content" ng-controller="CmdsFactureeController">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchFacturee" ng-change="searchFactureeFunc(searchFacturee)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <button id="previousPageFacturee" ng-click="previousPageFacturee()" class="btn btn-default">Précédent</button>
+                                        <button id="firstPageFacturee" ng-click="firstPageFacturee()" class="btn btn-default">1</button>
+                                        <button class="btn btn-default active" disabled="disabled" id="currentPageFacturee"><strong>{{currentPageFacturee}}</strong></button>
+                                        <div id="otherPagesFacturee" style="clear: none;display: initial;"></div>
+                                        <button class="btn btn-default" id="nextPageFacturee" ng-click="nextPageFacturee()">Suivant</button>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre total de commandes : <label class="label label-sm label-info" id="countwaitdone">{{countFacturee}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Date de Facturation </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsFacturee" id="CommandeRows" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <!--<td>{{commande.Receiver.full_name}}</td>-->
+                                                <td>  
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li> 
+                                                    </ul> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_9">
+                            <div class="page-header">
+                                <h3> Commandes retournées à l'expéditeur:</h3>
+                            </div>
+                            <div class="panel-content" ng-controller="CmdsRetourExpediteurController">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchRetourExpediteur" ng-change="searchRetourExpediteurFunc(searchRetourExpediteur)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div><br>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre total de commandes : <label class="label label-sm label-info" id="countwaitdone">{{countRetourExpediteur}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Date de Retour </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="retourExpediteurPaginate">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsRetourExpediteur" id="CommandeRows" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td> 
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <!--<td>{{commande.Receiver.full_name}}</td>-->
+                                                <td>  
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li>
+                                                    </ul> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <button id="previousPageRetourExpediteur" ng-click="previousPageRetourExpediteur()" class="btn btn-default">Précédent</button>
+                                        <button id="firstPageRetourExpediteur" ng-click="firstPageRetourExpediteur()" class="btn btn-default">1</button>
+                                        <button class="btn btn-default active" disabled="disabled" id="currentPageRetourExpediteur"><strong>{{currentPageRetourExpediteur}}</strong></button>
+                                        <div id="otherPagesRetourExpediteur" style="clear: none;display: initial;"></div>
+                                        <button class="btn btn-default" id="nextPageRetourExpediteur" ng-click="nextPageRetourExpediteur()">Suivant</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET--> 
+    </div>
+</div>
+<div id="login-box" class="login-popup" data-id="" data-index="" data-cmdid="" data-client="" data-ref="" data-date="" data-dest="" data-adress="" data-ville="" ng-controller="ModalRetourLivreeCtrl">
+    <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+    <form method="post" class="signin" action="#">
+        <fieldset class="textbox">
+            <label class="password"> 
+                <span>Code Validation</span>
+                <input id="codeRoot" ng-model="codeRoot" value="" type="password" placeholder="Code Validation">
+            </label>
+            <button class="submit button" type="button" ng-click="validateAction($event)">Activer</button>
+        </fieldset>
+    </form>
+</div>
+<script type="text/ng-template" id="DeleteCommande.html">
+    <div class="modal-dialog" id="DeleteCommande" data-id="" data-index="">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé commande</h4>
+    </div>
+    <div class="modal-body">
+    <strong id="name_client"></strong>
+    <p>Voulez vous vraiment supprimé cette commande ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteCommande(commande.Commande.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+    </div>
+    </div>
+</script>
+
+<!-- END MAIN CONTENT -->
+<script>
+//    ComponentsDateTimePickers.init(); // init todo page
+</script>
+<script type="text/ng-template" id="myModalAffectCommande.html">
+    <div class="modal-header" id="modal-affecter-commande" data-cmdid="" data-index="">
+    <h3 class="modal-title">Commande : <span id="titleCommande1">{{commandeBarrecodeAffect.Commande.ref}}<span></h3>
+    <div id="LinkAffect" style="float: right;" ng-click="cancel()"></div>
+    </div>
+    <div class="modal-body" ng-controller="EspaceClientController">
+    <div class="col-md-12 col-xs-12 portlets" style="width: 100%; background: #fff;">
+    <div  class="col-xs-12">
+    <strong style="color:#26619C;" class="DateCommande"> 
+    <div class="image" style="/* margin-left: 53px; */">
+    <img src="assets/pages/img/logo-chams.png" class="pull-left img-responsive logo-amyevolut" style="max-width:150px;margin-left: 15px;">
+    </div>
+    <h3 class="text-center" style="color: #24445c;"><strong my-current-time="formatCreated"></strong> </strong><br>
+    </div>
+    <div  class="col-xs-12" style="border-bottom: solid 2px;">
+    <div  class="col-xs-3 expediteur">
+    <h4><strong style="color:#26619C;"> Expéditeur : {{commandeBarrecodeAffect.Commande.ref}}</strong></h4>
+    <address class="text-center" style="font-size: 12px;text-align: left;">
+    <p style="color:#26619C;"><strong>Nom :  </strong> <span id="ExpediteurName">{{commandeBarrecodeAffect.User.full_name}}</span></p>
+    <p style="color:#26619C;"><strong>Téléphone :  </strong> <span id="ExpediteurPhone">{{commandeBarrecodeAffect.User.phone}}</span></p>
+    <p style="color:#26619C;"><strong>Email :  </strong> <span id="ExpediteurEmail">{{commandeBarrecodeAffect.User.email}}</span></p>
+    <p style="color:#26619C;"><strong>Adresse :  </strong> <span id="ExpediteurAdresse">{{commandeBarrecodeAffect.User.adress}}</span></p>
+    <p style="color:#26619C;"><strong>Ville :  </strong> <span id="ExpediteurVille">{{commandeBarrecodeAffect.User.Ville.name}}</span></p>
+    </address>
+    </div>
+    <div  class="col-xs-3 expediteur1" style="float: right">
+    <h4><strong style="color:#26619C;"> Destinataire : </strong></h4>
+    <address class="text-center" style="font-size: 12px;text-align: left;">
+    <p style="color:#26619C;"><strong>Nom :  </strong> <span id="ReceiverName"></span></p>
+    <p style="color:#26619C;"><strong>Téléphone :  </strong> <span  id="ReceiverPhone"></span></p>
+    <p style="color:#26619C;"><strong>Email :  </strong> <span  id="ReceiverEmail"></span></p>
+    <p style="color:#26619C;"><strong>Ville :  </strong> <span id="ReceiverAdresse"></span></p>
+    </address>
+    </div>
+    </div>
+    <div  class="col-xs-12" style="border-bottom: solid 2px;padding-top: 10px;padding-left: 0;">
+    <div  class="col-xs-12" style="padding-left: 0;" id="IMGCode">
+    </div>
+    <div  class="col-xs-12" style="margin-top: 30px;padding-left: 0;">
+    <p class="col-xs-3"><strong>No.Colis:  </strong> <span id="ReceiverBon"></span></p>
+    <!--<p class="col-xs-3"><strong>No.Pieces:  </strong> <span>{{.Bon.length}}</span></p>-->
+    <div class="col-xs-12" ng-repeat="(index, colis) in commandeBarrecodeAffect.Bon">
+    <p class="col-xs-3"><strong>Colis N° : {{index + 1}}</strong></p>
+    <p class="col-xs-3"><strong>Poid:  </strong> <span>{{colis.poid}} kg</span></p>
+    <p class="col-xs-6"><strong>Dimensions (L x W x H):  </strong> <span>{{colis.longueur}} cm {{colis.largeur}} cm {{colis.hauteur}} cm</span></p>
+    </div>
+    </div>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>        
+</script>
+<script type="text/ng-template" id="myCommandeDepot.html">
+    <div class="modal-header" id="modal-commande-depot" data-cmdid="" data-index="">
+    <h3 class="modal-title">Valider commande</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefCommandeDepot"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateCommandeDepot"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameDepot"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserDepot"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ValidateCommande()">Valider</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myFactureeAnnule.html">
+    <div class="modal-header" id="modal-facturee-annule" data-cmdid="" data-index="">
+    <h3 class="modal-title">Facturer commande</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefCommandeFacturer"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateCommandeFacturer"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameFacturer"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserFacturer"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="facturerAnnule()">Facturer</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myactiveReaffectation.html">
+    <div class="modal-header" id="modal-active-affectation" data-cmdid="" data-index="">
+    <h3 class="modal-title">Activé réaffectation</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefActive"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateActive"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameActive"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserActive"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="activerReaffectation()">Activer</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myactiveRetourLivraison.html">
+    <div class="modal-header" id="modal-livraison-stock" data-cmdid="" data-index="">
+    <h3 class="modal-title">Activé retour livraison</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefActiveLivraison"></span> </p> 
+    <p><b>Date Demande</b> : <span id="DateActiveLivraison"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameActiveLivraison"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserActiveLivraison"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="activerLivraisonStock()">Activer</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myCommandeExpediteur.html">
+    <div class="modal-header" id="modal-commande-expediteur" data-cmdid="" data-index="">
+    <h3 class="modal-title">Retour commande</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefCommandeExpediteur"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateCommandeExpediteur"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameExpediteur"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserExpediteur"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="retourcommandeExpediteur()">Valider</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myAnnuleCommande.html">
+    <div class="modal-header" id="modal-commande-annulee" data-cmdid="" data-index="">
+    <h3 class="modal-title">Annulée commande</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefCommandeAnnulee"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateCommandeAnnulee"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameAnnulee"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserAnnulee"></span> </p> 
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ValidateAnnulationCommande()">Annuler</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myHistoriqueCommande.html">
+    <div class="modal-header" id="modal-commande-historique" data-cmdid="" data-index="">
+    <h3 class="modal-title">Historiques de commande : <strong id="refCommandeHistorique"></strong></h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <ul class = "list-group" id='HistoriquesCommande'></ul>
+    </div>
+    </div> 
+    <div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Fermer</button>
+    </div>
+
+</script>
+<script src="/js/espace-client/espaceclient.js"></script>
+<script src="/js/rootAccess.js"></script>
+<script>
+    //    console.clear();
+    var intervalCLIENTESPACE = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalCLIENTESPACE);
+            setTimeout(function () {
+                $('.selectpicker').selectpicker({
+                    style: ' btn-default',
+                    size: 12
+                });
+                function setCurrentTab() {
+                    $("ul.nav li a").on('click', function () {
+                        console.log($(this).attr('data-target'));
+                        sessionStorage.setItem('currentTab', $(this).attr('data-target'));
+                    });
+                }
+                setCurrentTab();
+            }, 1000);
+            transportView();
+        }
+    }, 100);
+    //            }, 100);
+</script>
+<script type="text/ng-template" id="myCommandeLivree.html">
+    <div class="modal-header" id="modal-commande-livree" data-cmdid="" data-index="">
+    <h3 class="modal-title">Valider commande</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefCommandeLivree"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateCommandeLivree"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameLivree"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserLivree"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="livreecommande()">Valider</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="valideLivraisonCommande.html">
+    <div  id="valideAttente" data-id="" data-index="">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Validation commande</h4>
+    </div>
+    <div class="modal-body">
+    <p><strong id="ref_commande"></strong></p>
+    <p><strong id="user_commande"></strong></p>
+    <p><strong id="userville_commande"></strong></p>
+    <p><strong id="destinataire_commande"></strong></p>
+    <p>Statut de livraison : </p>
+    <ul class="list-group">
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Livrée : </h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxLivraison"
+    ng-model="checkboxLivraison" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxLivraison == 1" value="{{checkboxLivraison}}" />
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Absence Destinataire</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxAbsenceDEST"
+    ng-model="checkboxAbsenceDEST" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxAbsenceDEST == 1" value="{{checkboxAbsenceDEST}}" />
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Reporter Destinataire</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxReporterDEST"
+    ng-model="checkboxReporterDEST" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxReporterDEST == 1" value="{{checkboxReporterDEST}}" />
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Reporter Livreur</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxReporterLivreur"
+    ng-model="checkboxReporterLivreur" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxReporterLivreur == 1" value="{{checkboxReporterLivreur}}" />
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Erreur de Destinataire</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxErreurDEST"
+    ng-model="checkboxErreurDEST" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxErreurDEST == 1" value="{{checkboxErreurDEST}}" />
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Erreur Destination</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxErreurDESTINATION"
+    ng-model="checkboxErreurDESTINATION" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxErreurDESTINATION == 1" value="{{checkboxErreurDESTINATION}}" />
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Annulation Destinataire</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxAnnulDEST"
+    ng-model="checkboxAnnulDEST" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxAnnulDEST == 1" value="{{checkboxAnnulDEST}}" />
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Injoignable</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxInjoignable"
+    ng-model="checkboxInjoignable" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxInjoignable == 1" value="{{checkboxInjoignable}}" /> 
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 60px">
+    <div class="col-xs-12"><h4 class="col-xs-8">Téléphone fermé</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2">
+    <input type="checkbox" id="checkboxTelFermer"
+    ng-model="checkboxTelFermer" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxTelFermer == 1" value="{{checkboxTelFermer}}" />
+    </span>
+    </div>
+    </li>
+    <li class="list-group-item" style="min-height: 95px;">
+    <div class="col-xs-12"><h4 class="col-xs-8" class="col-xs-3">Autres</h4>
+    <span ng-controller="StateLivraisonController" class="col-xs-2" class="col-xs-2">
+    <input type="checkbox" id="checkboxAutre"
+    ng-model="checkboxAutre" 
+    ng-true-value="1" 
+    ng-false-value="0" 
+    ng-checked="checkboxAutre == 1" value="{{checkboxAutre}}" ng-change="autreRetour()"/> 
+    </span>
+    </div>
+    <div class="form-group" ng-controller="StateLivraisonController" style="display: none;" id='DisplayAutreCause'>
+    <div class="col-sm-9">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="autreCause" placeholder="Cause de retour" name="cause_retour" class="form-control" /> </div>
+    </div> 
+    </div>
+    </li>
+    </ul>
+    <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="validerAttenteLivraison($event)">
+    <i class="fa fa-check" ></i> Valider</button>
+    </div>
+    </div>
+</script>
+<script>
+    function boutonrtourLivraison() {
+        $("#buttonRetour").on('click', function () {
+            $("#causeNonlivree").show();
+            $("#Nonlivree").show();
+            $("#buttonRetour").hide();
+            $("#buttonLivree").hide();
+        });
+    }
+</script>

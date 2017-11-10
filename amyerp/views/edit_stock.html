@@ -1,0 +1,125 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Modifié Stock 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="form-group ">
+                        <label class="col-sm-3 control-label">Nom de l'entrepôt </label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-paper-plane"></i>
+                                </span>
+                                <input type="text" id="name" placeholder="Nom de l'entrepôt" name="Nom de l'entrepôt"  ng-model="currentStock.Stock.name" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="col-sm-3 control-label">Adresse</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-paper-plane"></i>
+                                </span>
+                                <input type="text" id="adresse" placeholder="Adresse"  ng-model="currentStock.Stock.adresse" name="Adresse" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group " ng-controller="StocksController">
+                        <label class="col-sm-3 control-label">Est un emplacement de rebut ?</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input type="checkbox" id="isRebut"
+                                       ng-model="checkbox" 
+                                       ng-true-value="1" 
+                                       ng-false-value="0" 
+                                       ng-checked="checkbox == 1" value="{{checkbox}}" />
+                                <!--<input id="choiceRebut" ng-true-value="'true'" ng-false-value="'false'" type="checkbox" ng-model="checkboxModel.value1" />-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-controller="StocksController">
+                        <label class="col-sm-3 control-label">Est un emplacement de retour ?</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input type="checkbox" id="isRetour"
+                                       ng-model="checkboxRetour" 
+                                       ng-true-value="1" 
+                                       ng-false-value="0" 
+                                       ng-checked="checkboxRetour == 1" value="{{checkboxRetour}}" />
+                                <!--<input id="choiceRetour" type="checkbox" value="false" ng-model="stockisRetour" />-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-controller="StocksController">
+                        <label class="col-sm-3 control-label">Est un emplacement de SAV ?</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input type="checkbox" id="isSAV"
+                                       ng-model="checkboxSAV" 
+                                       ng-true-value="1" 
+                                       ng-false-value="0" 
+                                       ng-checked="checkboxSAV == 1" value="{{checkboxSAV}}" />
+                                <!--<input id="choiceRetour" type="checkbox" value="false" ng-model="stockisRetour" />-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9 col-sm-12">
+                                <button type="submit" class="btn purple" ng-click="editStock($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Modifier</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>  
+<!-- END MAIN CONTENT -->
+<!--<script>
+            ComponentsFormTools.init(); // init todo page
+</script>-->

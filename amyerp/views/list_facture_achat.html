@@ -1,0 +1,185 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Factures </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<style>
+    .sous-menu{
+        color: #000 !important;font-weight: bold !important;font-size: 14px !important;
+    }
+    .theme-panel .theme-colors>li.theme-color {
+        padding: 8px 2px !important;
+    }
+    .block-acces-rapide{min-width: 200px !important;border: 2px solid #4285F4 !important; padding-top: 5px !important;padding-left: 0px !important;}
+    .acces-rapide{margin-top: 3px !important;padding-left: 3px !important;padding-right: 3px !important;}
+    .acces-rapide a{
+        background: none !important;
+        border: 1px solid #fff !important;
+        color: #fff !important;
+        opacity: 1 !important;
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        margin-top: -2px !important;
+    }
+    .acces-rapide a i{ color: #fff !important;font-size: 12px !important;}
+    .acces-rapide li a{color: #000 !important; }
+    .acces-rapide li i{color: #000 !important; }
+    .btn-warning {
+        background-color: #673ab7 !important;
+        border-color: #673ab7 !important;
+    }
+    .btn-warning:hover {
+        background-color: #4527a0 !important;
+        border-color: #4527a0 !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Factures Achat</div>
+                <div class="actions">
+                    <!--                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                            <i class="fa fa-print"></i> Print </a>-->
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm" style="float: left;">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm" style="float: left;">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm" style="float: right;">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <a href="#/ajout-facture-achat" class="btn btn-default btn-sm" style="float: right;">
+                        <i class="fa fa-plus"></i> Créer 
+                    </a>
+                    <div class="page-toolbar" style="float: right;">
+                        <!-- BEGIN THEME PANEL -->
+                        <div class="btn-group btn-theme-panel acces-rapide">
+                            <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-list"></i> Accès factures achats
+                            </a>
+                            <div class="dropdown-menu theme-panel pull-right col-md-2 dropdown-custom hold-on-click block-acces-rapide">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ul class="theme-colors">
+                                            <li class="theme-color theme-color-default active" data-theme="default"> 
+                                                <i class="fa fa-send-o" aria-hidden="true"></i> 
+                                                <a href="#" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name"> Factures d'accompte</span></a>
+                                            </li>
+                                            <li class="theme-color theme-color-default active" data-theme="default"> 
+                                                <i class="fa fa-tags" aria-hidden="true"></i> 
+                                                <a href="#" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name"> Factures d'avoir</span></a>
+                                            </li>
+                                            <li class="theme-color theme-color-light" data-theme="light">
+                                                <i class="fa fa-tag" aria-hidden="true"></i> 
+                                                <a href="#/etat-achats" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name"> État vente</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr>
+                            <th> Code Facture </th>
+                            <th> Fournisseur </th>
+                            <th> Date de Génération </th>
+                            <!--<th> Date de Modification </th>-->
+                            <th> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left;">
+                        <tr class="odd gradeX" dir-paginate="($index, facture) in facturesAchat | filter:search |itemsPerPage:10" id="FactureRows">
+                            <td>{{facture.Facture.code_facture}}</td>
+                            <td>{{facture.Fournisseur.name}}</td>
+                            <td>{{facture.Facture.created}}</td>
+                            <!--<td>{{facture.Facture.modified}}</td>-->
+                            <td style="width: 230px;">  
+                                <ul class="nav nav-pills">
+                                    <li>
+                                        <div ng-click="viewFacture(facture.Facture.id)">
+                                            <a href="#/view-facture-achat/{{facture.Facture.id}}"  class="btn btn-info btn-sm">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+<!--                                    <li>
+                                        <div>
+                                            <a href="#/avoir-facture/{{facture.Facture.id}}" class="btn btn-info btn-sm"><i class="fa fa-chain-broken"></i> Avoir</a>
+                                        </div> 
+                                    </li>-->
+                                    <li>
+                                        <div ng-controller="ModalDelFactureCtrl">
+                                            <button id="factureSumbit" data-index="{{$index}}" data-facture="{{facture.Facture.id}}"  ng-click="open(facture.Facture.id, $index)" data-name="{{facture.Facture.name}}" data-cmd="{{facture.Facture.id}}" class="btn btn-sm btn-danger btn-embossed">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>                                        
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <dir-pagination-controls
+                    max-size="5"
+                    direction-links="true"
+                    boundary-links="true"  style="float: right;top: -28px;position: relative;" class="portlet-body">
+                </dir-pagination-controls>
+            </div>
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<script type="text/ng-template" id="deleteFacture.html">
+    <div class="modal-dialog" id="DeleteFacture" data-id="" data-index="">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé Facture</h4>
+    </div>
+    <div class="modal-body">
+    <p>Voulez vous vraiment supprimé cette Facture ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteFacture(facture.Facture.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+    </div>
+    </div>
+</script>
+<script>
+    setTimeout(function () {
+//        console.clear();
+    }, 1000);
+</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

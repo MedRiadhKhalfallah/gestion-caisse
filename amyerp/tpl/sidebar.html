@@ -1,0 +1,1285 @@
+
+<div class="page-sidebar navbar-collapse collapse no-print" id='SidebarScrol'>
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div id="wrap" class="MenuTest">
+        <div class="product-head">   
+            <h4 class="text-info">Recherche Menu...</h4> 
+            <div id="form"></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <ul  id="list" class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{
+                'page-sidebar - menu - closed': settings.layout.pageSidebarClosed}">
+        <li class="heading">
+            <h3>Menu</h3>
+        </li>
+        <li class="start nav-item">
+            <a href="#/dashboard.html">
+                <i class="icon-home"></i>
+                <span class="title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item" data-name="Gestion commercial">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Gestion commerciale</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item" data-name="Gestion Produits">
+                    <a href="javascript:;">
+                        <i class="fa fa-table"></i>
+                        <span class="title">Gestion Produits</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/products">
+                                <i class="icon-puzzle"></i><span> Liste Produits</span>
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-produit">
+                                                        <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                                    </a>
+                                                </li>-->
+                        <li>
+                            <a href="#/gestion-categories">
+                                <i class="icon-puzzle"></i><span> Liste Catégories</span>
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-categorie">
+                                                        <i class="icon-paper-clip"></i><span> Ajout Categorie</span>
+                                                    </a>
+                                                </li>-->
+                        <li>
+                            <a href="#/gestion-familles">
+                                <i class="icon-puzzle"></i><span> Liste Familles</span>
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-famille">
+                                                        <i class="icon-paper-clip"></i> <span>Ajout Famille</span>
+                                                    </a>
+                                                </li>-->
+                        <li>
+                            <a href="#/gestion-unites">
+                                <i class="icon-puzzle"></i><span> Liste Unités</span>
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-unite">
+                                                        <i class="icon-paper-clip"></i> <span>Ajout Unite</span>
+                                                    </a>
+                                                </li>-->
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="fa fa-table"></i>
+                        <span class="title">Gestion Stocks</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-entrepots">
+                                <i class="icon-puzzle"></i><span>Entrepôts</span>
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-stock">
+                                                        <i class="icon-paper-clip"></i><span> Ajout Stocks</span>
+                                                    </a>
+                                                </li>-->
+                        <li>
+                            <a href="#/valider-stocks">
+                                <i class="icon-paper-clip"></i><span> Validation Stocks</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/mouvement-stock">
+                                <i class="icon-paper-clip"></i><span> Mouvement Stocks</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-settings"></i>
+                                        <span class="title">Gestion Familles</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-settings"></i>
+                                        <span class="title">Gestion Categories</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                
+                                    </ul>
+                                </li>-->
+                <!--                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-user"></i>
+                                        <span class="title">Gestion Fournisseurs</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-fournisseurs">
+                                                <i class="icon-puzzle"></i><span> Liste Fournisseurs</span>
+                                            </a>
+                                        </li>
+                                                                <li>
+                                                                    <a href="#/ajout-fournisseur">
+                                                                        <i class="icon-paper-clip"></i> <span>Ajout Fournisseur</span>
+                                                                    </a>
+                                                                </li>
+                                    </ul>
+                                </li>-->
+                <li class="nav-item">
+                    <a href="#/gestion-fournisseurs">
+                        <i class="icon-refresh"></i>
+                        <span class="title">Gestion fournisseurs</span>
+                    </a>
+                </li>
+                <!--                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-notebook"></i>
+                                        <span class="title">Gestion Taxes</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-taxes">
+                                                <i class="icon-puzzle"></i><span> Liste Tva</span> 
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/ajout-tva">
+                                                <i class="icon-paper-clip"></i><span> Ajout Tva</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-notebook"></i>
+                                        <span class="title">Mode Paiement</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-paiements">
+                                                <i class="icon-puzzle"></i><span> Liste Mode Paiement</span> 
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/ajout-paiement">
+                                                <i class="icon-paper-clip"></i><span> Ajout Mode Paiement</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>-->
+                <!--                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-bulb"></i>
+                                        <span class="title">Gestion Commandes</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-commandes">
+                                                <i class="icon-refresh"></i> Liste Commandes </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/gestion-bon-livraison">
+                                                <i class="icon-refresh"></i> Liste Bon Livraison </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/ajout-commande">
+                                                <i class="icon-puzzle"></i> Ajout Commande </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-basket"></i>
+                                        <span class="title">Gestion Devis</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-devis">
+                                                <i class="icon-refresh"></i> Liste Devis </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/ajout-devis">
+                                                <i class="icon-puzzle"></i> Ajout Devis </a>
+                                        </li>
+                                    </ul>
+                                </li>-->
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-note"></i>
+                        <span class="title">Gestion d'achat</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-factures-achat">
+                                <i class="icon-refresh"></i> Facture d'achat</a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-demande-prix">
+                                <i class="icon-refresh"></i> Demande de prix</a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-commandes-achat">
+                                <i class="icon-refresh"></i> Commande d'achat</a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-bon-reception">
+                                <i class="icon-refresh"></i> Bon de réception</a>
+                        </li>
+                        <li>
+                            <a href="#/etat-achats">
+                                <i class="icon-puzzle"></i> État Achat
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-facture-achat">
+                                                        <i class="icon-puzzle"></i> Ajout Facture Achat
+                                                    </a>
+                                                </li>-->
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#/gestion-clients">
+                        <i class="icon-refresh"></i>
+                        <span class="title">Gestion clients</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-note"></i>
+                        <span class="title">Gestion de vente</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-devis">
+                                <i class="icon-refresh"></i> Devis </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-devis">
+                                                        <i class="icon-puzzle"></i> Ajout Devis </a>
+                                                </li>-->
+                        <li>
+                            <a href="#/gestion-commandes">
+                                <i class="icon-refresh"></i> Commande </a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-bon-livraison">
+                                <i class="icon-refresh"></i> Bon Livraison </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-commande">
+                                                        <i class="icon-puzzle"></i> Ajout Commande </a>
+                                                </li>-->
+                        <li>
+                            <a href="#/gestion-factures">
+                                <i class="icon-refresh"></i> Facture de vente </a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-factures-avoir">
+                                <i class="icon-refresh"></i> Facture d'avoir </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-facture">
+                                                        <i class="icon-puzzle"></i> Ajout Facture </a>
+                                                </li>-->
+
+                        <li>
+                            <a href="#/etat-ventes">
+                                <i class="icon-puzzle"></i> Etat Vente</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-note"></i>
+                        <span class="title">Règlements</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/solde-fournisseur">
+                                <i class="icon-paper-clip"></i> <span>Solde Fournisseur</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/solde-client">
+                                <i class="icon-paper-clip"></i> <span>Solde Client</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/etat-achats">
+                                <i class="icon-puzzle"></i> Etat Achat
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/etat-achats-impyees">
+                                                        <i class="icon-puzzle"></i> Etat Achat Non Réglé
+                                                    </a>  
+                                                </li>-->
+                        <li>
+                            <a href="#/etat-ventes">
+                                <i class="icon-puzzle"></i> Etat Vente</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-note"></i>
+                                        <span class="title">Condition paiement</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-cps">
+                                                <i class="icon-refresh"></i> Liste Condition paiement </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/ajout-cp">
+                                                <i class="icon-puzzle"></i> Ajout Condition paiement </a>
+                                        </li>
+                                    </ul>
+                                </li>-->
+                <!--                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-layers"></i>
+                                        <span class="title">Gestion Clients</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-clients">
+                                                <i class="icon-puzzle"></i><span> Liste Clients</span>
+                                            </a>
+                                        </li>
+                                                                <li>
+                                                                    <a href="#/ajout-client">
+                                                                        <i class="icon-paper-clip"></i> <span>Ajout Client</span>
+                                                                    </a>
+                                                                </li>
+                                    </ul>
+                                </li>-->
+                <!--                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="icon-layers"></i>
+                                        <span class="title">Gestion des commerciaux</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-commerciales">
+                                                <i class="icon-puzzle"></i><span> Liste Commerciaux</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/ajout-commerciale">
+                                                <i class="icon-paper-clip"></i> <span>Ajout Commercial</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>-->
+                <!--                <li class="nav-item">
+                                    <a href="javascript:;">
+                                        <i class="fa fa-user-secret"></i>
+                                        <span class="title">Gestion Utilisateurs</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-utilisateurs">
+                                                <i class="icon-puzzle"></i><span> Liste Managers</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/ajout-utilisateur">
+                                                <i class="icon-paper-clip"></i> <span>Ajout Manager</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#/statistique">
+                                        <i class="icon-refresh"></i>
+                                        <span class="title">Statistique</span>
+                                    </a>
+                                </li>-->
+            </ul>
+        </li>
+        <li class="nav-item" data-name="Comptabilité">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Comptabilité</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#/declaration-fiscale-ventes">
+                        <i class="icon-puzzle"></i> Declaration Fiscale Vente</a>
+                </li>
+                <li>
+                    <a href="#/gestion-retenus">
+                        <i class="icon-puzzle"></i> Retenu à la source
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item" data-name="Contact">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Contact</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item" data-name="Achats">
+                    <a href="#/espace-client">
+                        <i class="fa fa-table"></i>
+                        <span class="title">Gestion espace client</span>
+                        <!--<span class="arrow "></span>-->
+                    </a>
+                    <!--                    <ul class="sub-menu">
+                                            <li>
+                                                <a href="#/products">
+                                                    <i class="icon-puzzle"></i><span> Liste Produits</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#/ajout-produit">
+                                                    <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                                </a>
+                                            </li>
+                                        </ul>-->
+                </li>
+                <li class="nav-item" data-name="Ventes">
+                    <a href="javascript:;">
+                        <i class="fa fa-table"></i>
+                        <span class="title">Mes relances</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#">
+                                <i class="icon-puzzle"></i><span> Relance client</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-paper-clip"></i><span> Relance fournisseur</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-paper-clip"></i><span> Relance devis</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-paper-clip"></i><span> Relances des impayés</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item" data-name="Prospection">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Prospection</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <!--                <li class="nav-item" data-name="Gestion commerciaux">
+                                    <a href="javascript:;">
+                                        <i class="fa fa-table"></i>
+                                        <span class="title">Gestion commerciaux</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#/gestion-commerciales">
+                                                <i class="icon-puzzle"></i><span> Liste Commerciaux</span>
+                                            </a>
+                                        </li>
+                                                                <li>
+                                                                    <a href="#/ajout-commerciale">
+                                                                        <i class="icon-paper-clip"></i> <span>Ajout Commercial</span>
+                                                                    </a>
+                                                                </li>
+                                    </ul>
+                                </li>-->
+                <li class="nav-item">
+                    <a href="#/gestion-commerciales">
+                        <i class="icon-refresh"></i>
+                        <span class="title">Gestion commerciaux</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item" data-name="Statistique & Analyse">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Statistique & Analyse</span>
+                <span class="arrow "></span>
+            </a>
+            <!--        <li class="nav-item" data-name="Gestion Produits">
+                        <a href="javascript:;">
+                            <i class="fa fa-table"></i>
+                            <span class="title">Gestion Produits</span>
+                            <span class="arrow "></span>
+                        </a>-->
+            <ul class="sub-menu">
+                <li>
+                    <!--                    <a href="javascript:;">
+                                            <i class="fa fa-table"></i>
+                                            <span class="title">Statistique</span>
+                                            <span class="arrow "></span>
+                                        </a>-->
+                    <!--                    <ul class="sub-menu">
+                                            <li>
+                                                <a href="#/solde-fournisseur">
+                                                    <i class="icon-paper-clip"></i> <span>Solde Fournisseur</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#/solde-client">
+                                                    <i class="icon-paper-clip"></i> <span>Solde Client</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#/etat-achats">
+                                                    <i class="icon-puzzle"></i> Etat Achat
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#/etat-achats-impyees">
+                                                    <i class="icon-puzzle"></i> Etat Achat Non Réglé
+                                                </a>  
+                                            </li>
+                                            <li>
+                                                <a href="#/etat-ventes">
+                                                    <i class="icon-puzzle"></i> Etat Vente</a>
+                                            </li>
+                                        </ul>-->
+
+                    <a href="#/statistique">
+                        <i class="icon-refresh"></i>
+                        <span class="title">Statistique</span>
+                    </a>
+                <li>
+                    <a href="#">
+                        <i class="icon-puzzle"></i><span> Analyse</span>
+                    </a>
+                </li>
+            </ul>
+            <!--</li>-->
+            <!--            <ul class="sub-menu">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-table"></i>
+                                    <span class="title">Statistique</span>
+                                    <span class="arrow "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#/solde-client">
+                                            <i class="icon-paper-clip"></i> <span>Solde Client</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/etat-achats">
+                                            <i class="icon-puzzle"></i> Etat Achat
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/etat-achats-impyees">
+                                            <i class="icon-puzzle"></i> Etat Achat Non Réglé
+                                        </a>  
+                                    </li>
+                                    <li>
+                                        <a href="#/etat-ventes">
+                                            <i class="icon-puzzle"></i> Etat Vente</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                        </ul>-->
+            <!--            <ul class="sub-menu">
+                            <li class="nav-item" data-name="Gestion Produits">
+                                                <a href="javascript:;">
+                                                    <i class="fa fa-table"></i>
+                                                    <span class="title">Gestion Produits</span>
+                                                    <span class="arrow "></span>
+                                                </a>
+                                                <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a href="#/statistique">
+                                    <i class="icon-refresh"></i>
+                                    <span class="title">Statistique</span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item" data-name="Statistique">
+                                        <a href="javascript:;">
+                                            <i class="fa fa-table"></i>
+                                            <span class="title">Statistique</span>
+                                            <span class="arrow "></span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li class="nav-item" data-name="Vente">
+                                                <a href="javascript:;">
+                                                    <i class="fa fa-table"></i>
+                                                    <span class="title">Vente</span>
+                                                    <span class="arrow "></span>
+                                                </a>
+                                                <ul class="sub-menu">
+                                                    <li>
+                                                        <a href="#/etat-comparatif">
+                                                            <i class="icon-puzzle"></i> Comparatif vente/achat</a>  
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item" data-name="Achat">
+                                                <a href="javascript:;">
+                                                    <i class="fa fa-table"></i>
+                                                    <span class="title">Achat</span>
+                                                    <span class="arrow "></span>
+                                                </a>
+                                                <ul class="sub-menu">
+                                                                                            <li>
+                                                                                                <a href="#/etat-comparatif">
+                                                                                                    <i class="icon-puzzle"></i> Comparatif vente/achat</a>  
+                                                                                            </li>
+                                                </ul>
+                                            </li>
+            
+                                        </ul>
+                                    </li>
+            
+                                </ul>
+                                                    <ul class="sub-menu">
+                                                        <li class="nav-item" data-name="Statistique vente">
+                                                            <a href="javascript:;">
+                                                                <i class="fa fa-table"></i>
+                                                                <span class="title">Statistique vente</span>
+                                                                <span class="arrow "></span>
+                                                            </a>
+                                                            <ul class="sub-menu">
+                                                                <li>
+                                                                    <a href="#/etat-comparatif">
+                                                                        <i class="icon-puzzle"></i> Comparatif vente/achat</a>  
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                
+                                                    </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">
+                                    <i class="icon-refresh"></i>
+                                    <span class="title">Analyse</span>
+                                </a>
+                            </li>
+            
+                            </ul>
+                            </li>
+                                        <ul class="sub-menu">
+                                            <li class="nav-item" data-name="Gestion Produits">
+                                                <a href="javascript:;">
+                                                    <i class="fa fa-table"></i>
+                                                    <span class="title">Gestion Produits</span>
+                                                    <span class="arrow "></span>
+                                                </a>
+                                                <ul class="sub-menu">
+                                                    <li>
+                                                        <a href="#/products">
+                                                            <i class="icon-puzzle"></i><span> Liste Produits</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#/ajout-produit">
+                                                            <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                            
+                                        </ul>
+                        </ul>-->
+        </li>
+        <li class="nav-item" data-name="Note de frais">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Note de frais</span>
+                <span class="arrow "></span>
+            </a>
+            <!--            <ul class="sub-menu">
+                            <li class="nav-item" data-name="Gestion Produits">
+                                <a href="javascript:;">
+                                    <i class="fa fa-table"></i>
+                                    <span class="title">Gestion Produits</span>
+                                    <span class="arrow "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#/products">
+                                            <i class="icon-puzzle"></i><span> Liste Produits</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/ajout-produit">
+                                            <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                        </ul>-->
+        </li>
+        <li class="nav-item" data-name="Pointage & Paie">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Pointage & Paie</span>
+                <span class="arrow "></span>
+            </a>
+            <!--            <ul class="sub-menu">
+                            <li class="nav-item" data-name="Gestion Produits">
+                                <a href="javascript:;">
+                                    <i class="fa fa-table"></i>
+                                    <span class="title">Gestion Produits</span>
+                                    <span class="arrow "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#/products">
+                                            <i class="icon-puzzle"></i><span> Liste Produits</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/ajout-produit">
+                                            <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                        </ul>-->
+        </li>
+        <li class="nav-item" data-name="Gestion projet">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Gestion projet</span>
+                <span class="arrow "></span>
+            </a>
+            <!--            <ul class="sub-menu">
+                            <li class="nav-item" data-name="Gestion Produits">
+                                <a href="javascript:;">
+                                    <i class="fa fa-table"></i>
+                                    <span class="title">Gestion Produits</span>
+                                    <span class="arrow "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#/products">
+                                            <i class="icon-puzzle"></i><span> Liste Produits</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/ajout-produit">
+                                            <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                        </ul>-->
+        </li>
+        <li class="nav-item" data-name="Gestion chantier">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Gestion chantier</span>
+                <span class="arrow "></span>
+            </a>
+            <!--            <ul class="sub-menu">
+                            <li class="nav-item" data-name="Gestion Produits">
+                                <a href="javascript:;">
+                                    <i class="fa fa-table"></i>
+                                    <span class="title">Gestion Produits</span>
+                                    <span class="arrow "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#/products">
+                                            <i class="icon-puzzle"></i><span> Liste Produits</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/ajout-produit">
+                                            <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                        </ul>-->
+        </li>
+        <li class="nav-item" data-name="Caisse">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Caisse</span>
+                <span class="arrow "></span>
+            </a>
+            <!--            <ul class="sub-menu">
+                            <li class="nav-item" data-name="Gestion Produits">
+                                <a href="javascript:;">
+                                    <i class="fa fa-table"></i>
+                                    <span class="title">Gestion Produits</span>
+                                    <span class="arrow "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#/products">
+                                            <i class="icon-puzzle"></i><span> Liste Produits</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/ajout-produit">
+                                            <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                        </ul>-->
+        </li>
+        <li class="nav-item" data-name="Agenda">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Agenda</span>
+                <span class="arrow "></span>
+            </a>
+            <!--            <ul class="sub-menu">
+                            <li class="nav-item" data-name="Gestion Produits">
+                                <a href="javascript:;">
+                                    <i class="fa fa-table"></i>
+                                    <span class="title">Gestion Produits</span>
+                                    <span class="arrow "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#/products">
+                                            <i class="icon-puzzle"></i><span> Liste Produits</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/ajout-produit">
+                                            <i class="icon-paper-clip"></i><span> Ajout Produit</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                        </ul>-->
+        </li>
+        <li class="nav-item" data-name="Réglages">
+            <a href="javascript:;">
+                <i class="fa fa-table"></i>
+                <span class="title">Réglages</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-notebook"></i>
+                        <span class="title">Gestion Taxes</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-taxes">
+                                <i class="icon-puzzle"></i><span> Liste Tva</span> 
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-tva">
+                                                        <i class="icon-paper-clip"></i><span> Ajout Tva</span>
+                                                    </a>
+                                                </li>-->
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-notebook"></i>
+                        <span class="title">Mode Paiement</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-paiements">
+                                <i class="icon-puzzle"></i><span> Liste Mode Paiement</span> 
+                            </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-paiement">
+                                                        <i class="icon-paper-clip"></i><span> Ajout Mode Paiement</span>
+                                                    </a>
+                                                </li>-->
+                        <li>
+                            <a href="#/gestion-cps">
+                                <i class="icon-refresh"></i> Liste Condition paiement </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="#/ajout-cp">
+                                                        <i class="icon-puzzle"></i> Ajout Condition paiement </a>
+                                                </li>-->
+
+                        <!--                        <li>
+                                                    <a href="#/ajout-utilisateur">
+                                                        <i class="icon-paper-clip"></i> <span>Ajout Manager</span>
+                                                    </a>
+                                                </li>-->
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#/gestion-utilisateurs">
+                        <i class="icon-puzzle"></i><span> Liste Managers</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <!--        <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="fa fa-table"></i>
+                        <span class="title">Gestion Stocks</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-entrepots">
+                                <i class="icon-puzzle"></i><span>Entrepôts</span>
+                            </a>
+                        </li>
+                                        <li>
+                                            <a href="#/ajout-stock">
+                                                <i class="icon-paper-clip"></i><span> Ajout Stocks</span>
+                                            </a>
+                                        </li>
+                        <li>
+                            <a href="#/valider-stocks">
+                                <i class="icon-paper-clip"></i><span> Validation Stocks</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/mouvement-stock">
+                                <i class="icon-paper-clip"></i><span> Mouvement Stocks</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                        <li class="nav-item">
+                            <a href="javascript:;">
+                                <i class="icon-settings"></i>
+                                <span class="title">Gestion Familles</span>
+                                <span class="arrow "></span>
+                            </a>
+                            <ul class="sub-menu">
+                
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;">
+                                <i class="icon-settings"></i>
+                                <span class="title">Gestion Categories</span>
+                                <span class="arrow "></span>
+                            </a>
+                            <ul class="sub-menu">
+                
+                            </ul>
+                        </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-user"></i>
+                        <span class="title">Gestion Fournisseurs</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-fournisseurs">
+                                <i class="icon-puzzle"></i><span> Liste Fournisseurs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-fournisseur">
+                                <i class="icon-paper-clip"></i> <span>Ajout Fournisseur</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/solde-fournisseur">
+                                <i class="icon-paper-clip"></i> <span>Solde Fournisseur</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-notebook"></i>
+                        <span class="title">Gestion Taxes</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-taxes">
+                                <i class="icon-puzzle"></i><span> Liste Tva</span> 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-tva">
+                                <i class="icon-paper-clip"></i><span> Ajout Tva</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-notebook"></i>
+                        <span class="title">Mode Paiement</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-paiements">
+                                <i class="icon-puzzle"></i><span> Liste Mode Paiement</span> 
+                            </a>
+                        </li>
+                                        <li>
+                                            <a href="#/ajout-paiement">
+                                                <i class="icon-paper-clip"></i><span> Ajout Mode Paiement</span>
+                                            </a>
+                                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-bulb"></i>
+                        <span class="title">Gestion Commandes</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-commandes">
+                                <i class="icon-refresh"></i> Liste Commandes </a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-bon-livraison">
+                                <i class="icon-refresh"></i> Liste Bon Livraison </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-commande">
+                                <i class="icon-puzzle"></i> Ajout Commande </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-basket"></i>
+                        <span class="title">Gestion Devis</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-devis">
+                                <i class="icon-refresh"></i> Liste Devis </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-devis">
+                                <i class="icon-puzzle"></i> Ajout Devis </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-note"></i>
+                        <span class="title">Gestion Achats</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-factures-achat">
+                                <i class="icon-refresh"></i> Liste Factures Achat</a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-commandes-achat">
+                                <i class="icon-refresh"></i> Commandes Achat</a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-facture-achat">
+                                <i class="icon-puzzle"></i> Ajout Facture Achat</a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-retenus">
+                                <i class="icon-puzzle"></i> Retenu à la source</a>
+                        </li>
+                        <li>
+                            <a href="#/etat-achats">
+                                <i class="icon-puzzle"></i> Etat Achat</a>
+                        </li>
+                        <li>
+                            <a href="#/etat-achats-impyees">
+                                <i class="icon-puzzle"></i> Etat Achat Non Réglé</a>  
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-note"></i>
+                        <span class="title">Gestion Ventes</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-factures">
+                                <i class="icon-refresh"></i> Liste Factures </a>
+                        </li>
+                        <li>
+                            <a href="#/gestion-factures-avoir">
+                                <i class="icon-refresh"></i> Liste Factures Avoir </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-facture">
+                                <i class="icon-puzzle"></i> Ajout Facture </a>
+                        </li>
+                        <li>
+                            <a href="#/declaration-fiscale-ventes">
+                                <i class="icon-puzzle"></i> Declaration Fiscale Vente</a>
+                        </li>
+                        <li>
+                            <a href="#/etat-ventes">
+                                <i class="icon-puzzle"></i> Etat Vente</a>
+                        </li>
+                        <li>
+                            <a href="#/etat-comparatif">
+                                <i class="icon-puzzle"></i> Etat Comparatif</a>  
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-note"></i>
+                        <span class="title">Condition paiement</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-cps">
+                                <i class="icon-refresh"></i> Liste Condition paiement </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-cp">
+                                <i class="icon-puzzle"></i> Ajout Condition paiement </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-layers"></i>
+                        <span class="title">Gestion Clients</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-clients">
+                                <i class="icon-puzzle"></i><span> Liste Clients</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-client">
+                                <i class="icon-paper-clip"></i> <span>Ajout Client</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/solde-client">
+                                <i class="icon-paper-clip"></i> <span>Solde Client</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="icon-layers"></i>
+                        <span class="title">Gestion des commerciaux</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-commerciales">
+                                <i class="icon-puzzle"></i><span> Liste Commerciaux</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-commerciale">
+                                <i class="icon-paper-clip"></i> <span>Ajout Commercial</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;">
+                        <i class="fa fa-user-secret"></i>
+                        <span class="title">Gestion Utilisateurs</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#/gestion-utilisateurs">
+                                <i class="icon-puzzle"></i><span> Liste Managers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/ajout-utilisateur">
+                                <i class="icon-paper-clip"></i> <span>Ajout Manager</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#/statistique">
+                        <i class="icon-refresh"></i>
+                        <span class="title">Statistique</span>
+                    </a>
+                </li>-->
+    </ul>
+    <!-- END SIDEBAR MENU -->
+    <div class="clearfix" style="height: 40px;"></div>
+</div>
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
+<!--<script>
+$(window).scrollTop($('#SidebarScrol').offset().top); 
+</script>-->

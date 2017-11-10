@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Solde Client 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="col-xs-10" >
+                    <div class="row">  
+                        <!--select2-->
+                        <div class="ng-cloak col-xs-12 col-md-9" style="padding-left: 0">
+                            <h3 class="col-md-2">Client: </h3>
+                            <custom-select1 class="col-md-5" item='name' change-event="change()" style="margin-top: 20px;"/>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                            <thead class="title-tab"> 
+                                <tr> 
+                                    <th style="width: 200px;">Référence Commande</th>
+                                    <th>Client</th>
+                                    <th>Date de Génération</th>
+                                    <th>Date de Modification</th>
+                                    <th>ACTION</th>
+                                </tr> 
+                            </thead> 
+                            <tbody id="space-for-commande">
+                            </tbody> 
+                        </table>
+                    </div>     
+                </div>
+                <br><br><br><br>
+                <div class="clearfix" style=""></div>
+            </div>
+        </div>
+    </div>
+</div>

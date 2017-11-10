@@ -1,0 +1,316 @@
+.vert, .vert:focus {
+    background-color: #2e8965!important;
+    border-color: #2e8965;
+}
+.vert:hover {
+    background-color: #2c7659!important;
+    border-color: #2c7659;
+}
+.rose, .rose:focus {
+    background-color: #762c59!important;
+    border-color: #762c59;
+}
+.rose:hover {
+    background-color: #892e65!important;
+    border-color: #892e65;
+}
+.rotationBlock{
+    -ms-transform: rotate(270deg); /* IE 9 */
+    -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+    transform: rotate(270deg);
+    width: 250px;
+    margin-left: -120px !important; 
+    position: relative;
+    top: 120px !important;
+    font-size: 13px;
+    text-align: left;
+}
+/*@media all {
+    .page-break  { display: none; }
+}*/
+@media print and (color) {
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .logo-amyevolut{
+        margin-top: -55px !important;
+        margin-left: -20px !important;
+        width: 140px !important;
+    }
+
+    blockquote.pull-left{
+        margin-top: -10px !important;
+        font-size: 10px !important;
+        border-top: 1px solid #000 !important;
+        border-right:  1px solid #000 !important;
+        border-bottom: 1px solid #000 !important;
+        color: #000fff;
+    }
+    blockquote.pull-right{
+        padding-left: 5px !important;
+        font-size: 10px !important;
+        max-width: 500px !important;
+        width: 250px !important;
+        text-align: left;
+        border-top: 1px solid #000 !important;
+        border-left:  1px solid #000 !important;
+        border-bottom: 1px solid #000 !important;
+        color: #000fff;
+    }
+    .no-print{
+        display: none !important;
+        /*position: absolute;*/
+        width: 0 !important;
+        height: 0 !important;
+
+    }
+    .devisNone{
+        border:none !important;
+        border-left: 0px solid #fff !important;
+        border-top: 0px solid #fff !important;
+        border-bottom:  0px solid #fff !important;
+    }
+    .page-break{
+        page-break-before: always !important;
+    } 
+
+    /*.page-break {display: block; page-break-after: always !important; height: 100px;}*/
+    table {page-break-inside: auto;page-break-after: auto !important;page-break-before:avoid !important;}
+    tr    { height: 10px !important; page-break-inside:avoid !important; page-break-after:auto  !important;page-break-before:avoid !important;}
+    /*    table {page-break-inside: auto;page-break-after: auto !important}
+        tr    {
+            height: 10px !important;
+            page-break-inside:avoid !important; page-break-after:auto  !important;
+        }*/
+
+    /*        table { page-break-after:always }
+            tr    { page-break-inside:always; page-break-after:always }
+            td    { page-break-inside:always; page-break-after:always }
+            thead { display:table-header-group }
+            tfoot { display:table-footer-group }
+           
+            table tr td {
+                padding-right: 1px;
+                padding-left: 1px;
+            }*/
+    .panel-content{
+        /*font-size: 11px;*/
+    }
+    .panel-header{
+        margin-top: 2px !important;
+    }
+    .tableToPrint {
+        /*margin-top: -100px !important;*/
+    }
+    /*    .thumbnail{
+            margin-top: 30px !important;
+        }*/
+
+    table tr td  {
+        height : 25px !important;
+        font-size: 12px !important;
+        letter-spacing: -0.5px !important;
+        /*font-weight: bold;*/
+    }
+    table tr td.refProduct {
+        /*font-weight: bold;*/
+        font-size: 12px !important;
+    }
+
+    img {
+        max-width:200px !important;
+        /*margin-left: 35px !important;*/
+        /*margin-top: -150px !important;*/
+    }
+    .image{
+        margin-left: 15px !important;
+    }
+
+    .PrintBlock{
+        color:#26619C !important;
+        margin-top: 20px !important;
+        -webkit-print-color-adjust: exact; 
+
+        /*margin-left: -20px !important;*/ 
+        /*        position: relative;
+                top: -50px;*/
+
+    }
+    #state{
+        height: 75px;
+    }
+    .clientInfos{
+        /*margin-top: -65px;*/
+    }
+    .DateDevis{
+        font-size: 14px !important;
+    }
+    .societeInfos{
+        /*margin-top: -25px;*/
+    }
+
+    /*        .footerCommandce{
+                position: relative;
+                margin-top: 50px;
+            }*/
+
+    .table>tbody>tr>td, 
+    .table>tbody>tr>th, 
+    .table>tfoot>tr>td, 
+    .table>tfoot>tr>th, 
+    .table>thead>tr>td, 
+    .table>thead>tr>th {
+        font-size: 11px !important;
+        text-align: left !important;
+        padding-right: 5px !important;
+        padding-left: 5px !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        /*line-height: 0.2 !important;*/
+    }
+    .footerCommande {  
+        display : none !important;
+        /*            clear :both !important;
+                    width: 100%;*/
+        /*position: absolute;*/
+        /*bottom: 0px;*/ 
+    }
+    .col-xs-6, .col-xs-4{
+        /*border: 2px solid #95d5f5 !important;*/
+        color: #95d5f5 !important;
+    }
+    address strong, address span{
+        color:#26619c !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    .block_border{
+        border: 2px solid #2699DC !important;
+    }
+    .border-color{ 
+        color: #2699DC !important;
+    }
+    /*    .block_border{
+            border: 2px solid #95d5f5 !important;
+        }*/ 
+    body{
+        height: 100% !important;
+    }
+    html{
+        height: 100% !important;
+        width: 100% !important;
+        border: 2px solid #000 !important;
+    }
+    .PrintBlock h3,.PrintBlock h3 strong, .PrintBlock h5, h5, h5 strong, .PrintBlock h5 strong{
+        color:#26619c !important;
+        font-size: 13.5px !important;
+        font-weight: 700 !important;
+    }
+    .main-content {
+        position: relative !important;
+    }
+    .raisonSocial{
+        margin-top: 20px !important; 
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        /*border: solid;*/
+    } 
+    .raisonSocial1{
+        margin-top: 15px !important; 
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        position: relative;    
+    } 
+    #footer{ 
+        display: block !important;
+        position: fixed; 
+        bottom: 0;
+        font-size: 9px !important;
+        /*top: 4px;*/
+        /*        right: 10%;
+                left: 10%;*/
+    }
+    .rotationBlock{
+        margin-left: -140px !important; 
+        position: relative;
+        top: 30px !important;
+        font-size: 13px;
+        text-align: left;
+    }
+    .Object{
+        margin-top: -15px !important;
+        text-align: left !important;
+        /*height: 20px !important;*/
+        float: left;
+        font-size: 11px;
+        /*border: solid;*/
+    }
+    .SommeText{
+        /*margin-top: -5px !important;*/
+        font-size: 11px !important;
+        display: none;
+    }
+    .Pourcentage{
+        font-size: 9px !important;
+    }
+    .PourcentageDevis{
+        font-size: 13px !important;
+    }
+    .validation{
+        position: relative;
+        top: -110px !important;
+    }
+
+    .Condition{
+        margin-top: 0px !important;
+
+    }
+    .Condition strong, .Condition span, .merci{
+        font-size: 11px !important;
+
+    }
+    .position{
+        position: relative;
+        top: -120px !important;
+        font-size: 12px !important;
+    }
+    .table{
+        /*width: 710px !important;*/
+        margin-left: -20px !important;
+        /*margin-top: -20px !important;*/
+        margin-right: 0px !important;
+    }
+    #footer .Condition{
+        position: relative !important;
+        top: 2px !important;
+    }
+    .displayBlock{
+        display: block !important;
+        font-size: 11px !important;
+    }
+    @page
+    { 
+        margin: 3mm 3mm 3mm 3mm; 
+    }
+    address > strong {
+        color: #26619C;
+    }
+}
+address > strong {
+    color: #26619C;
+}
+#footer{
+    display: none;
+}
+td{
+    text-align: center !important;
+}
+.devisNone {
+    visibility: hidden;
+    border-left: 1px solid #fff !important;
+    border-top: 1px solid #fff !important;
+    border-bottom:  1px solid #fff !important;
+}

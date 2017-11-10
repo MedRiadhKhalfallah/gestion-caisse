@@ -1,0 +1,92 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Modifier condition de paiement 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+<!--                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>-->
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="form-group" id="groupCp" data-value='{{cp.Payment.name}}'>
+                        <label class="col-md-3 control-label">Type Paiement</label>
+                        <div class="col-md-4" ng-controller="PaymentsController">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                                <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Mode de Paiement..."  ng-model="cp.Cp.payment_id" id="paymentValue">
+                                    <option value=""></option>
+                                    <option value="{{item.Payment.id}}" ng-repeat="item in payments">{{item.Payment.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="col-sm-3 control-label">Echéance</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="text" ng-model="cp.Cp.echeance" id="echeance" placeholder="Echéance" name="typeahead_example_4" class="form-control" /> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn purple" ng-click="editCp($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Modifier</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END MAIN CONTENT --> 
+<script>
+    // Polling for the sake of my intern tests
+    var intervalCp = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalCp);
+            done();
+        }
+    }, 100);
+    function done() {
+//        toastr.info("PAGE LOADED");
+        setTimeout(function () {
+            //Cp
+            var cpValue = $("#groupCp").attr('data-value');
+//            $("#groupCp .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + cpValue + "</p>");
+            $("#groupCp .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + cpValue + "</p>");
+        }, 1500);
+    }
+</script>

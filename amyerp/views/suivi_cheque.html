@@ -1,0 +1,112 @@
+<style>
+    .modal-content{
+        width: 50%;
+        left: 27% !important;
+        position: relative; 
+    }
+    td, th {
+        border: 2px solid #e7ecf1 !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Suivi chèque
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">   
+                <div class="tab_left">
+                    <ul  class="nav nav-tabs nav-red">
+                        <li class="active"><a href="#" data-target="#tab3_1" data-toggle="tab">Liste chèques émis</a></li>
+                        <li><a href="#" data-target="#tab3_2" data-toggle="tab">Liste chèques remis</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab3_1">
+                            <div class="page-header">
+                                <h3> État des listes de chèques émis:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <table class="table table-striped" wt-responsive-table>
+                                    <thead>
+                                        <tr>
+                                            <th> N° CHEQUE </th>
+                                            <th> DATE </th>
+                                            <th> BENEFICIAIRE </th>
+                                            <th> MONTANT </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="reglement in reglementsachats">
+                                            <td>{{reglement.Reglement.numero}}</td>
+                                            <td>{{reglement.Reglement.date}}</td>
+                                            <td>{{reglement.Fournisseur.name}}</td>
+                                            <td>{{reglement.Reglement.value}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_2">
+                            <div class="page-header">
+                                <h3> État des remises de chèques:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <table class="table table-striped" wt-responsive-table>
+                                    <thead>
+                                        <tr>
+                                            <th> N° REMISE </th>
+                                            <th> DATE </th>
+                                            <th> NOM CLIENT </th>
+                                            <th> MONTANT TTC </th>
+                                            <th> TAUX DE TVA </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="reglement in reglementsventes">
+                                            <td>{{reglement.Reglement.numero}}</td>
+                                            <td>{{reglement.Reglement.date}}</td>
+                                            <td>{{reglement.Commande.User.full_name}}</td>
+                                            <td>{{reglement.Reglement.value}}</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="myModalReglement.html">
+    <div class="modal-header" id="modal-header-reglement" data-cmdid="" data-index="">
+    <h3 class="modal-title">Suppression Reglement: </h3>
+    </div>
+    <div class="modal-body">
+    <p> voulez vous vraiment supprimer cette Reglement ? <p>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="cancelReglement(regle.id)">Delete</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

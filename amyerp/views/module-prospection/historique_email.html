@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste des e-mails envoyés </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <!--                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                            <i class="fa fa-print"></i> Print </a>-->
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr>
+                            <th>Date de l'e-mail</th>
+                            <th>Nom du client</th>
+                            <th>phone </th>
+                            <th>Contenu de l'e-mail</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="($index, email) in dataEmailHistorique | filter:search |itemsPerPage:20">
+                            <td>{{email.Prospection.created}}</td>
+                            <td>{{email.User.last_name}} {{email.User.first_name}}</td>
+                            <td>{{email.User.phone}}</td>
+                            <td>{{email.Prospection.content}}</td>  
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="other-controller" style="float: right;">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="tpl/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

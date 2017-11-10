@@ -1,0 +1,78 @@
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i> Prospection sélèctive par message  </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <!--                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                            <i class="fa fa-print"></i> Print </a>-->
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!--                <form class="form-inline" style="float: right">
+                                    <div class="form-group">
+                                        <label >Recherche</label>
+                                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                                    </div>
+                                </form>-->
+                <div class="clearfix"></div>
+                <div class="row">
+                    <!--                    <div class="col-sm-3 col-md-2">
+                                            <a href="#/envoi-mail" class="btn btn-danger btn-sm btn-block active" role="button">CRÉER</a>
+                                            <hr />
+                                            <ul class="nav nav-pills nav-stacked">
+                                                <li><a href="#/important">Important(s)</a></li>
+                                                <li><a href="#/sended">Éléments envoyés</a></li>
+                                                <li><a href="#/draft"><span class="badge pull-right">3</span>Brouillon(s)</a></li>
+                                                <li><a href="#/trash"><span class="badge pull-right">3</span>Corbeille</a></li>
+                                            </ul>
+                                        </div>-->
+                    <div class="col-sm-9 col-md-10">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"> message </label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <textarea  style="width:500px; height:50px;" id="content_user"  class="form-control" > </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"></div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-9 col-md-9">
+                                    <button type="submit" class="btn purple" ng-click="ajoutermultimsg($event)">
+                                        <i class="fa fa-check"></i> Envoyer </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function () {
+        //        console.clear();
+    }, 1000);
+</script>

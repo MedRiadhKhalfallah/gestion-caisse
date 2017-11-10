@@ -1,0 +1,165 @@
+<div id="myModal_journal" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 100%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <!-- BEGIN MAIN CONTENT -->
+                <style>
+                    .statcostum{
+                        padding: 50px;
+                        padding-bottom: 125px;
+                        line-height: 20px;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                    }
+                    @media (min-width: 992px){
+                        .col-md-6{
+                            width: 48% !important;
+                            margin-left: 2%;
+                        }  
+                    }
+                    a.canvasjs-chart-credit{
+                        display : none !important;
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                        <div class="portlet-body">
+                                <div class="form-group col-md-5">
+                                    <label class="control-label col-md-4">Date Début</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                            <input  style="z-index: 100000;" type="text" id="DateDebut2" class="form-control" placeholder="Date De Début" readonly ng-model="date_debut">
+                                        </div>
+                                        <!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label class="control-label col-md-4">Date Fin</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                            <input style="z-index: 100000;" type="text" id="DateFin2" class="form-control" placeholder="Date De Fin" readonly ng-model="date_fin">
+                                        </div>
+                                        <!-- /input-group -->
+                                    </div>
+                                </div>
+
+                                <div class="form-actions col-md-2" style="background-color: #fff;">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button ng-click="journal_caisse(date_debut,date_fin)" class='btn purple'  style='float: right'><i class='fa fa-check'></i> Envoyer</button> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            <br><br>
+                            
+                            
+                            <table id="ttbody" class="tabl_imp table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr >
+                            <th> DÉSIGNATION </th>
+                            <th> QTÉ </th>
+                            <th> QTÉ STOCK </th>
+                            <th> P.U.</th>
+                            <th> R. %</th>
+                            <th > X</th>
+                        </tr>
+                    </thead>
+                                
+                    <tbody >
+                        <tr class="odd gradeX" ng-repeat="reg in reglements ">
+
+                            <td> {{reg.Reglement.id}} </td>
+                            <td>
+                                {{reg.Reglement.type}}
+                            </td>
+                            <td> {{reg.Reglement.numero}}</td>
+
+
+
+
+                            <td> {{reg.Reglement.date}} </td>
+                            <td> {{reg.Reglement.value}} </td>
+                            <td> {{reg.Commande.ref}} </td>
+
+
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+                            
+
+                        </div>
+                        <!-- END EXAMPLE TABLE PORTLET-->
+                    </div>
+                </div>
+                <script>
+                    setTimeout(function () {
+                        //        console.clear();
+                    }, 1000);
+                    setTimeout(function () {
+                        //        $('#DateDebut').datepicker({dateFormat: "yy-mm-dd"});
+                        //        $('#DateFin').datepicker({dateFormat: "yy-mm-dd"});
+                        $('#DateDebut2').datepicker({
+                            altField: "#DateFin",
+                            closeText: 'Fermer',
+                            prevText: 'Précédent',
+                            nextText: 'Suivant',
+                            currentText: 'Aujourd\'hui',
+                            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                            weekHeader: 'Sem.',
+                            dateFormat: "yy-mm-dd"
+                        });
+                        //        $('#DateFin').datepicker({dateFormat: "yy-mm-dd"});
+                        $('#DateFin2').datepicker({
+                            altField: "#DateFin",
+                            closeText: 'Fermer',
+                            prevText: 'Précédent',
+                            nextText: 'Suivant',
+                            currentText: 'Aujourd\'hui',
+                            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                            weekHeader: 'Sem.',
+                            dateFormat: "yy-mm-dd"
+                        });
+                    }, 500);
+                </script>
+                <!--<script>
+                    TableDatatablesManaged.init();
+                </script>-->
+                <!-- END MAIN JS -->
+
+
+                <!--*****************************-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div></div>
+</div>

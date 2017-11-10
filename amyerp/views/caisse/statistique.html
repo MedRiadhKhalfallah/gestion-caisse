@@ -1,0 +1,181 @@
+<div id="myModal_statistique" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 100%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <!-- BEGIN MAIN CONTENT -->
+                <style>
+                    .statcostum{
+                        padding: 50px;
+                        padding-bottom: 125px;
+                        line-height: 20px;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                    }
+                    @media (min-width: 992px){
+                        .col-md-6{
+                            width: 48% !important;
+                            margin-left: 2%;
+                        }  
+                    }
+                    a.canvasjs-chart-credit{
+                        display : none !important;
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                        <div class="portlet-body">
+                            <form action="#" class="form-horizontal form-bordered">
+                                <div class="form-group col-md-5">
+                                    <label class="control-label col-md-4">Date Début</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                            <input  style="z-index: 100000;" type="text" id="DateDebut3" class="form-control" placeholder="Date De Début" readonly>
+                                        </div>
+                                        <!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label class="control-label col-md-4">Date Fin</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                            <input style="z-index: 100000;" type="text" id="DateFin3" class="form-control" placeholder="Date De Fin" readonly>
+                                        </div>
+                                        <!-- /input-group -->
+                                    </div>
+                                </div>
+
+                                <div class="form-actions col-md-2" style="background-color: #fff;">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type='submit' ng-click="ReloadSales($event)" class='btn purple'  style='float: right'><i class='fa fa-check'></i> Envoyer</button> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form><br><br>
+                            <div class="col-md-6 statcostum">
+                                <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                            </div>
+                            <div class="col-md-6 statcostum">
+                                <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+                            </div>
+                            
+                            
+                            <div class="col-md-6 statcostum" style=" margin-top: 30px;">
+                                <div id="chartContainerVente" style="height: 300px; width: 100%;"></div>
+                            </div>
+                            <div class="col-md-6 statcostum" style=" margin-top: 30px;">
+                                <div id="chartContainerVenteClient" style="height: 300px; width: 100%;"></div>
+                            </div>
+                            
+                            
+                            <div class="col-md-6 statcostum" style=" margin-top: 30px;">
+                                <div id="chartContainerAchat" style="height: 300px; width: 100%;"></div>
+                            </div>
+                            <div class="col-md-6 statcostum" style=" margin-top: 30px;">
+                                <div id="chartContainerStock" style="height: 300px; width: 100%;"></div>
+                            </div>
+                            <div class="col-md-6 statcostum" style=" margin-top: 30px;padding-bottom: 50px;">
+                                <div id="chartContainerProduct" style="height: 300px; width: 100%;"></div>
+                                <div class="ng-cloak col-xs-12 col-md-9" style="padding-left: 0">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-3 control-label" style="position: relative; font-size: 24px;">Produit </label>
+                                        <div class="col-md-9"> 
+                                            <div class="input-group">
+                                                <selectsalesproduct class="col-md-10" item='name' change-event="change()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<h3 class="col-md-3" style="position: relative; top: 7px;">Fournisseur: </h3>-->
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 statcostum" style=" margin-top: 30px;padding-bottom: 50px;">
+                                <div id="chartContainerProductQte" style="height: 300px; width: 100%;"></div>
+                                <div class="ng-cloak col-xs-12 col-md-9" style="padding-left: 0">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-3 control-label" style="position: relative; font-size: 24px;">Produit </label>
+                                        <div class="col-md-9"> 
+                                            <div class="input-group">
+                                                <selectsalesachatqteproduct class="col-md-10" item='name' change-event="change()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<h3 class="col-md-3" style="position: relative; top: 7px;">Fournisseur: </h3>-->
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+                        <!-- END EXAMPLE TABLE PORTLET-->
+                    </div>
+                </div>
+                <script>
+                    setTimeout(function () {
+                        //        console.clear();
+                    }, 1000);
+                    setTimeout(function () {
+                        //        $('#DateDebut').datepicker({dateFormat: "yy-mm-dd"});
+                        //        $('#DateFin').datepicker({dateFormat: "yy-mm-dd"});
+                        $('#DateDebut3').datepicker({
+                            altField: "#DateFin",
+                            closeText: 'Fermer',
+                            prevText: 'Précédent',
+                            nextText: 'Suivant',
+                            currentText: 'Aujourd\'hui',
+                            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                            weekHeader: 'Sem.',
+                            dateFormat: "yy-mm-dd"
+                        });
+                        //        $('#DateFin').datepicker({dateFormat: "yy-mm-dd"});
+                        $('#DateFin3').datepicker({
+                            altField: "#DateFin",
+                            closeText: 'Fermer',
+                            prevText: 'Précédent',
+                            nextText: 'Suivant',
+                            currentText: 'Aujourd\'hui',
+                            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                            weekHeader: 'Sem.',
+                            dateFormat: "yy-mm-dd"
+                        });
+                    }, 500);
+                </script>
+                <!--<script>
+                    TableDatatablesManaged.init();
+                </script>-->
+                <!-- END MAIN JS -->
+
+
+                <!--*****************************-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div></div>
+</div>

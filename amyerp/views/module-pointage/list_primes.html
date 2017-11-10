@@ -1,0 +1,127 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Primes </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Primes 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/dashboard-pointage" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Pointage & Paie
+                    </a>
+                    <a href="#/ajout-prime" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer 
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr>
+                            <th> Nom </th>
+                            <!--<th> Nombre de Produit </th>-->
+                            <th> Date de création </th>
+                            <th> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left;">
+                        <tr class="odd gradeX" dir-paginate="($index, item) in primes | filter:search |itemsPerPage:10" id="PrimeRows" data-prime="{{item.Prime.id}}">
+                            <td>{{item.Prime.name}}</td>
+                            <!--<td>{{item.Prime.product_count}}</td>-->
+                            <td>{{item.Prime.created}}</td>
+                            <td style="width: 200px;">  
+                                <ul class="nav nav-pills">
+                                    <li>
+                                        <div>
+                                            <a href="#/edit-prime/{{item.Prime.id}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                                        </div>                                        
+                                    </li>
+                                    <li>
+                                        <div ng-controller="ModalPrimeCtrl">
+                                            <button id="primeSumbit" data-index="{{$index}}" data-item="{{item.Prime.id}}"  ng-click="open(item.Prime.id, $index)" data-name="{{item.Prime.name}}" data-cmd="{{item.Prime.id}}" class="btn btn-danger btn-embossed btn-sm">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </li>                                    
+                                </ul>               
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <dir-pagination-controls
+                    max-size="5"
+                    direction-links="true"
+                    boundary-links="true"  style="float: right; top: -28px;position: relative;" class="portlet-body">
+                </dir-pagination-controls>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+        <div id="login-box" class="login-popup" data-id="" data-index="" ng-controller="ModalPrimeCtrl">
+            <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+            <form method="post" class="signin" action="#">
+                <fieldset class="textbox">
+                    <label class="password">
+                        <span>Code Validation</span>
+                        <input id="codeRoot" ng-model="codeRoot" value="" type="password" placeholder="Code Validation">
+                    </label>
+                    <button class="submit button" type="button" ng-click="validateAction($event)">Activer</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="deletePrime.html">
+    <div class="modal-dialog" id="DeletePrime" data-id="" data-index="">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé Prime</h4>
+    </div>
+    <div class="modal-body">
+    <p>Voulez vous vraiment supprimé ce prime ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deletePrime(item.Prime.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+    </div>
+    </div>
+</script>
+<script>
+    setTimeout(function () {
+//    console.clear();
+    }, 1000);</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

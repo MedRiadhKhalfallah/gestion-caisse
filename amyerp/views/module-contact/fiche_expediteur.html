@@ -1,0 +1,921 @@
+
+<style>
+    .globalSearch {
+        display: inherit;
+        clear: none;
+        width: 200px;
+        float: left;
+        margin-right: 10px;
+        height: 26px;
+    }
+    table tr th{
+        font-size: 12px !important;
+    }
+    table tr td{ 
+        font-weight: 600;
+        font-size: 11.5px !important;
+    }
+    table#listeExpediteur tr th{
+        font-size: 13.5px !important;
+    }
+    table#listeExpediteur tr td{
+        font-weight: 600;
+        font-size: 13.5px !important;
+    }
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    @media (min-width: 768px){
+        .modal-dialog{width: 80% !important;}
+    }
+    table.ui-datepicker-calendar thead tr:first-child {
+        background: #0097A7;
+        color: #fff;
+        border: 1px solid #080a0a !important;
+    }
+    .nav-tabs>li>a {
+        font-size: 13px !important;
+    }
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 6.5px !important;
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Fiche Expediteur </div>
+                <div class="actions">
+                    <input type='text' ng-model="globalSearchRef" ng-keypress="searchGloablCmd($event)" placeholder="Recherche globale" class="form-control globalSearch" id="globalSearch" /> 
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">   
+
+                <div class="tab_left">
+                    <ul  class="nav nav-tabs nav-red">
+                        <!--<li class="active"><a href="#" data-target="#tab3_1" data-toggle="tab" ng-click="update_en_attente_ramassage()">En attente ramassage ou dépôt </a></li>-->
+                        <li class="active"><a href="#" data-state-cmd="Non Traitée" data-target="#tab3_1" data-toggle="tab" ng-click="update_client_ramassage_depot()">En attente ramassage ou dépôt </a></li>
+                        <!--<li><a href="#" data-target="#tab3_2" data-toggle="tab">Commandes dépot en attente</a></li>-->
+                        <li><a href="#" data-state-cmd="En Cours" data-target="#tab3_2" data-toggle="tab" ng-click="update_recuperee()">Récupérées</a></li>
+                        <li><a href="#" data-state-cmd="En stock" data-target="#tab3_3" data-toggle="tab" ng-click="update_en_stock()" id="noFocus">Stock</a></li>
+                        <li><a href="#" data-state-cmd="AttenteLivraison" data-target="#tab3_4" data-toggle="tab" ng-click="update_en_attente_livraison()">En cours de livraison</a></li>
+                        <li><a href="#" data-state-cmd="Livrée" data-target="#tab3_5" data-toggle="tab" ng-click="update_livraison()">Livrées</a></li>
+                        <li><a href="#" data-state-cmd="Retour" data-target="#tab3_6" data-toggle="tab" ng-click="update_retour()">Retours</a></li>
+                        <li><a href="#" data-state-cmd="Annulée" data-target="#tab3_7" data-toggle="tab" ng-click="update_annulation()">Annulations</a></li>
+                        <li><a href="#" data-state-cmd="Facturée" data-target="#tab3_8" data-toggle="tab" ng-click="update_facturees()">Facturées</a></li>
+                        <li><a href="#" data-state-cmd="Retour Expéditeur" data-target="#tab3_9" data-toggle="tab" ng-click="update_retour_expediteur()">Retour expéditeur</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab3_1"> 
+                            <div class="col-md-12" style="padding-left: 0;padding-right: 0;">
+                                <div class="page-header">
+                                    <h3 class="col-md-5"><span class="glyphicon glyphicon-user"></span> Liste expéditeurs : </h3>
+                                    <div class="clearfix"></div>
+                                </div> 
+                                <div class="panel-content">
+                                    <div class="col-md-12" style="padding-left: 0;padding-right: 0;"> 
+                                        <div class="clearfix"></div>
+                                        <form class="form-inline" style="float: right">
+                                            <div class="form-group">
+                                                <label >Recherche</label>
+                                                <input type="text" ng-model="searchRamassageDepot" ng-change="searchRamassageDepotFunc(searchRamassageDepot)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                            </div>
+                                        </form>
+                                        <div class="clearfix"></div><br>
+                                        <table id="listeExpediteur" class="table table-striped table-bordered table-hover table-checkable order-column">
+                                            <thead>
+                                                <tr>
+                                                    <th> </th>
+                                                    <th> Date de Génération </th>
+                                                    <th> Référence </th>
+                                                    <th> Expediteur </th>
+                                                    <th> Destinataire </th>
+                                                    <th> Actions </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="text-align: left;" id="ramassageDepotPaginate">
+                                                <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsRamassageDepot" id="CommandeEnterStock" data-data-id="{{commande.Commande.id}}">
+                                                    <td>
+                                                        <div>
+                                                            <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                        </div> 
+                                                    </td>
+                                                    <td style="width: 160px;">{{commande.Commande.created}}</td>
+                                                    <td>{{commande.Commande.ref}}</td>
+                                                    <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td>
+                                                    <td>{{commande.Receiver.full_name}}</td> 
+                                                    <td>
+                                                        <ul class="nav nav-pills">
+                                                            <li>
+                                                                <div>
+                                                                    <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                </div>                                        
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody> 
+
+                                        </table>
+
+                                        <div class="clearfix"></div><br>
+                                        <div class="pull-right">
+                                            <ul uib-pagination
+                                                next-text="Suivant"
+                                                previous-text="Précédent"
+                                                ng-if="totalItems" 
+                                                class="pagination-sm" 
+                                                boundary-link-numbers="true" 
+                                                max-size="5" 
+                                                rotate="false" 
+                                                total-items="totalItems" 
+                                                force-ellipses="true" 
+                                                items-per-page="itemsPerPage"
+                                                ng-model="paging.page" 
+                                                ng-change="pageChanged(paging.page)"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_2">
+                            <div class="page-header">
+                                <h3 class="col-md-5"> Commandes récupérées:</h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchClientRecuperees" ng-change="searchClientRecupereesFunc(searchClientRecuperees)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div><br>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-3">Nbre total de commandes : <label class="label label-sm label-success">{{countClientRecuperees}}</label></label>  
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <!--table commandes récupérer-->
+
+                                    <table id="listeExpediteur" class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence </th>
+                                                <th> Expediteur </th>
+                                                <th> Destinataire </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="recupereerPaginate">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsClientRecuperees" id="CommandeEnterStock" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.created}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td>
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+
+                                    </table>
+
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItemsRecuperee" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItemsRecuperee" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPageRecuperee"
+                                            ng-model="pagingRecuperee.page" 
+                                            ng-change="pageChangedRecuperee(paging.page)"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_3">
+                            <div class="page-header">
+                                <div class="col-md-4">
+                                    <h3 class="col-md-12"> Commandes en stock:</h3>
+                                    <label class="control-label col-md-12" style="position: relative; top: 30px;">Nbre total de commandes : <label class="label label-sm label-info" id="countTotal">{{countEnStock}}</label></label>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-content">
+                                <div class="clearfix"></div>
+                                <form class="form-inline" style="float: right">
+                                    <div class="form-group">
+                                        <label >Recherche</label>
+                                        <input type="text" ng-model="searchEnStock" ng-change="searchEnStockFunc(searchEnStock)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                    </div>
+                                </form>
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence </th>
+                                                <th> Statut </th>
+                                                <th> Cause Statut </th>
+                                                <th> Source </th>
+                                                <th> Récupérateur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th style="min-width: 120px;width: 200px;"> Adresse de destinataire</th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="CommaneInStock" class="CommaneInStock">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsEnStock" id="CommandeEnterStock" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td ng-if="commande.Commande.state == 'Annulée'"><label class="label label-danger label-sm">Annulation ({{commande.Commande.countRetour}})</label></td>
+                                                <td ng-if="commande.Commande.state == 'Retour'"><label class="label label-info label-sm">Retour ({{commande.Commande.countRetour}})</label></td>
+                                                <td ng-if="commande.Commande.state == 'En stock'"><label style="background-color: #36c6d3;font-weight: 300;color: #fff;font-family: 'Open Sans',sans-serif;text-shadow: none!important;border-radius: .25em;padding: 2px 5px;">En attente livraison</label></td>
+                                                <td ng-if="commande.Commande.state == 'En Cours'"><label style="background-color: #36c6d3;font-weight: 300;color: #fff;font-family: 'Open Sans',sans-serif;text-shadow: none!important;border-radius: .25em;padding: 2px 5px;">En attente livraison</label></td>
+                                                <!--<td ng-if="commande.Commande.state === 'Retour'"><label class="btn btn-sm btn-info">{{commande.Commande.cause_nonlivraison}} ({{commande.Commande.countRetour}})</label></td>-->
+                                                <td ng-if="commande.Commande.state === 'Retour'">{{commande.Commande.cause_nonlivraison}}</td>
+                                                <!--<td ng-if="commande.Commande.state === 'Annulée'"><label class="btn btn-sm btn-danger">{{commande.Commande.cause_nonlivraison}} ({{commande.Commande.countRetour}})</label></td>-->
+                                                <td ng-if="commande.Commande.state === 'Annulée'">{{commande.Commande.cause_nonlivraison}}</td>
+                                                <td ng-if="commande.Commande.state === 'En stock'"></td>
+                                                <td>{{commande.Commande.source}}</td>
+                                                <!--<td></td>-->
+                                                <td ng-if="commande.Commande.livreur_id != 0">
+                                                    <div style="background-color: #3a80d7;border-radius: .25em;border-color: #286ec5;text-align: center;">
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="" style="font-size: 11px;background-color: #3a80d7;color: #fff;text-decoration: none;">{{commande.Livreur.first_name}} {{commande.Livreur.last_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <td ng-if="commande.Commande.livreur_id == 0">
+                                                    Déposée
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td>
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <td>
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItemsStock" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItemsStock" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPageStock"
+                                            ng-model="pagingStock.page" 
+                                            ng-change="pageChangedStock(paging.page)"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                     
+                        <div class="tab-pane fade" id="tab3_4">
+                            <div class="page-header">
+                                <h3> Commandes en cours de livraison:</h3>
+                            </div>
+
+                            <div class="panel-content">
+                                <div class="clearfix"></div>
+                                <form class="form-inline" style="float: right">
+                                    <div class="form-group">
+                                        <label >Recherche</label>
+                                        <input type="text" ng-model="searchAttLivraison" ng-change="searchAttLivraisonFunc(searchAttLivraison)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                    </div>
+                                </form>
+                                <div class="clearfix"></div>
+                                <!--<button class="pull-left btn btn-info" ng-click="showAdvancedSearchAttLivraison()">Recherche Avancée <i class="fa fa-search"></i></button>-->
+                                <div class="clearfix"></div>
+                                <br>
+                                <br>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre de commandes : <label class="label label-sm label-info">{{countEnattentelivraison}}</label></label>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="enCoursLivraisonPaginate">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsEnCoursLivraison" id="CommandeRows" data-data-id="{{commande.Commande.id}}" data-livree="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td>  
+                                                <td>
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                         
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItemsAttLivraison" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItemsAttLivraison" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPageAttLivraison"
+                                            ng-model="pagingAttLivraison.page" 
+                                            ng-change="pageChangedAttLivraison(pagingAttLivraison.page)"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="tab-pane fade" id="tab3_5">
+                            <div class="page-header">
+                                <h3> Commandes livrées:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchLivree" ng-change="searchLivreeFunc(searchLivree)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre de commandes : <label class="label label-sm label-info">{{countLivree}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="livreePaginate">
+                                            <!--<tr class="odd gradeX"  ng-repeat="($index, commande) in CmdsLivree" dir-paginate="($index, commande) in commandeslivrees | filter:search |itemsPerPage:30" id="CommandeRowsLivree" data-data-id="{{commande.Commande.id}}">-->
+                                            <tr class="odd gradeX"  ng-repeat="($index, commande) in CmdsLivree" id="CommandeRowsLivree" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <!--<td>{{commande.Receiver.full_name}}</td>-->
+                                                <td style="width: 190px;">   
+                                                    <ul class="nav nav-pills">
+                                                        <ul class="nav nav-pills">
+                                                            <li>
+                                                                <div>
+                                                                    <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                </div>                                        
+                                                            </li>
+                                                        </ul>
+                                                    </ul> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItemsLivree" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItemsLivree" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPageLivree"
+                                            ng-model="pagingLivree.page" 
+                                            ng-change="pageChangedLivree(pagingLivree.page)"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_6">
+                            <div class="page-header">
+                                <h3> Retour Commandes:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" id='searchRetour' ng-model="searchRetour" ng-change="searchRetourFunc(searchRetour)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="form-group col-md-9">
+                                        <label class="col-md-7 control-label" style="position: relative; font-size: 22px;">Filtrer état de retour de commande: </label>
+                                        <div class="col-md-5">
+                                            <div class="input-group" style="min-width: 250px !important;height: 34px !important;">
+                                                <select class="selectpicker" title="Select état de retour..." style="min-height: 34px !important; min-width: 200px !important" ng-model="etatRatoures" id="searchRetourees" ng-change="etatRetourees()">
+                                                    <option value="" style="display: none;"></option>
+                                                    <option value="tous">Tous</option>
+                                                    <option value="enstock">En stock</option>
+                                                    <option value="horsstock">Hors stock</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre de commandes : <label class="label label-sm label-info">{{countRetour}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr> 
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Cause retour </th>
+                                                <th style="width: 200px;"> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="commandeRetours">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsRetour" id="CommandeRowsRetours" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div  style="background-color: #36c6d3;font-weight: 300;color: #fff;font-family: 'Open Sans',sans-serif;text-shadow: none!important;border-radius: .25em;padding: 2px 5px;">
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" style="text-decoration: none;font-weight: 300; color: #fff;">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <td>{{commande.Commande.cause_nonlivraison}}</td>
+                                                <td style="width: 200px;">
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li> 
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItemsRetour" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItemsRetour" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPageRetour"
+                                            ng-model="pagingRetour.page" 
+                                            ng-change="pageChangedRetour(pagingRetour.page)"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_7">
+                            <div class="page-header">
+                                <h3> Commandes annulées:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchAnnulee" ng-change="searchAnnuleeFunc(searchAnnulee)" id="searchAnnulees" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+
+                                    <div class="form-group col-md-9">
+                                        <!--<label class="col-md-3 control-label" style="position: relative; font-size: 24px;">Fournisseur: </label>-->
+                                        <label class="col-md-7 control-label" style="position: relative; font-size: 22px;">Filtrer état d'annulation de commande: </label>
+                                        <div class="col-md-5">
+                                            <div class="input-group" style="min-width: 250px !important;height: 34px !important;">
+                                                <!--<filter-select-annulation class="col-md-10" item='name' change-event="change()" />-->
+                                                <select class="selectpicker" title="Select état d'annulation..." style="min-height: 34px !important; min-width: 200px !important" ng-model="etatFactures" id="etatFactures" ng-change="etatFactureAnnulees(etatFactures)">
+                                                    <option value="" style="display: none;"></option>
+                                                    <option value="tous">Tous</option>
+                                                    <option value="facturer">Attente facturation</option>
+                                                    <option value="notfacture">En cours d'annulation</option>
+                                                    <option value="annuleactive">Affectation activée</option>
+                                                    <option value="enstock">En stock</option>
+                                                    <option value="horsstock">Hors stock</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre total de commandes : <label class="label label-sm label-info" id="countwaitdone">{{countAnnuleeTotal}}</label></label>
+                                        <label class="control-label col-md-4">Nbre de commandes Attente facturation : <label class="label label-sm label-success" id="countwaitback">{{countannuleenotfacture}}</label></label>
+                                        <label class="control-label col-md-4">Nbre de commandes en cours d'annulation : <label class="label label-sm label-success" id="countwaitcancel">{{countannuleefacture}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> </th>
+                                                <th> Date de Génération </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <!--<th> Cause annulation </th>-->
+                                                <th> Actions </th>
+                                                <!--<th> </th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="CommandeannulationAll">
+                                            <tr class="CommandeRowsAnnulee odd gradeX" ng-repeat="($index, commande) in CmdsAnnulee" id="CommandeRowsAnnulee" data-data-id="{{commande.Commande.id}}" data-annulation-id="{{commande.Commande.id}}">
+                                                <!--<tr class="CommandeRowsAnnulee odd gradeX" ng-repeat="($index, commande) in commandesannulee" id="CommandeRowsAnnulee" data-data-id="{{commande.Commande.id}}" data-annulation-id="{{commande.Commande.id}}">-->
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <td style="min-width: 150px;">
+                                                    <div class="btn-group">
+                                                        <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                            <i class="fa fa-eye"></i>  Voir
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItemsAnnulee" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItemsAnnulee" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPageAnnulee"
+                                            ng-model="pagingAnnulee.page" 
+                                            ng-change="pageChangedAnnulee(pagingAnnulee.page)">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_8">
+                            <div class="page-header">
+                                <h3> Commandes facturées:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchFacturee" ng-change="searchFactureeFunc(searchFacturee)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre total de commandes : <label class="label label-sm label-info" id="countwaitdone">{{countFacturee}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Date de Facturation </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsFacturee" id="CommandeRows" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td>
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <!--<td>{{commande.Receiver.full_name}}</td>-->
+                                                <td>  
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li> 
+                                                    </ul> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItemsFacturee" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItemsFacturee" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPageFacturee"
+                                            ng-model="pagingFacturee.page" 
+                                            ng-change="pageChangedFacturee(pagingFacturee.page)">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_9">
+                            <div class="page-header">
+                                <h3> Commandes retournées à l'expéditeur:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="clearfix"></div>
+                                    <form class="form-inline" style="float: right">
+                                        <div class="form-group">
+                                            <label >Recherche</label>
+                                            <input type="text" ng-model="searchRetourExpediteur" ng-change="searchRetourExpediteurFunc(searchRetourExpediteur)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div><br>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-4">Nbre total de commandes : <label class="label label-sm label-info" id="countwaitdone">{{countRetourExpediteur}}</label></label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Date de Retour </th>
+                                                <th> Référence Commande </th>
+                                                <th> Date de livraison </th>
+                                                <th> Livreur </th>
+                                                <th> Expéditeur </th>
+                                                <th> Destinataire </th>
+                                                <th> Adresse destinataire </th>
+                                                <th> Ville </th>
+                                                <th> Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="retourExpediteurPaginate">
+                                            <tr class="odd gradeX" ng-repeat="($index, commande) in CmdsRetourExpediteur" id="CommandeRows" data-data-id="{{commande.Commande.id}}">
+                                                <td>
+                                                    <div>
+                                                        <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                    </div> 
+                                                </td> 
+                                                <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                                <td>{{commande.Commande.ref}}</td>
+                                                <td>{{commande.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <div>
+                                                        <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                    </div>  
+                                                </td>
+                                                <!--                                                <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                                                                                <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> -->
+                                                <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td> 
+                                                <td>{{commande.Receiver.full_name}}</td> 
+                                                <td>{{commande.Receiver.adresse}}</td> 
+                                                <td>{{commande.Receiver.Ville.name}}</td> 
+                                                <!--<td>{{commande.Receiver.full_name}}</td>-->
+                                                <td>  
+                                                    <ul class="nav nav-pills">
+                                                        <li>
+                                                            <div>
+                                                                <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </div>                                        
+                                                        </li>
+                                                    </ul> 
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                    <div class="clearfix"></div><br>
+                                    <div class="pull-right">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItemsRetourExpediteur" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItemsRetourExpediteur" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPageRetourExpediteur"
+                                            ng-model="pagingRetourExpediteur.page" 
+                                            ng-change="pageChangedRetourExpediteur(pagingRetourExpediteur.page)">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET--> 
+    </div>
+</div>
+<script type="text/ng-template" id="myHistoriqueCommande.html">
+        <div class="modal-header" id="modal-commande-historique" data-cmdid="" data-index="">
+        <h3 class="modal-title">Historiques de commande : <strong id="refCommandeHistorique"></strong></h3>
+        </div>
+        <div class="modal-body">
+        <div>
+        <ul class = "list-group" id='HistoriquesCommande'></ul>
+        </div>
+        </div> 
+        <div class="modal-footer">
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Fermer</button>
+        </div>
+
+</script>

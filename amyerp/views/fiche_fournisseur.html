@@ -1,0 +1,185 @@
+<style>
+    .modal-content{
+        width: 50%;
+        left: 27% !important;
+        position: relative; 
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Fiche Fournisseur 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a> 
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>  
+            <div class="portlet-body"> 
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h3><span class="glyphicon glyphicon-user"></span> Fiche de fournisseur:</h3>
+                    </div> 
+                    <div class="panel-content">
+                        <p><strong>Raison Sociale: </strong> {{fournisseur.Fournisseur.name}}</p>
+                        <p><strong>Adresse: </strong> {{fournisseur.Fournisseur.adresse}}</p>
+                        <!--<p><strong>Ville: </strong> {{fournisseur.Ville.name}}</p>-->
+                        <!--<p><strong>Code Postal: </strong> {{fournisseur.Fournisseur.postal}}</p>-->
+                        <p><strong>Email: </strong> {{fournisseur.Fournisseur.email}}</p>
+                        <p><strong>Téléphone: </strong> {{fournisseur.Fournisseur.phone}}</p>
+                    </div>
+                </div>  
+                <div class="tab_left">
+                    <ul  class="nav nav-tabs nav-red">
+                        <li class="active"><a href="#" data-target="#tab3_1" data-toggle="tab">Informations</a></li>
+                        <li><a href="#" data-target="#tab3_2" data-toggle="tab">Factures</a></li>
+                        <!--<li><a href="#" data-target="#tab3_3" data-toggle="tab">Commandes</a></li>-->
+                        <li><a href="#" data-target="#tab3_4" data-toggle="tab">Solde</a></li>
+                        <li><a href="#" data-target="#tab3_5" data-toggle="tab">Reglement</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab3_1">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h3><span class="glyphicon glyphicon-user"></span> Fiche Fournisseur:</h3>
+                                </div> 
+                                <div class="panel-content">
+                                    <p><strong>Raison Sociale: </strong> {{fournisseur.Fournisseur.name}}</p>
+                                    <p><strong>Adresse: </strong> {{fournisseur.Fournisseur.adresse}}</p>
+                                    <!--<p><strong>Ville: </strong> {{fournisseur.Ville.name}}</p>-->
+                                    <!--<p><strong>Code Postal: </strong> {{fournisseur.Fournisseur.postal}}</p>-->
+                                    <p><strong>Email: </strong> {{fournisseur.Fournisseur.email}}</p>
+                                    <p><strong>Téléphone: </strong> {{fournisseur.Fournisseur.phone}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_2">
+                            <div class="page-header">
+                                <h3> Liste des Factures:</h3>
+                            </div>
+                            <div class="panel-content" ng-controller="FicheFournisseurController">
+                                <div  ng-if="facturesfournisseur.length === 0">
+                                    <p>pas de facture émis pour cet fournisseur.</p>
+                                </div>
+                                <table ng-if="facturesfournisseur.length > 0" class="table table-striped" wt-responsive-table>
+                                    <tr>
+                                        <th> Code Facture </th>
+                                        <th> Fournisseur </th>
+                                        <th> Date de Génération </th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr ng-repeat="($index, facture) in facturesfournisseur">
+                                        <td>{{facture.Facture.code_facture}}</td>
+                                        <td>{{facture.Fournisseur.name}}</td>
+                                        <td>{{facture.Facture.created}}</td>
+                                        <td>     
+                                            <div ng-click="showFacture(facture.Facture.id)">
+                                                <a href="#/view-facture-achat/{{facture.Facture.id}}"  class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye fa-2x"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab3_4"  ng-controller="FicheFournisseurController">
+                            <div class="page-header">
+                                <h3> Solde:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div>
+                                    <p>Entrées Total HT: <strong> {{ht| number:3}} </strong> | Entrées Total TTC: <strong>{{ttc| number:3}} </strong></p>
+                                    <p>Total Facturé: <strong> {{ttc| number:3}}</strong></p>
+                                    <p>Total Reglé: <strong> {{total_reglement| number:3}} </strong></p>
+                                    <p>Total Restant: <strong> {{total_restee| number:3}} </strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_5"  ng-controller="FicheFournisseurController">
+                            <div class="page-header">
+                                <h3> Reglement:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <p ng-if="dataRegle.length === 0">
+                                    Pas de réglements émis pour ce fournisseur.
+                                </p>
+                                <p ng-if="dataRegle.length > 0">
+                                <table ng-if="dataRegle.length > 0" class="table table-striped" wt-responsive-table >
+                                    <tr>
+                                        <th>Facture</th>
+                                        <th>Type</th>
+                                        <th>Réf.</th>
+                                        <th>Echéance</th>
+                                        <th>Somme</th>
+                                        <th>Validé</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr ng-repeat="($index, regle) in dataRegle" id='ReglementRows'>
+                                        <!--<td>{{item.Commande.id}}</td>-->
+                                        <td>{{regle.code_facture}}</td>
+                                        <td>{{regle.type}}</td>
+                                        <td>{{regle.numero}}</td>
+                                        <td>{{regle.date}}</td>
+                                        <td ng-if="regle.part == 0">{{regle.value| number:3}}</td>
+                                        <td ng-if="regle.part != 0">{{regle.part| number:3}}</td>
+                                        <td>
+                                            <!--                                        <input id="choiceValide" type="radio" ng-model="regleValide" value="{{regle.valide}}" ng-click="checkStuff()" name="choice{{regle.id}}" data-id="{{regle.id}}"/>
+                                                                                    <input id="choiceValide" type="radio" ng-model="regleValide" value="{{regle.valide}}" ng-click="checkStuff()" name="choice{{regle.id}}" data-id="{{regle.id}}"/>-->
+                                            <ul class="nav" ng-if="regle.valide == false">
+                                                <li class="choice"><input id="choiceValide" type="radio" value="true" ng-click="checkStuff('true', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> oui</li>
+                                                <li class="choice"><input id="choiceValide" type="radio" ng-model="regleInValide" value="false" ng-click="checkStuff('false', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> non</li>
+                                            </ul>
+                                            <ul class="nav" ng-if="regle.valide == true">
+                                                <li class="choice"><input id="choiceValide" type="radio" ng-model="regleValide" value="true" ng-click="checkStuff('true', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> oui</li>
+                                                <li class="choice"><input id="choiceValide" type="radio" value="false" ng-click="checkStuff('false', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> non</li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <div ng-controller="ModalReglementCtrl">
+                                                <button id="reglementSumbit" data-index="{{$index}}" data-fournisseur="{{regle.id}}"  ng-click="open(regle.id, $index)" data-name="{{regle.ref}}" data-cmd="{{regle.id}}" class="btn btn-danger btn-embossed btn-sm">
+                                                    Annuler &nbsp;<i class="fa fa-times"></i>
+                                                </button>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="myModalReglement.html">
+    <div class="modal-header" id="modal-header-reglement" data-cmdid="" data-index="">
+    <h3 class="modal-title">Suppression Reglement: </h3>
+    </div>
+    <div class="modal-body">
+    <p> voulez vous vraiment supprimer cette Reglement ? <p>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="cancelReglement(regle.id)">Delete</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

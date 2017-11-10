@@ -1,0 +1,428 @@
+<style>
+    table tr th{
+        /*font-size: 12px !important;*/
+    }
+    table tr td{
+        font-weight: 600;
+        /*font-size: 14px !important;*/
+    }
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    @media (min-width: 768px){
+        .modal-dialog{width: 80% !important;}
+    }
+    table.ui-datepicker-calendar thead tr:first-child {
+        background: #0097A7;
+        color: #fff;
+        border: 1px solid #080a0a !important;
+    }
+    .bootstrap-select{width: 230px !important;}
+    select{width: 100% !important;height: 34px !important;}
+    /*input{min-width: 230px !important;}*/
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Commandes </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/gestion-livreurs" class="btn btn-default btn-sm">
+                        <i class="fa fa-list"></i> Liste livreurs
+                    </a>
+                    <a href="#/module-transporteur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Transporteur
+                    </a> 
+                    <a href="#/ajout-commande-client" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer 
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-pane fade active in" id="tab3_1">
+                    <div class="col-md-12">
+                        <div class="page-header">
+                            <h3 class="col-md-5"><span class="glyphicon glyphicon-user"></span> En attente récupération ou dépôt:</h3>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="panel-content">
+                            <!--                            <div  ng-if="commandesespaceclient.length === 0">
+                                                            <p>pas de commandes en attente récupération ou dépôt.</p>
+                                                        </div>-->
+                            <div class="col-md-12">
+                                <div class="ng-cloak col-xs-12 col-md-12" style="padding-left: 0">
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label col-md-12" style="position: relative; font-size: 22px;">Filtrer par Date : </label>
+                                        <div class="form-group col-md-12">
+                                            <!--<label class="control-label col-md-4" style="position: relative; font-size: 22px;">Filtrer par Type:</label>-->
+                                            <label class="control-label col-md-4">Date Début</label>
+                                            <div class="col-md-8">
+                                                <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" id="DateDebutRamassage" class="form-control" placeholder="Date De Début" readonly>
+                                                    <!--<input type="text" id="DateEcheance" class="form-control" placeholder="Date de facturation" readonly>-->
+                                                </div>
+                                                <!-- /input-group -->
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="control-label col-md-4">Date Fin</label>
+                                            <div class="col-md-8">
+                                                <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" id="DateFinRamassgage" class="form-control" placeholder="Date De Fin" readonly>
+                                                </div>
+                                                <!-- /input-group -->
+                                            </div>
+                                        </div>
+                                        <!--                                                <div class="form-group col-md-12">
+                                                                                            <label class="control-label col-md-4">Test </label>
+                                                                                            <div class="col-md-8">
+                                                                                                <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                                                                    <span class="input-group-btn">
+                                                                                                        <button class="btn default" type="button">
+                                                                                                            <i class="fa fa-calendar"></i>
+                                                                                                        </button>
+                                                                                                    </span>
+                                                                                                    <input type="text" id="CodeBarre" class="form-control" style="width: 100%;" ng-keypress="myFunct($event)">
+                                                                                                </div>
+                                                                                                 /input-group 
+                                                                                            </div>
+                                                                                        </div>-->
+                                        <div class="col-md-12">
+                                            <div class="input-group" style="float: right;">
+                                                <filter-select-commande-type-date class="col-md-12" item='name' change-event="change()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <!--<label class="col-md-3 control-label" style="position: relative; font-size: 24px;">Fournisseur: </label>-->
+                                        <label class="col-md-5 control-label" style="position: relative; font-size: 22px;">Filtrer par Type: </label>
+                                        <div class="col-md-7">
+                                            <div class="input-group" style="min-width: 250px !important;height: 34px !important;">
+                                                <filter-select-commande-type class="col-md-10" item='name' change-event="change()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <form class="form-inline" style="float: right">
+                                    <div class="form-group">
+                                        <label >Recherche</label>
+                                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                                    </div>
+                                </form>
+                                <div class="clearfix"></div>
+                                <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                    <thead>
+                                        <tr>
+                                            <th> </th>
+                                            <th> Date de Génération </th>
+                                            <th> Référence Commande </th>
+                                            <!--<th> Code barre </th>-->
+                                            <th> Statut </th>
+                                            <th> Expéditeur </th>
+                                            <th> Adresse </th>
+                                            <th> Ville </th>
+                                            <th> Actions </th>
+                                            <th> Affectation </th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="text-align: left;" id="commandeEspaceClient">
+                                        <tr class="odd gradeX" dir-paginate="($index, commande) in commandesespaceclient | filter:search |itemsPerPage:10" id="CommandeRows" data-data-id="{{commande.Commande.id}}" data-commandeuser='{{commande.Commande.id}}'>
+                                            <td>
+                                                <div>
+                                                    <span class="glyphicon glyphicon-info-sign" ng-controller="ModalHistorqueCommandeCtrl" ng-click="open(commande.Commande.id, commande.Commande.ref)"></span>
+                                                </div> 
+                                            </td>
+                                            <td style="width: 160px;">{{commande.Commande.modified}}</td>
+                                            <td>{{commande.Commande.ref}}</td>
+                                            <!--<td></td>-->
+                                            <td ng-if="commande.Commande.type_remettre == 'Ramassage'">Ramassage</td> 
+                                            <td ng-if="commande.Commande.type_remettre == 'Depot'">Dépôt</td> 
+                                            <td>{{commande.User.full_name}}</td> 
+                                            <td>{{commande.User.adress}}</td> 
+                                            <td>{{commande.User.Ville.name}}</td> 
+                                            <!--<td>{{commande.Receiver.full_name}}</td>-->
+                                            <td>  
+                                                <ul class="nav nav-pills">
+                                                    <li>
+                                                        <div>
+                                                            <a href="#/view-commande-client/{{commande.Commande.id}}"  class="btn btn-info btn-sm">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div>                                        
+                                                    </li>
+                                                    <li>
+                                                        <div ng-controller="ModalCommandeCtrl">
+                                                            <button id="commandeSumbit" data-index="{{$index}}" data-commande="{{commande.Commande.id}}"  ng-click="open(commande.Commande.id, $index, commande.User.full_name)" data-name="{{commande.Commande.ref}}" data-cmd="{{commande.Commande.id}}" class="btn btn-danger btn-embossed btn-sm">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                        </div>                                                                            
+                                                    </li>
+                                                </ul> 
+                                            </td>
+                                            <td style="width: 235px;">  
+                                                <ul class="nav nav-pills" ng-if="commande.Commande.type_remettre == 'Ramassage'">
+                                                    <li ng-if="commande.Livreur.id == null">
+                                                        <div>
+                                                            <a href="#/affecter-commande-client/{{commande.Commande.id}}" class="btn btn-success btn-sm">Affecter</a>
+                                                        </div>                                        
+                                                    </li>
+                                                    <li ng-if="commande.Livreur.id != null">
+                                                        <div>
+                                                            <a href="#/fiche-livreur/{{commande.Livreur.id}}" class="btn btn-info btn-sm">{{commande.Livreur.full_name}}</a>
+                                                        </div>                                        
+                                                    </li>
+                                                    <li ng-if="commande.Livreur.id != null">                                       
+                                                        <div>
+                                                            <a href="#/affecter-commande-client/{{commande.Commande.id}}" class="btn btn-success btn-sm">Réaffecter</a>
+                                                        </div>                                        
+                                                    </li> 
+                                                    <li ng-if="commande.Livreur.id != null">                                       
+                                                        <div>
+                                                            <button ng-controller="ModalRamassageCtrl" type="button" class="btn btn-warning btn-sm" style="background: #673ab7 !important; border:  #673ab7 !important;" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Commande.created, commande.User.full_name, commande.User.adress, commande.User.Ville.name, $index)">Valider ramassage</button>
+                                                        </div>                                       
+                                                    </li> 
+                                                </ul> 
+                                                <ul class="nav nav-pills" ng-if="commande.Commande.type_remettre == 'Depot'">
+                                                    <li>
+                                                        <div>
+                                                            <button ng-controller="ModalCommandeClientCtrl" type="button" class="btn btn-warning btn-sm" style="background: #673ab7 !important; border:  #673ab7 !important;" ng-click="open(commande.Commande.id, commande.Commande.ref, commande.Commande.created, commande.User.full_name, commande.User.adress, commande.User.Ville.name, $index)">Valider dépôt</button>
+                                                        </div>                                        
+                                                    </li>
+                                                </ul> 
+                                            </td>
+
+                                            <td ng-controller="ContactController">
+                                                <form name="myForm"  class="nav nav-pills" ng-if="commande.Commande.type_remettre == 'Ramassage'">
+                                                    <input  type="checkbox" id="CheckedBox" value="{{checkboxModel.value}}" ng-model="checkboxModel.value">
+                                                </form> 
+                                            </td>
+                                        </tr>
+                                    </tbody> 
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="10">
+                                                <div>
+                                                    <button ng-click="affecterGroupeCommande(0)" class="btn btn-info btn-sm pull-right">affecter</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <dir-pagination-controls
+                                    max-size="5"
+                                    direction-links="true"
+                                    boundary-links="true"  style="float: right;top: -28px;position: relative;" class="portlet-body">
+                                </dir-pagination-controls>
+                                <!--                                        <div>
+                                                                            <button ng-click="affecterGroupeCommande()" class="btn btn-info btn-sm">affecter</button>
+                                                                        </div>  -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET--> 
+    </div>
+</div>
+<div id="login-box" class="login-popup" data-id="" data-index="" data-client="" ng-controller="ModalCommandeCtrl">
+    <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+    <form method="post" class="signin" action="#">
+        <fieldset class="textbox">
+            <label class="password">
+                <span>Code Validation</span>
+                <input id="codeRoot" ng-model="codeRoot" value="" type="password" placeholder="Code Validation">
+            </label>
+            <button class="submit button" type="button" ng-click="validateAction($event)">Activer</button>
+        </fieldset>
+    </form>
+</div>
+<script type="text/ng-template" id="DeleteCommande.html">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé commande</h4>
+    </div>
+    <div class="modal-body">
+    <strong id="name_client"></strong>
+    <p>Voulez vous vraiment supprimé cette commande ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteCommandeTransport(commande.Commande.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+</script>
+
+<!-- END MAIN CONTENT -->
+<script>
+//    ComponentsDateTimePickers.init(); // init todo page
+</script>
+<script type="text/ng-template" id="myModalAffectCommande.html">
+    <div class="modal-header" id="modal-affecter-commande" data-cmdid="" data-index="">
+    <h3 class="modal-title">Commande : <span id="titleCommande1">{{commandeBarrecodeAffect.Commande.ref}}<span></h3>
+    <div id="LinkAffect" style="float: right;" ng-click="cancel()"></div>
+    </div>
+    <div class="modal-body" ng-controller="EspaceClientController">
+    <div class="col-md-12 col-xs-12 portlets" style="width: 100%; background: #fff;">
+    <div  class="col-xs-12">
+    <strong style="color:#26619C;" class="DateCommande"> 
+    <div class="image" style="/* margin-left: 53px; */">
+    <img src="assets/pages/img/logo-chams.png" class="pull-left img-responsive logo-amyevolut" style="max-width:150px;margin-left: 15px;">
+    </div>
+    <h3 class="text-center" style="color: #24445c;"><strong my-current-time="formatCreated"></strong> </strong><br>
+    </div>
+    <div  class="col-xs-12" style="border-bottom: solid 2px;">
+    <div  class="col-xs-3 expediteur">
+    <h4><strong style="color:#26619C;"> Expéditeur : {{commandeBarrecodeAffect.Commande.ref}}</strong></h4>
+    <address class="text-center" style="font-size: 12px;text-align: left;">
+    <p style="color:#26619C;"><strong>Nom :  </strong> <span id="ExpediteurName">{{commandeBarrecodeAffect.User.full_name}}</span></p>
+    <p style="color:#26619C;"><strong>Téléphone :  </strong> <span id="ExpediteurPhone">{{commandeBarrecodeAffect.User.phone}}</span></p>
+    <p style="color:#26619C;"><strong>Email :  </strong> <span id="ExpediteurEmail">{{commandeBarrecodeAffect.User.email}}</span></p>
+    <p style="color:#26619C;"><strong>Adresse :  </strong> <span id="ExpediteurAdresse">{{commandeBarrecodeAffect.User.adress}}</span></p>
+    <p style="color:#26619C;"><strong>Ville :  </strong> <span id="ExpediteurVille">{{commandeBarrecodeAffect.User.Ville.name}}</span></p>
+    </address>
+    </div>
+    <div  class="col-xs-3 expediteur1" style="float: right">
+    <h4><strong style="color:#26619C;"> Destinataire : </strong></h4>
+    <address class="text-center" style="font-size: 12px;text-align: left;">
+    <p style="color:#26619C;"><strong>Nom :  </strong> <span id="ReceiverName"></span></p>
+    <p style="color:#26619C;"><strong>Téléphone :  </strong> <span  id="ReceiverPhone"></span></p>
+    <p style="color:#26619C;"><strong>Email :  </strong> <span  id="ReceiverEmail"></span></p>
+    <p style="color:#26619C;"><strong>Ville :  </strong> <span id="ReceiverAdresse"></span></p>
+    </address>
+    </div>
+    </div>
+    <div  class="col-xs-12" style="border-bottom: solid 2px;padding-top: 10px;padding-left: 0;">
+    <div  class="col-xs-12" style="padding-left: 0;" id="IMGCode">
+    </div>
+    <div  class="col-xs-12" style="margin-top: 30px;padding-left: 0;">
+    <p class="col-xs-3"><strong>No.Colis:  </strong> <span id="ReceiverBon"></span></p>
+    <!--<p class="col-xs-3"><strong>No.Pieces:  </strong> <span>{{.Bon.length}}</span></p>-->
+    <div class="col-xs-12" ng-repeat="(index, colis) in commandeBarrecodeAffect.Bon">
+    <p class="col-xs-3"><strong>Colis N° : {{index + 1}}</strong></p>
+    <p class="col-xs-3"><strong>Poid:  </strong> <span>{{colis.poid}} kg</span></p>
+    <p class="col-xs-6"><strong>Dimensions (L x W x H):  </strong> <span>{{colis.longueur}} cm {{colis.largeur}} cm {{colis.hauteur}} cm</span></p>
+    </div>
+    </div>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>        
+</script>
+<script type="text/ng-template" id="myCommandeDepot.html">
+    <div class="modal-header" id="modal-commande-depot" data-cmdid="" data-index="">
+    <h3 class="modal-title">Valider commande</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefCommandeDepot"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateCommandeDepot"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameDepot"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserDepot"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ValidateCommande()">Valider</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myRamassage.html">
+    <div class="modal-header" id="modal-ramassage" data-cmdid="" data-index="">
+    <h3 class="modal-title">Valider ramassage commande</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefRamassage"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateRamassage"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameRamassage"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserRamassage"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ValidateRamassage()">Valider</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myAnnuleCommande.html">
+    <div class="modal-header" id="modal-commande-annulee" data-cmdid="" data-index="">
+    <h3 class="modal-title">Annulée commande</h3>
+    </div>
+    <div class="modal-body">
+    <div>
+    <p><strong><b>Réf.</b> :</strong> <span id="RefCommandeAnnulee"></span> </p>
+    <p><b>Date Demande</b> : <span id="DateCommandeAnnulee"></span> </p>
+    <p><b>Expéditeur</b> : <span id="UserNameAnnulee"></span> </p>
+    <p><b>Adresse | Ville</b> : <span id="AdressUserAnnulee"></span> </p> 
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ValidateAnnulationCommande()">Annuler</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="myHistoriqueCommande.html">
+    <div class="modal-header" id="modal-commande-historique" data-cmdid="" data-index="">
+    <h3 class="modal-title">Historiques de commande : <strong id="refCommandeHistorique"></strong></h3>
+    </div>
+    <div class="modal-body">
+    <div class='col-xs-12'>
+    <ul class = "list-group" id='HistoriquesCommande'></ul>
+    </div>
+    </div> 
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Fermer</button>
+    </div>
+
+</script>
+<script src="/js/espace-client/espaceclient.js"></script>
+<script src="/js/rootAccess.js"></script>
+<script>
+//    console.clear();
+    var intervalCLIENTESPACE = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalCLIENTESPACE);
+//            setTimeout(function () {
+            $('.selectpicker').selectpicker({
+                style: ' btn-default',
+                size: 12
+            });
+//            }, 1000);
+        }
+    }, 100);
+//            }, 100);
+</script>

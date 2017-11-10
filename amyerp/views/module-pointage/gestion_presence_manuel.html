@@ -1,0 +1,702 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .label-absent{
+        font-size: 25px !important;
+        position: relative;
+        top: 7px;
+    }
+</style>
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Présence 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/gestion-employees" class="btn btn-default btn-sm" ng-click="exportDataemploye()">
+                        <i class="fa fa-align-right"></i> Export To Excel
+                    </a>
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" ng-controller="ModalEmailCtrl" ng-click="open()"><i class="fa fa-send-o"></i> Envoyer par mail </a>
+
+
+                    <a href="#/simulateur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Simulateur de Paie
+                    </a>
+                    <a href="#/gestion-paie" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion paie
+                    </a>
+                    <a href="#/dashboard-pointage" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Pointage & Paie
+                    </a>
+
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!--<div class="clearfix"></div>-->
+                <div class="col-md-12">
+
+                    <div ng-app ng-controller="Ctrl">
+                        <h3 class="col-md-5"><span class="glyphicon glyphicon-user"></span>Présence du "{{date| date:'yyyy-MM-dd'}}"</h3>  
+                        <div class="col-md-2"></div>
+                        <div class="form-group col-md-5" style="border-bottom: none !important;">
+                            <label class="control-label col-md-4">Choisir date </label>
+                            <div class="col-md-7" style="padding-left: 0;">
+                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-end-date="+0d">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                    <input type="text" ng-model="dateChanger" id="dateChanger" ng-change="dateChanged()" placeholder="Choisir date" class="form-control" readonly>
+                                </div>
+                                <!-- /input-group -->
+                                <!--<span class="help-block"> Select date </span>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="tableId">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" style="margin-top: 20px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="1" style="width: 170px;"> {{date| date:'dd-MM-yyyy'}}</th>
+                                    <th colspan='2' style="text-align: center;">MATIN</th>
+                                    <th colspan='2' style="text-align: center;">APRES MIDI</th>
+                                </tr>
+                                <tr>
+                                    <th>Nom & Prénom</th>
+                                    <th>Entrée</th>
+                                    <th>Sortie</th>
+                                    <th>Entrée</th>
+                                    <th>Sortie</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: left;" id="listPRESENCE">
+                                <tr ng-repeat="($index,pointage) in listerpointage">
+                                    <td>{{pointage.User.first_name}} {{pointage.User.last_name}} </td>
+                                    <td colspan="4" ng-if="pointage.Pointage[0].isAbsent == true" style="text-align: center;"> <label class="label label-sm label-danger label-absent">Employé absent</label></td>
+                                    <td ng-if="pointage.Pointage[0].isAbsent == false || pointage.Pointage.length == 0">
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="time" class="form-control" ng-change="updateEmPointage(this, $index)" dynamic-model="'emPointage['+$index+']'" value="{{pointage.Pointage[0].date_entree.split(' ')[1].split(':')[0]}}:{{pointage.Pointage[0].date_entree.split(' ')[1].split(':')[1]}}" name="wakeup"  id="entree"/> </div>
+                                        </div> 
+                                    </td>
+                                    <td ng-if="pointage.Pointage[0].isAbsent == false || pointage.Pointage.length == 0"> 
+                                        <div class="col-md-8">
+                                            <div class="input-group" ng-if="pointage.Pointage[0].isAbsent == false || pointage.Pointage.length == 0">
+                                                <input type="time" class="form-control" ng-change="updateSmPointage(this, $index)" dynamic-model="'smPointage['+$index+']'" value="{{pointage.Pointage[0].date_sortie.split(' ')[1].split(':')[0]}}:{{pointage.Pointage[0].date_sortie.split(' ')[1].split(':')[1]}}" name="wakeup"  id="sortie"/> </div>
+                                        </div> 
+                                    </td>
+                                    <td ng-if="pointage.Pointage[0].isAbsent == false || pointage.Pointage.length == 0">
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="time" class="form-control" ng-change="updateEsPointage(this, $index)" dynamic-model="'esPointage['+$index+']'" value="{{pointage.Pointage[0].date_entree_midi.split(' ')[1].split(':')[0]}}:{{pointage.Pointage[0].date_entree_midi.split(' ')[1].split(':')[1]}}" name="wakeup"  id="entree_midi"/> </div>
+                                        </div> 
+                                    </td>
+                                    <td ng-if="pointage.Pointage[0].isAbsent == false || pointage.Pointage.length == 0"> 
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="time" class="form-control" ng-change="updateSsPointage(this, $index)" dynamic-model="'ssPointage['+$index+']'" value="{{pointage.Pointage[0].date_sortie_midi.split(' ')[1].split(':')[0]}}:{{pointage.Pointage[0].date_sortie_midi.split(' ')[1].split(':')[1]}}" name="wakeup"  id="sortie_midi"/> </div>
+                                        </div> 
+                                    </td>
+                                    <td style="width: 210px;">
+                                        <div style="float: left;" ng-if="pointage.Pointage[0].isAbsent == false || pointage.Pointage.length == 0">
+                                            <button type="submit" id="submitPointage" data-empointage='{{pointage.Pointage[0].date_entree}}' data-smpointage='{{pointage.Pointage[0].date_sortie}}' data-espointage='{{pointage.Pointage[0].date_entree_midi}}' data-sspointage='{{pointage.Pointage[0].date_sortie_midi}}' class="btn purple btn-sm" ng-click="newPointage($event, pointage.User.id)" style="float: right">
+                                                <i>pointer</i>
+                                            </button>
+                                        </div>                                        
+                                        <div style="float: left;" ng-if="pointage.Pointage[0].isAbsent == false || pointage.Pointage.length == 0">
+                                            <div class="form-group">
+                                                <a href="#" class="btn btn-default btn-sm"  style="border: #36c6d3; background: #36c6d3; color: #fff;" data-target="#myModal_Autorisation" data-data-id="{{pointage.Pointage[0].id}}" data-user-id="{{pointage.User.id}}" data-user-name="{{pointage.User.full_name}}" role="button" data-toggle="modal" ng-click="reloadInfo(pointage.User.id, pointage.User.full_name, pointage.Pointage[0].id)">  Sortie</a>
+                                            </div>
+                                        </div>                                        
+                                        <div style="float: left;" ng-if="pointage.Pointage[0].isAbsent == false || pointage.Pointage.length == 0">
+                                            <div class="form-group">
+                                                <a href="#" class="btn btn-default btn-sm"  style="border: #36c6d3; background: #36c6d3; color: #fff;" data-target="#myModal_HS" data-data-id="{{pointage.Pointage[0].id}}" data-user-id="{{pointage.User.id}}" data-user-name="{{pointage.User.full_name}}" role="button" data-toggle="modal" ng-click="reloadInfoHS(pointage.User.id, pointage.User.full_name, pointage.Pointage[0].id)">  HS</a>
+                                            </div>
+                                        </div>                                        
+                                        <div style="float: left;" ng-if="pointage.Pointage.length == 0">
+                                            <div class="form-group">
+                                                <a href="#" class="btn btn-danger btn-sm" data-target="#myModal_Absence" role="button" data-toggle="modal" data-data-id="{{pointage.Pointage[0].id}}" data-user-id="{{pointage.User.id}}" data-user-name="{{pointage.User.full_name}}" ng-click="reloadInfo(pointage.User.id, pointage.User.full_name, pointage.Pointage[0].id, pointage.Pointage[0].isAbsent, pointage.Pointage.length)">  Absence</a>
+                                            </div>
+                                        </div>                                        
+                                        <div style="float: left;" ng-if="pointage.Pointage[0].isAbsent == true">
+                                            <div class="form-group">
+                                                <a href="#" class="btn btn-danger btn-sm" data-target="#myModal_Cause" role="button" data-toggle="modal" data-data-id="{{pointage.Pointage[0].id}}" data-user-id="{{pointage.User.id}}" data-user-name="{{pointage.User.full_name}}" ng-click="reloadInfo(pointage.User.id, pointage.User.full_name, pointage.Pointage[0].id, pointage.Pointage[0].isAbsent, pointage.Pointage.length)">  Cause</a>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div id="myModal_Autorisation" class="modal fade myModal_Autorisation" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="modalAbscence" data-user-id="{{user_id}}" data-pointage-id="{{pointage_id}}" data-date="{{date| date:'yyyy-MM-dd'}}">Sortie de {{user_name}}</h4>
+            </div>
+            <div class="modal-body form" id="tableSortieId">
+                <div class="form-horizontal form-row-seperated">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" style="margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th colspan="1"> {{date| date:'dd-MM-yyyy'}}</th>
+                                <th colspan='2'></th>
+                                <th colspan='2'></th>
+                            </tr>
+                            <tr>
+                                <!--<th>Nom & Prénom</th>-->
+                                <th>Sortie</th>
+                                <th>Entrée</th>
+                                <th>Cause </th>
+                                <th style="width: 250px;">Document justificatif</th>
+                                <th style="width: 250px;">Descriptif</th>
+                                <!--<th></th>-->
+
+                            </tr>
+
+                        </thead>
+                        <tbody style="text-align: left;">
+                            <tr ng-repeat="($index, sortie) in pointagesSortie" ng-if="sortie.type === 'Sortie'">
+                                <td> 
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" ng-change="updateSmPointageSortie(this, $index)" dynamic-model="'smPointageSortie['+$index+']'" value="{{sortie.date_sortie.split(' ')[1].split(':')[0]}}:{{sortie.date_sortie.split(' ')[1].split(':')[1]}}" name="wakeup"  id="sortie"/> </div>
+                                    </div> 
+                                </td>
+                                <td>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" ng-change="updateEmPointageSortie(this, $index)"  dynamic-model="'emPointageSortie['+$index+']'" value="{{sortie.date_entree.split(' ')[1].split(':')[0]}}:{{sortie.date_entree.split(' ')[1].split(':')[1]}}" name="wakeup"  id="entree"/> </div>
+                                    </div> 
+                                </td>
+                                <td>
+                                    <div class="form-group last">
+                                        <div class="col-sm-12 col-md-12" style="padding-left: 0; padding-right: 0;">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+                                                <select class="form-control input-xlarge select2me col-sm-12" disabled="" data-placeholder="Cause de sortie..." ng-model="sortie.cause" id="causeSortie" style="max-width: 170px !important;">
+                                                    <option value=""></option>
+                                                    <option value="Mission">Mission</option>
+                                                    <option value="Abandon">Abandon</option>
+                                                    <option value="Autorisation">Autorisation</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div ng-if="sortie.url != null">
+                                        <a href="http://192.168.1.130/api/app/webroot/img/{{sortie.url}}" id="preuve">
+                                            <img class='thumbnail' src='http://192.168.1.130/api/app/webroot/img/{{sortie.url}}' style='max-width: 75px;'/>
+                                        </a>
+                                    </div>                                       
+                                </td>
+                                <td>
+                                    <div class="form-group last">
+                                        <div class="col-sm-12 col-md-12">
+                                            <div class="input-group">
+                                                <textarea class="form-control" rows="3" ng-model="sortie.descriptif"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12" style="padding-left: 0;padding-right: 9px;margin-top: 10px;">
+                                            <button type="button" class="btn btn-primary btn-sm pull-right" id="reloadPointageSortie" data-empointage='{{sortie.date_entree}}' data-smpointage='{{sortie.date_sortie}}' ng-click="reloadPointageSortie($event, sortie.id, sortie.pointage_id)"> <i class="fa fa-check"></i> Pointer</button>
+                                        </div>
+                                    </div>                                      
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot style="text-align: left;">
+                            <tr>
+                                <td>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" name="wakeup"  id="sortieSortie"/>
+                                        </div>
+                                    </div> 
+                                </td>
+                                <td> 
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" name="wakeup"  id="entreeSortie"/>
+                                        </div>
+                                    </div> 
+                                </td>
+                                <td>
+                                    <div class="form-group last">
+                                        <div class="col-md-12">
+                                            <div class="input-group" style="width: 100%;">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+                                                <select class="form-control input-xlarge select2me col-sm-12" style="max-width: 170px !important;" data-placeholder="Cause de sortie..." id="causeSortieAdd">
+                                                    <option value=""></option>
+                                                    <option value="Mission">Mission</option>
+                                                    <option value="Abandon">Abandon</option>
+                                                    <option value="Autorisation">Autorisation</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group last">
+                                        <div class="col-sm-9 col-md-9"  style="padding-left: 0;">
+                                            <div class="input-group" style="width: 245px;">
+                                                <img ng-src="{{image_source}}" id="imgPreview" class="thumbnail" style="float: left;width: 20%;margin-right: 10px;height: 40px;">
+                                                <input style="width: 165px !important;" type="file" file-model="myFile" class="form-control" id="trigger" onchange="angular.element(this).scope().setFile(this)" accept="image/*"/>
+                                            </div>
+                                        </div>
+                                    </div>                                      
+                                </td>
+                                <td>
+                                    <div class="form-group last">
+                                        <div class="col-sm-12 col-md-12" style="padding-left: 0;padding-right: 0;">
+                                            <div class="input-group">
+                                                <textarea class="form-control" rows="3" id="descriptifSortie"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12" style="padding-left: 0;padding-right: 9px;margin-top: 10px;">
+                                            <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="reloadPointage($event)"> <i class="fa fa-check"></i> Valider</button>
+                                        </div>
+                                    </div>                                      
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Fermer</button>
+                    <!--                    <button type="button" class="btn btn-primary" ng-click="validerSortie($event)">
+                                            <i class="fa fa-check"></i> Valider</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--heures suplimentaire-->
+<div id="myModal_HS" class="modal fade myModal_HS" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="modalAbscence" data-user-id="{{user_id}}" data-pointage-id="{{pointage_id}}" data-date="{{date| date:'yyyy-MM-dd'}}">Sortie de {{user_name}}</h4>
+            </div>
+            <div class="modal-body form" id="tableHSId">
+                <div class="form-horizontal form-row-seperated">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" style="margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th colspan="1"> {{date| date:'dd-MM-yyyy'}}</th>
+                                <th colspan='2'></th>
+                                <th colspan='2'></th>
+                            </tr>
+                            <tr>
+                                <!--<th>Nom & Prénom</th>-->
+                                <th style="width: 30%;">Entrée</th>
+                                <th style="width: 30%;">Sortie</th>
+                                <th>Descriptif</th>
+                            </tr>
+
+                        </thead>
+                        <tbody style="text-align: left;">
+                            <tr ng-repeat="($index, sortie) in pointagesHS" ng-if="listVide == true">
+                                <td colspan="3"> <label class="label label-success label-sm">Pas d'heure supplémentaire pour l'employé {{user_name}}</label></td>
+                            </tr>
+                            <tr ng-repeat="($index, sortie) in pointagesHS" ng-if="listVide == false">
+                                <td>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" ng-change="updateEmPointageHS(this, $index)"  dynamic-model="'emPointageHS['+$index+']'" value="{{sortie.SortiesPointage.date_entree.split(' ')[1].split(':')[0]}}:{{sortie.SortiesPointage.date_entree.split(' ')[1].split(':')[1]}}" name="wakeup"  id="entree"/> </div>
+                                    </div> 
+                                </td>
+                                <td> 
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" ng-change="updateSmPointageHS(this, $index)" dynamic-model="'smPointageHS['+$index+']'" value="{{sortie.SortiesPointage.date_sortie.split(' ')[1].split(':')[0]}}:{{sortie.SortiesPointage.date_sortie.split(' ')[1].split(':')[1]}}" name="wakeup"  id="sortie"/> </div>
+                                    </div> 
+                                </td>
+                                <td>
+                                    <div class="form-group last">
+                                        <div class="col-sm-12 col-md-12">
+                                            <p>{{sortie.SortiesPointage.descriptif}}</p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12" style="padding-left: 0;padding-right: 9px;margin-top: 10px;">
+                                            <button type="button" class="btn btn-primary btn-sm pull-right" id="reloadPointageHS" data-empointage='{{sortie.SortiesPointage.date_entree}}' data-smpointage='{{sortie.SortiesPointage.date_sortie}}' ng-click="reloadPointageHS($event, sortie.SortiesPointage.id, sortie.SortiesPointage.pointage_id)"> <i class="fa fa-check"></i> Pointer</button>
+                                        </div>
+                                    </div>                                      
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot style="text-align: left;">
+                            <tr>
+                                <td> 
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" name="entreeHS"  id="entreeHS"/>
+                                        </div>
+                                    </div> 
+                                </td>
+                                <td>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" name="sortieHS"  id="sortieHS"/>
+                                        </div>
+                                    </div> 
+                                </td>
+                                <td>
+                                    <div class="form-group last">
+                                        <div class="col-sm-12 col-md-12" style="padding-left: 0;padding-right: 0;">
+                                            <div class="input-group" style="width: 95%;">
+                                                <textarea class="form-control" rows="3" id="descriptifHS" style="border-radius: 7px;"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12" style="padding-left: 0;padding-right: 9px;margin-top: 10px;">
+                                            <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="addPointageHS($event)"> <i class="fa fa-check"></i> Valider</button>
+                                        </div>
+                                    </div>                                      
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--// absence-->
+<div id="myModal_Absence" class="modal fade myModal_Absence" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" data-user-id="{{user_id}}" data-pointage-id="{{pointage_id}}">Absence de {{user_name}}</h4>
+            </div>
+            <div class="modal-body form">
+                <div class="form-horizontal form-row-seperated">
+                    <div ng-if="isAbcent == false || lenght == 0">
+                        <div class="form-group last">
+                            <label class="col-sm-4 control-label" style="text-align: left;">Cause</label>
+                            <div class="col-md-7">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Cause d'absence..." id="causeAbsence" ng-model="cause_change" ng-change="causeAbsence()" style="max-width: 200px;">
+                                        <option value=""></option>
+                                        <option value="Congé">Congé</option>
+                                        <option value="Absent">Absent</option>
+                                        <option value="Mission">Mission</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group last" ng-show="isAbsence">
+                            <label class="col-sm-4 control-label" style="text-align: left;">Autorisé ?</label>
+                            <div class="col-md-7" style="padding-left: 0;" ng-controller="StateLivraisonController">
+                                <div class="input-group">
+                                    <input type="checkbox" id="isAutorise"
+                                           ng-model="checkbox" 
+                                           ng-true-value="1" 
+                                           ng-false-value="0" 
+                                           ng-checked="checkbox == 1" value="{{checkbox}}"/>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form-group last" ng-show="isAbsence">
+                            <label class="col-sm-4 control-label" style="text-align: left;">Document justificatif</label>
+                            <div class="col-sm-7 col-md-7"  style="padding-left: 0;">
+                                <div class="input-group" style="width: 245px;">
+                                    <img ng-src="{{image_source}}" id="imgPreviewAbsence" class="thumbnail" style="float: left;width: 20%;margin-right: 10px;height: 40px;">
+                                    <input style="width: 165px !important;" type="file" file-model="myFileAbsence" class="form-control" id="trigger" onchange="angular.element(this).scope().setFileAbsence(this)" accept="image/*"/>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form-group last" ng-show="isAbsence">
+                            <label class="col-sm-4 control-label" style="text-align: left;">Descriptif</label>
+                            <div class="col-sm-7 col-md-7" style="padding-left: 0;padding-right: 0;">
+                                <div class="input-group" style="width: 95%;">
+                                    <textarea class="form-control" style="border-radius: 5px;" rows="3" id="descriptifAbsence" placeholder="Descriptif"></textarea>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div ng-if="isAbcent == true">
+                        <div class="form-group last">
+                            <div ui-view="" class="profile-content fade-in-up ng-scope">
+                                <div class="row ng-scope">
+                                    <div class="col-md-6"  style="height: 415px;width: 89%;margin-left: 35px; border-radius: 5px;border: solid 1px #eee;">
+                                        <!-- BEGIN PORTLET -->
+                                        <div class="portlet light ">
+                                            <div class="portlet-title">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-bar-chart theme-font hide"></i>
+                                                    <span class="caption-subject font-blue-madison bold uppercase">Information d'absence</span>
+                                                </div>
+                                                <div class="actions">
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body" style="min-height: 300px !important;">
+                                                <div class="row number-stats margin-bottom-30">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="stat-left">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line                                                                    break -->
+                                                                <div id="sparkline_bar"><canvas width="90" height="45" style="display: inline-block; width: 90px; height                                                                    : 45px; vertical-align: top;"></canvas></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <!--<div class="title"> Total </div>-->
+                                                                <div class="number" id="nomContact"> {{user_name}} </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-scrollable table-scrollable-borderless">
+                                                    <table class="table table-hover table-light">
+                                                        <thead>
+                                                            <tr class="uppercase">
+                                                                <th> Cause : </th>
+                                                                <th id="posteContact"> {{pointagesAbsent.cause}} </th>
+                                                            </tr>
+                                                            <tr class="uppercase" ng-if="pointagesAbsent.cause == 'Absent'">
+                                                                <th> Autaurisé ? </th>
+                                                                <th id="typeContact" ng-if="pointagesAbsent.isAutorise == true"> Oui </th>
+                                                                <th id="typeContact" ng-if="pointagesAbsent.isAutorise == false"> Non </th>
+                                                            </tr>
+                                                            <tr class="uppercase" ng-if="pointagesAbsent.cause == 'Absent'">
+                                                                <th> Document justificatif : </th>
+                                                                <th id="emailContact"> 
+                                                                    <a href="http://192.168.1.130/api/app/webroot/img/{{pointagesAbsent.url}}" id="preuve">
+                                                                        <img class='thumbnail' src='http://192.168.1.130/api/app/webroot/img/{{pointagesAbsent.url}}' style='max-width: 75px;'/>
+                                                                    </a>
+                                                                </th>
+                                                            </tr>
+                                                            <tr class="uppercase" ng-if="pointagesAbsent.cause == 'Absent'">
+                                                                <th> Descriptif : </th>
+                                                                <th id="phoneContact"> 
+                                                                    {{pointagesAbsent.descriptif}}
+                                                                </th>                                                                        
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END PORTLET -->
+                                    </div>
+
+                                </div>
+                                <!-- BEGIN MAIN JS -->
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="validerAbsence($event)" ng-if="isAbcent == false || lenght == 0">
+                        <i class="fa fa-check"></i> Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--// absence-->
+<div id="myModal_Cause" class="modal fade myModal_Cause" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" data-user-id="{{user_id}}" data-pointage-id="{{pointage_id}}">Absence de {{user_name}}</h4>
+            </div>
+            <div class="modal-body form">
+                <div class="form-horizontal form-row-seperated">
+                    <div ng-if="isAbcent == false || lenght == 0">
+                        <div class="form-group last">
+                            <label class="col-sm-4 control-label" style="text-align: left;">Cause</label>
+                            <div class="col-md-7">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Cause d'absence..." id="causeAbsence" ng-model="cause_change" ng-change="causeAbsence()" style="max-width: 200px;">
+                                        <option value=""></option>
+                                        <option value="Congé">Congé</option>
+                                        <option value="Absent">Absent</option>
+                                        <option value="Mission">Mission</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group last" ng-show="isAbsence">
+                            <label class="col-sm-4 control-label" style="text-align: left;">Autorisé ?</label>
+                            <div class="col-md-7" style="padding-left: 0;" ng-controller="StateLivraisonController">
+                                <div class="input-group">
+                                    <input type="checkbox" id="isAutorise"
+                                           ng-model="checkbox" 
+                                           ng-true-value="1" 
+                                           ng-false-value="0" 
+                                           ng-checked="checkbox == 1" value="{{checkbox}}"/>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form-group last" ng-show="isAbsence">
+                            <label class="col-sm-4 control-label" style="text-align: left;">Document justificatif</label>
+                            <div class="col-sm-7 col-md-7"  style="padding-left: 0;">
+                                <div class="input-group" style="width: 245px;">
+                                    <img ng-src="{{image_source}}" id="imgPreviewAbsence" class="thumbnail" style="float: left;width: 20%;margin-right: 10px;height: 40px;">
+                                    <input style="width: 165px !important;" type="file" file-model="myFileAbsence" class="form-control" id="trigger" onchange="angular.element(this).scope().setFileAbsence(this)" accept="image/*"/>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form-group last" ng-show="isAbsence">
+                            <label class="col-sm-4 control-label" style="text-align: left;">Descriptif</label>
+                            <div class="col-sm-7 col-md-7" style="padding-left: 0;padding-right: 0;">
+                                <div class="input-group" style="width: 95%;">
+                                    <textarea class="form-control" style="border-radius: 5px;" rows="3" id="descriptifAbsence" placeholder="Descriptif"></textarea>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div ng-if="isAbcent == true">
+                        <div class="form-group last">
+                            <div ui-view="" class="profile-content fade-in-up ng-scope">
+                                <div class="row ng-scope">
+                                    <div class="col-md-6"  style="height: 415px;width: 89%;margin-left: 35px; border-radius: 5px;border: solid 1px #eee;">
+                                        <!-- BEGIN PORTLET -->
+                                        <div class="portlet light ">
+                                            <div class="portlet-title">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-bar-chart theme-font hide"></i>
+                                                    <span class="caption-subject font-blue-madison bold uppercase">Information d'absence</span>
+                                                </div>
+                                                <div class="actions">
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body" style="min-height: 300px !important;">
+                                                <div class="row number-stats margin-bottom-30">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="stat-left">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line                                                                    break -->
+                                                                <div id="sparkline_bar"><canvas width="90" height="45" style="display: inline-block; width: 90px; height                                                                    : 45px; vertical-align: top;"></canvas></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <!--<div class="title"> Total </div>-->
+                                                                <div class="number" id="nomContact"> {{user_name}} </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-scrollable table-scrollable-borderless">
+                                                    <table class="table table-hover table-light">
+                                                        <thead>
+                                                            <tr class="uppercase">
+                                                                <th> Cause : </th>
+                                                                <th id="posteContact"> {{pointagesAbsent.cause}} </th>
+                                                            </tr>
+                                                            <tr class="uppercase" ng-if="pointagesAbsent.cause == 'Absent'">
+                                                                <th> Autaurisé ? </th>
+                                                                <th id="typeContact" ng-if="pointagesAbsent.isAutorise == true"> Oui </th>
+                                                                <th id="typeContact" ng-if="pointagesAbsent.isAutorise == false"> Non </th>
+                                                            </tr>
+                                                            <tr class="uppercase" ng-if="pointagesAbsent.cause == 'Absent'">
+                                                                <th> Document justificatif : </th>
+                                                                <th id="emailContact"> 
+                                                                    <a href="http://192.168.1.130/api/app/webroot/img/{{pointagesAbsent.url}}" id="preuve">
+                                                                        <img class='thumbnail' src='http://192.168.1.130/api/app/webroot/img/{{pointagesAbsent.url}}' style='max-width: 75px;'/>
+                                                                    </a>
+                                                                </th>
+                                                            </tr>
+                                                            <tr class="uppercase" ng-if="pointagesAbsent.cause == 'Absent'">
+                                                                <th> Descriptif : </th>
+                                                                <th id="phoneContact"> 
+                                                                    {{pointagesAbsent.descriptif}}
+                                                                </th>                                                                        
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END PORTLET -->
+                                    </div>
+
+                                </div>
+                                <!-- BEGIN MAIN JS -->
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="validerAbsence($event)" ng-if="isAbcent == false || lenght == 0">
+                        <i class="fa fa-check"></i> Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function preuvePreview() {
+    console.log('preuvePreview');
+    $("a#preuve").fancybox({
+    'titleShow': false,
+            'transitionIn': 'elastic',
+            'transitionOut': 'elastic',
+            'easingIn': 'easeOutBack',
+            'easingOut': 'easeInBack'
+    });
+    }
+    var intervalNoteFrais = setInterval(function () {
+    if (document.readyState === 'complete') {
+    clearInterval(intervalNoteFrais);
+    setTimeout(preuvePreview, 1000);
+    setTimeout(function () {
+    $('input#dateChanger').datepicker({
+    altField: "#dateChanger",
+            maxDate: new Date,
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "dd-mm-yy"});
+    }, 1000);
+    }
+    });</script>

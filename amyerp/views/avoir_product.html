@@ -1,0 +1,146 @@
+
+<!-- BEGIN PAGE BREADCRUMB -->
+
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Retour Article 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <!--<div class="clearfix"></div>-->
+            <div class="portlet-body"> 
+                <div id="scrollArea" ng-controller="ScrollController">
+                    <table class="table table-bordered table-hover tableToPrint">
+                        <thead>
+                            <tr style="background: #F2F2F2">
+                                <th>Ref</th>
+                                <th>Désignation</th>
+                                <th>Qte</th>
+                                <th>Prix U.HT</th>
+                                <th>Prix U.TTC</th>
+                                <th>TOTAL HT</th>
+                                <th>TOTAL TTC</th>
+                                <th>Qte avoir</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listItem" ng-controller="BonsController">
+                            <tr ng-repeat="($index, item) in commande.Bon" data-index="{{$index}}">
+                                <td style="width: 140px;">{{item.Product.ref}}</td>
+                                <td>{{item.Product.name}}</td>
+                                <td id="Qte">{{item.qte}}</td>
+                                <td>{{item.last_unit_price| number:3}}</td>
+                                <td>{{item.last_unit_price * (1 + item.Product.Tva.value / 100) * (1 - item.remise / 100) | number:3}}</td>
+                                <td>{{item.last_unit_price * item.qte| number:3}}</td>
+                                <td>{{item.last_unit_price * (1 + item.Product.Tva.value / 100) * (1 - item.remise / 100) * item.qte | number
+                                                    :3}}</td>
+                                <td>
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <input type="text" id="qte_avoir" ng-model="item.qte_avoir" placeholder="qte en avoir" name="qte_in_avoir" class="form-control" /> </div>
+                                    </div>
+                                </td>  
+                                <td>
+                                    <ul class="nav" ng-if="item.avoir == false">
+                                        <li class="choice"><input id="choiceValide" type="radio" value="true" ng-click="editBon('true', item.id, $index)" data-index="{{$index}}" name="choice{{item.id}}" data-id="{{item.id}}"/> oui</li>
+                                        <li class="choice"><input id="choiceValide" type="radio" ng-model="bonInValide" value="false" ng-click="editBon('false', item.id, $index)" data-index="{{$index}}" name="choice{{item.id}}" data-id="{{item.id}}"/> non</li>
+                                    </ul>
+                                    <ul class="nav" ng-if="item.avoir == true">
+                                        <li class="choice"><input id="choiceValide" type="radio" ng-model="bonValide" value="true" ng-click="editBon('true', item.id, $index)" data-index="{{$index}}" name="choice{{item.id}}" data-id="{{item.id}}"/> oui</li>
+                                        <li class="choice"><input id="choiceValide" type="radio" value="false" ng-click="editBon('false', item.id, $index)" name="choice{{item.id}}" data-index="{{$index}}" data-id="{{item.id}}"/> non</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-search col-sm-2 thumbnail" style="position: fixed;top: 50%;right: 3%; z-index: 99999999;">
+                <label class="control-label"><?php echo __("Recherche Produit / Réf"); ?></label>
+                <input id="searchRef" type="text" placeholder="Réf Produit" class="form-control" />
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+
+    </div>
+</div>
+<script>
+            var intervalAvoir = setInterval(function () {
+                if (document.readyState === 'complete') {
+                    clearInterval(intervalAvoir);
+                    doneAvoir();
+                }
+            }, 100);
+    function doneAvoir() {
+        setTimeout(function () {
+            $("input#searchRef").bind("keypress keyup keydown", function (e) {
+                $("tbody#listItem tr").removeAttr("style");
+                var code = (e.keyCode ? e.keyCode : e.which);
+                var value = $(this).val();
+                if (code === 13) {
+                    if ($("tbody#listItem tr").find(":contains('" + value + "')").length > 0) {
+                        $("tbody tr").find(":contains('" + value + "')").parent().css({"background-color": "#4DD0E1", "color": "#fff", "font-weight": "bold", "border": "2px solid #000"});
+//                        var index = $("tbody tr").find(":contains('" + value + "')").parent().attr("data-index");
+                        var index = $("tbody#listItem tr").find(":contains('" + value + "')").parent().index();
+                        console.log(index);
+//                        var distance = $("tbody#listItem tr:eq(" + (index) + ")").offset().top - $('#scrollArea').offset().top - $(".topbar").height() + 48;
+//                        $("body").scrollTo($("tbody#listItem tr:eq(" + (index) + ")")).scrollTo(distance);
+//                        $('#scrollArea, tbody').stop(true,true).animate({
+//                            scrollTop: $("tbody#listItem tr:eq(" + (index) + ")").offset().top
+//                        });
+                        $("tbody#listItem tr:eq(" + index + ")").scrollintoview();
+                        setTimeout(function () {
+                            $("tbody#listItem tr:eq(" + (index) + ")").children().eq(4).children().eq(0).focus();
+                        }, 500);
+                    }
+                    else {
+                        toastr.error("Produit Introuvable vérifez la référence");
+                    }
+                }
+            });
+        }, 2000);
+        setTimeout(function () {
+            $("input[placeholder='Search...']").on('keypress', function () {
+                handleiCheck();
+            });
+            $("input[placeholder='Search...']").on('keyup', function () {
+                handleiCheck();
+            });
+            $("input[placeholder='Search...']").on('keydown', function () {
+                handleiCheck();
+            });
+            $("input[placeholder='Search...']").on('change', function () {
+                handleiCheck();
+            });
+            $("a[href='#']").on('click', function () {
+                setTimeout(handleiCheck, 500);
+            });
+
+        }, 2200);
+    }
+
+</script>
+
+

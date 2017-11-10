@@ -1,0 +1,848 @@
+<style>
+    @media (max-width: 1200px){
+        .fa-5x {
+            font-size: 4em;
+        }
+        .footer{
+            font-size: 11px;
+        }
+    }
+    @media (min-width: 1200px){
+        .fa-5x {
+            font-size: 5em;
+        }
+        .footer{
+            font-size: 12px;
+        }
+    }
+    /*clock*/
+    @font-face {
+        font-family: 'BebasNeueRegular';
+        src: url('assets/pages/clock/BebasNeue-webfont.eot');
+        src: url('assets/pages/clock/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+            url('assets/pages/clock/BebasNeue-webfont.woff') format('woff'),
+            url('assets/pages/clock/BebasNeue-webfont.ttf') format('truetype'),
+            url('assets/pages/clock/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+
+    }
+
+    .clock {margin:0 auto; padding:30px; color:#4285F4;margin-top: -20px;}
+
+    #Date { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:22px; text-align:center; margin-left: -30px; }
+
+    .clock ul { margin:0 auto; margin-left: -30px; padding:0px; list-style:none; text-align:center; }
+    .clock ul li { display:inline; font-size:30px;font-weight: bold; text-align:center; font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; /*text-shadow:0 0 5px #00c6ff;*/ }
+
+    #point { position:relative; -moz-animation:mymove 1s ease infinite; -webkit-animation:mymove 1s ease infinite; padding-left:10px; padding-right:10px; }
+
+    @-webkit-keyframes mymove 
+    {
+        0% {opacity:1.0; text-shadow:0 0 20px #00c6ff;}
+        50% {opacity:0; text-shadow:none; }
+        100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }	
+    }
+
+
+    @-moz-keyframes mymove 
+    {
+        0% {opacity:1.0; text-shadow:0 0 20px #00c6ff;}
+        50% {opacity:0; text-shadow:none; }
+        100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }	
+    }
+
+    /*weather*/
+    @font-face {
+        font-family: 'weather';
+        src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot');
+        src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
+            url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.woff') format('woff'),
+            url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.ttf') format('truetype'),
+            url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    #weather {
+        /*width: 500px;*/
+        margin: 0px auto;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    #weatherParis {
+        /*width: 500px;*/
+        margin: 0px auto;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    #weatherUSA {
+        /*width: 500px;*/
+        margin: 0px auto;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    h2>i {
+        color: #4285F4;
+        font-family: weather;
+        /*font-size: 150px;*/
+        font-size: 100px;
+        font-weight: normal;
+        font-style: normal;
+        line-height: 1.0;
+    }
+
+    .icon-0:before { content: ":"; }
+    .icon-1:before { content: "p"; }
+    .icon-2:before { content: "S"; }
+    .icon-3:before { content: "Q"; }
+    .icon-4:before { content: "S"; }
+    .icon-5:before { content: "W"; }
+    .icon-6:before { content: "W"; }
+    .icon-7:before { content: "W"; }
+    .icon-8:before { content: "W"; }
+    .icon-9:before { content: "I"; }
+    .icon-10:before { content: "W"; }
+    .icon-11:before { content: "I"; }
+    .icon-12:before { content: "I"; }
+    .icon-13:before { content: "I"; }
+    .icon-14:before { content: "I"; }
+    .icon-15:before { content: "W"; }
+    .icon-16:before { content: "I"; }
+    .icon-17:before { content: "W"; }
+    .icon-18:before { content: "U"; }
+    .icon-19:before { content: "Z"; }
+    .icon-20:before { content: "Z"; }
+    .icon-21:before { content: "Z"; }
+    .icon-22:before { content: "Z"; }
+    .icon-23:before { content: "Z"; }
+    .icon-24:before { content: "E"; }
+    .icon-25:before { content: "E"; }
+    .icon-26:before { content: "3"; }
+    .icon-27:before { content: "a"; }
+    .icon-28:before { content: "A"; }
+    .icon-29:before { content: "a"; }
+    .icon-30:before { content: "A"; }
+    .icon-31:before { content: "6"; }
+    .icon-32:before { content: "1"; }
+    .icon-33:before { content: "6"; }
+    .icon-34:before { content: "1"; }
+    .icon-35:before { content: "W"; }
+    .icon-36:before { content: "1"; }
+    .icon-37:before { content: "S"; }
+    .icon-38:before { content: "S"; }
+    .icon-39:before { content: "S"; }
+    .icon-40:before { content: "M"; }
+    .icon-41:before { content: "W"; }
+    .icon-42:before { content: "I"; }
+    .icon-43:before { content: "W"; }
+    .icon-44:before { content: "a"; }
+    .icon-45:before { content: "S"; }
+    .icon-46:before { content: "U"; }
+    .icon-47:before { content: "S"; }
+
+    #weather h2 {
+        margin: 18px 0 0 0;
+        color: #4285F4;
+        /*font-size: 100px;*/
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    #weather ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #weather li {
+        background: #fff;
+        background: rgba(255,255,255,0.90);
+        padding: 20px;
+        display: inline-block;
+        border-radius: 5px;
+    }
+
+    #weather .currently {
+        margin: 0 20px;
+    }
+
+    #weatherParis ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #weatherParis li {
+        background: #fff;
+        background: rgba(255,255,255,0.90);
+        padding: 20px;
+        display: inline-block;
+        border-radius: 5px;
+    }
+
+    #weatherParis .currently {
+        margin: 0 20px;
+    }
+    /*USA*/
+    #weatherUSA h2 {
+        margin: 18px 0 0 0;
+        color: #4285F4;
+        /*font-size: 100px;*/
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+
+    #weatherUSA ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #weatherUSA li {
+        background: #fff;
+        background: rgba(255,255,255,0.90);
+        padding: 20px;
+        display: inline-block;
+        border-radius: 5px;
+    }
+
+    #weatherUSA .currently {
+        margin: 0 20px;
+    }
+
+    button {
+        display: block;
+        margin: 15px auto;
+        width: 140px;
+        padding: 5px;
+        background: transparent;
+        color: #fff;
+        border: 0;
+        border-radius: 5px;
+    }
+    #weatherParis h2 {
+        margin: 18px 0 0 0 !important;
+        color: #4285F4 !important;
+        /*font-size: 100px;*/
+        font-size: 20px !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15) !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-home"></i>Dashboard
+                </div>
+                <div class="actions">
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="col-xlg-12 col-md-12">
+                    <!--                    <div style="margin-top: 20px;">
+                                            <div class="col-md-12">
+                                                <ul class="jquery-clock small" data-jquery-clock="">
+                                                    <li class="jquery-clock-pin"></li>
+                                                    <li class="jquery-clock-sec"></li>
+                                                    <li class="jquery-clock-min"></li>
+                                                    <li class="jquery-clock-hour"></li>
+                                                </ul>
+                                            </div>
+                                        </div>-->
+                    <div style="height: 25px;">
+
+                    </div>
+                    <div class="col-md-3" style="height: 85px;">
+                        <div id="weather" style="float: left;"></div>
+                        <!--<button class="js-geolocation" style="display: none;">Use Your Location</button>-->
+                    </div>
+                    <div class="col-md-3" style="height: 85px;">
+                        <div id="weatherParis" style="float: left;"></div>
+                        <!--<button class="js-geolocation1" style="display: none;">Use Your Location</button>-->
+                    </div>
+                    <div class="col-md-3" style="height: 85px;padding: 0;">
+                        <div id="weatherUSA" style="float: left;"></div>
+                        <!--<button class="js-geolocation2" style="display: none;">Use Your Location</button>-->
+                    </div>
+                    <div class="clock col-md-3" style="height: 85px;padding: 0;line-height: 35px;">
+                        <div id="Date"></div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <ul>
+                                <li id="hours"> </li>
+                                <li id="point">:</li>
+                                <li id="min"> </li>
+                                <li id="point">:</li>
+                                <li id="sec"> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-3" style="padding-left: 0; padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/app-gestion-commercials", true' style="background: #4285F4 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <i class="fa fa-tags fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Gestion commerciale</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #0d47a1 !important;color: #fff;">
+                                        Gestion commerciale
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0; padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/app-gestion-commercials", true' style="background: #673ab7 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <!--<i class="fa glyphicon glyphicon-list-alt fa-4x"></i>-->
+                                            <img src="assets/global/img/calculator.png" style='min-width: 67px !important;margin-top: -30px;' alt="" class="img-responsive">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Comptabilité</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #4527a0 !important;color: #fff;">
+                                        Comptabilité
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0; padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/contact", true' style="background: #E91E63 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <i class="fa bigSize fa-users fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Contact</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #C2185B !important;color: #fff;">
+                                        Contact 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0; padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/gestion-clients", true' style="background: #0097a7 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <i class="fa bigSize glyphicon glyphicon-headphones fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Prospection</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #00838f !important;color: #fff;">
+                                        Prospection
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0; padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/statistique", true' style="background: #E91E63 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <i class="fa bigSize fa-pie-chart fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Statistique & Analyse</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #C2185B  !important;color: #fff;">
+                                        Statistique & Analyse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0; padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/ajout-note-frais", true' style="background: #E91E63 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <!--<i class="fa glyphicon glyphicon-list-alt fa-4x"></i>-->
+                                            <img src="assets/global/img/edit-file.png" style='min-width: 67px !important;margin-top: -30px;' alt="" class="img-responsive">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Note de frais</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #C2185B !important;color: #fff;">
+                                        Note de frais
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0;padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/dashboard-pointage", true' style="background: #E91E63 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <!--<i class="fa bigSize icon-note fa-4x"></i>-->
+                                            <img src="assets/global/img/pointage.png" style='min-width: 67px !important;margin-top: -30px;' alt="" class="img-responsive">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Pointage & Paie</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #C2185B !important;color: #fff;">
+                                        Pointage & Paie 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="padding-left: 0;padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/", true' style="background: #E91E63 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <!--<i class="fa bigSize icon-note fa-4x"></i>-->
+                                            <img src="assets/global/img/project.png" style='min-width: 67px !important;margin-top: -30px;' alt="" class="img-responsive">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Gestion projets</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #C2185B !important;color: #fff;">
+                                        Gestion projets
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0;padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/", true' style="background: #4285F4 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <!--<i class="fa bigSize icon-note fa-4x"></i>-->
+                                            <img src="assets/global/img/chantier.png" style='min-width: 67px !important;margin-top: -30px;' alt="" class="img-responsive">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Gestion Chantier</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #0d47a1 !important;color: #fff;">
+                                        Gestion Chantier
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0;padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/app-gestion-commercials", true' style="background: #673ab7 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <i class="fa fa-calculator fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Caisse</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #4527a0 !important;color: #fff;">
+                                        Caisse fdgfdg
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0;padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='document.location.href = "#/app-gestion-commercials", true' style="background: #E91E63 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <i class="fa fa-shopping-cart fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">E-commerce</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #C2185B !important;color: #fff;">
+                                        E-commerce
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 0;padding-right: 0;">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="panel">
+                                <div id="panelAccess" class="panel-content widget-small bg-purple" onclick='transportView()' style="background: #0097a7 !important; cursor: pointer; height: 160px; text-align: center;">
+                                    <div class="title" style="text-align: center;">
+
+                                    </div>
+                                    <div class="content" style="text-align: center; height: 100px; color: #fff">
+                                        <div class="col-md-4" style="position: relative;top: 50px;">
+                                            <img src="assets/pages/img/delivery.png" style='min-width: 67px !important;margin-top: -30px;' alt="" class="img-responsive">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-translate="forms"><span class="fa arrow"></span></span>
+                                        </div>
+                                        <div class="col-md-8" style="position: relative;top: 35px;padding-left: 10px;padding-right: 0px;">
+                                            <h2 style="font-size: 19px;text-align: left;">Transporteur</h2>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="footer" style="text-align: left;top: 30px;position: relative;height: 27px;padding-left: 15px;padding-top: 5px;background: #00838f !important;color: #fff;">
+                                        Transporteur
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <!--<div style="height: 35px"> </div>-->
+
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>  
+
+
+
+<script>
+    var intervalDashboard = setInterval(function () {
+        if (document.readyState === 'complete') {
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            clearInterval(intervalDashboard);
+            setTimeout(function () {
+
+                if ("geolocation" in navigator) {
+                    $('.js-geolocation').show();
+                } else {
+                    $('.js-geolocation').hide();
+                }
+
+                /* Where in the world are you? */
+                $('.js-geolocation').on('click', function () {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        //loadWeather(position.coords.latitude + ',' + position.coords.longitude); //load weather using your lat/lng coordinates
+                    });
+                });
+
+                /* 
+                 * Test Locations
+                 * Austin lat/long: 30.2676,-97.74298
+                 * Austin WOEID: 2357536
+                 */
+                //console.log('no');
+                $(document).ready(function () {
+                    loadWeather('Tunis', ''); //@params location, woeid
+                });
+
+                function loadWeather(location, woeid) {
+                    $.simpleWeather({
+                        location: location,
+                        woeid: woeid,
+                        unit: 'c',
+                        success: function (weather) {
+                            var html = '<h2><i class="icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp + ',' + weather.city + '</h2>';
+//                            html = '<h2><i class="icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp + ',' + weather.country + ',' + weather.city + '</h2>';
+//                            html += '<ul><li>' + weather.country + ',' + weather.city + '</li>';
+//                            html += '<li class="currently">' + weather.currently + '</li>';
+                            sessionStorage.setItem("Tunis.code", weather.code);
+                            sessionStorage.setItem("Tunis.temp", weather.temp);
+                            sessionStorage.setItem("Tunis.units.temp", weather.units.temp);
+                            sessionStorage.setItem("Tunis.city", weather.city);
+                            $("#weather").html(html);
+                        },
+                        error: function (error) {
+//                            console.log("error Yahoo Tunis");
+                            var TunisCode = sessionStorage.getItem("Tunis.code");
+                            var TunisTemp = sessionStorage.getItem("Tunis.temp");
+                            var TunisUnitsTemp = sessionStorage.getItem("Tunis.units.temp");
+                            var TunisCity = sessionStorage.getItem("Tunis.city");
+                            if (TunisCode == null || TunisCode === 'null') {
+                                TunisCode = getRandomInt(0, 42);
+                                TunisTemp = getRandomInt(-5, 15);
+                                TunisUnitsTemp = "C";
+                                TunisCity = "Tunis";
+                            }
+                            setTimeout(function () {
+                                var html = '<h2><i class="icon-' + TunisCode + '"></i> ' + TunisTemp + '&deg;' + TunisUnitsTemp + ',' + TunisCity + '</h2>';
+                                $("#weather").html(html);
+                            }, 500);
+                        }
+                    });
+                }
+            }, 2000);
+            setTimeout(function () {
+                if ("geolocation" in navigator) {
+                    $('.js-geolocation1').show();
+                } else {
+                    $('.js-geolocation1').hide();
+                }
+
+                /* Where in the world are you? */
+                $('.js-geolocation1').on('click', function () {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        //loadWeather(position.coords.latitude + ',' + position.coords.longitude); //load weather using your lat/lng coordinates
+                    });
+                });
+
+                /* 
+                 * Test Locations 
+                 * Austin lat/long: 30.2676,-97.74298
+                 * Austin WOEID: 2357536
+                 */
+                //console.log('Paris');
+                $(document).ready(function () {
+                    loadWeatherParis('Paris', ''); //@params location, woeid
+                });
+
+                function loadWeatherParis(location, woeid) {
+                    $.simpleWeather({
+                        location: location,
+                        woeid: woeid,
+                        unit: 'c',
+                        success: function (weather) {
+                            var html = '<h2><i class="icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp + ',' + weather.city + '</h2>';
+//                            html = '<h2><i class="icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp + ',' + weather.country + ',' + weather.city + '</h2>';
+//                            html += '<ul><li>' + weather.country + ',' + weather.city + '</li>';
+//                            html += '<li class="currently">' + weather.currently + '</li>';
+                            sessionStorage.setItem("Paris.code", weather.code);
+                            sessionStorage.setItem("Paris.temp", weather.temp);
+                            sessionStorage.setItem("Paris.units.temp", weather.units.temp);
+                            sessionStorage.setItem("Paris.city", weather.city);
+                            $("#weatherParis").html(html);
+                        },
+                        error: function (error) {
+//                            console.log("error Yahoo Paris");
+                            var ParisCode = sessionStorage.getItem("Paris.code");
+                            var ParisTemp = sessionStorage.getItem("Paris.temp");
+                            var ParisUnitsTemp = sessionStorage.getItem("Paris.units.temp");
+                            var ParisCity = sessionStorage.getItem("Paris.city");
+                            if (ParisCode == null || ParisCode === 'null') {
+                                ParisCode = getRandomInt(0, 42);
+                                ParisTemp = getRandomInt(-5, 15);
+                                ParisUnitsTemp = "C";
+                                ParisCity = "Paris";
+                            }
+                            setTimeout(function () {
+                                var html = '<h2><i class="icon-' + ParisCode + '"></i> ' + ParisTemp + '&deg;' + ParisUnitsTemp + ',' + ParisCity + '</h2>';
+                                $("#weatherParis").html(html);
+                            }, 500);
+                        }
+                    });
+                }
+            }, 2000);
+            setTimeout(function () {
+                if ("geolocation" in navigator) {
+                    $('.js-geolocation').show();
+                } else {
+                    $('.js-geolocation').hide();
+                }
+
+                /* Where in the world are you? */
+                $('.js-geolocation').on('click', function () {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        //loadWeather(position.coords.latitude + ',' + position.coords.longitude); //load weather using your lat/lng coordinates
+                    });
+                });
+
+                /* 
+                 * Test Locations 
+                 * Austin lat/long: 30.2676,-97.74298
+                 * Austin WOEID: 2357536
+                 */
+                //console.log('New York');
+                $(document).ready(function () {
+                    loadWeatherNewYork('New York', ''); //@params location, woeid
+                });
+
+                function loadWeatherNewYork(location, woeid) {
+                    $.simpleWeather({
+                        location: location,
+                        woeid: woeid,
+                        unit: 'c',
+                        success: function (weather) {
+                            var html = '<h2><i class="icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp + ',' + weather.city + '</h2>';
+//                            html = '<h2 style="margin: 0 0 8px;color: #4285F4;font-size: 20px;font-weight: bold;text-align: center;text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);"><i class="icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp + ',' + weather.city + '</h2>';
+//                            html = '<h2><i class="icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp + ',' + weather.country + ',' + weather.city + '</h2>';
+//                            html += '<ul><li>' + weather.country + ',' + weather.city + '</li>';
+//                            html += '<li class="currently">' + weather.currently + '</li>';
+                            sessionStorage.setItem("newYork.code", weather.code);
+                            sessionStorage.setItem("newYork.temp", weather.temp);
+                            sessionStorage.setItem("newYork.units.temp", weather.units.temp);
+                            sessionStorage.setItem("newYork.city", weather.city);
+                            $("#weatherUSA").html(html);
+                        },
+                        error: function (error) {
+//                            console.log("error Yahoo NewYork");
+                            var newYorkCode = sessionStorage.getItem("newYork.code");
+                            var newYorkTemp = sessionStorage.getItem("newYork.temp");
+                            var newYorkUnitsTemp = sessionStorage.getItem("newYork.units.temp");
+                            var newYorkCity = sessionStorage.getItem("newYork.city");
+                            if (newYorkCode == null || newYorkCode === 'null') {
+                                newYorkCode = getRandomInt(0, 42);
+                                newYorkTemp = getRandomInt(-5, 15);
+                                newYorkUnitsTemp = "C";
+                                newYorkCity = "New York";
+                            }
+                            setTimeout(function () {
+                                var html = '<h2><i class="icon-' + newYorkCode + '"></i> ' + newYorkTemp + '&deg;' + newYorkUnitsTemp + ',' + newYorkCity + '</h2>';
+                                $("#weatherUSA").html(html);
+                            }, 500);
+                        }
+                    });
+                }
+            }, 2000);
+            /* 
+             * Test Locations
+             * Austin lat/long: 30.2676,-97.74298
+             * Austin WOEID: 2357536
+             */
+
+
+        }
+    }, 100);
+    // Docs at http://simpleweatherjs.com
+
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+// Create two variable with the names of the months and days in an array
+        var monthNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+//        var monthNames = ["Janvier", "Fivrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "September", "October", "November", "December"];
+        var dayNames = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+// Create a newDate() object
+        var newDate = new Date();
+// Extract the current date from Date object
+        newDate.setDate(newDate.getDate());
+// Output the day, date, month and year    
+//        $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+        $('#Date').html(newDate.getDate() + '-' + monthNames[newDate.getMonth()] + '-' + newDate.getFullYear());
+
+        setInterval(function () {
+            // Create a newDate() object and extract the seconds of the current time on the visitor's
+            var seconds = new Date().getSeconds();
+            // Add a leading zero to seconds value
+            $("#sec").html((seconds < 10 ? "0" : "") + seconds);
+        }, 1000);
+
+        setInterval(function () {
+            // Create a newDate() object and extract the minutes of the current time on the visitor's
+            var minutes = new Date().getMinutes();
+            // Add a leading zero to the minutes value
+            $("#min").html((minutes < 10 ? "0" : "") + minutes);
+        }, 1000);
+
+        setInterval(function () {
+            // Create a newDate() object and extract the hours of the current time on the visitor's
+            var hours = new Date().getHours();
+            // Add a leading zero to the hours value
+            $("#hours").html((hours < 10 ? "0" : "") + hours);
+        }, 1000);
+
+    });
+</script>
+<script>
+    var ifRefresh = sessionStorage.getItem('ifRefresh');
+    var currentUrl = document.location.href;
+    //console.log(ifRefresh);
+    //console.log(ifRefresh == null);
+    //console.log(ifRefresh === null);
+    //console.log(ifRefresh === 'null');
+    if (ifRefresh == null || ifRefresh === 'null') {
+        document.location.reload(currentUrl);
+        sessionStorage.setItem('ifRefresh', 'refreshed');
+    }
+</script>

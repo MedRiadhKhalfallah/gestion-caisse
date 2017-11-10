@@ -1,0 +1,52 @@
+
+/*BREADCRUMB GENERAL STYLE*/
+
+/*Styles du div englobant*/
+#breadcrumb{
+    font-family:"Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+    /*width:500px;*/
+}
+/*Reset sur la liste*/
+#breadcrumb ul, #breadcrumb li {
+    list-style-type:none;	
+    padding:0;margin:0;
+}		
+/*Styles sur la liste*/
+/*#breadcrumb ul{
+height:33px;
+margin:10px auto;
+padding:30px 0;
+}	*/
+/*Premier �l�ment de la liste*/
+#breadcrumb li.first {
+    background:url(../images/first-left.png) 0 0 no-repeat;
+    height:33px;
+} 
+/*Tous les �l�ments de la liste sauf premier et dernier*/
+#breadcrumb li {
+    float:left;
+    background:url(../images/general-left.png) 0 0 no-repeat;
+    line-height:33px;
+    margin:5px 0 0 0;
+    padding-left:13px;
+}
+/*Style sur les �l�ments a et span*/
+#breadcrumb li a, #breadcrumb li span {
+    float:left;
+    background:url(../images/bg-gradient.jpg) 0 0 repeat-x;
+    height:33px;
+    margin:0;
+    padding:0 0 0 5px;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    width: 160px;
+    text-align: center;
+}	
+/*Style du dernier span de la liste*/
+#breadcrumb li span.end {
+    float:left;
+    background:url(../images/general-right.png) 0 0 no-repeat;
+    width:15px;
+    height:33px;
+} 					

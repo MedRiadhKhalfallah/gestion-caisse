@@ -1,0 +1,95 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+
+    }
+
+
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Commandes </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Présence Employee
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/gestion-employees" class="btn btn-default btn-sm" ng-click="exportDataemploye()">
+                        <i class="fa fa-align-right"></i> Export To Excel
+                    </a>
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" ng-controller="ModalEmailCtrl" ng-click="open()"><i class="fa fa-send-o"></i> Envoyer par mail </a>
+
+                    <a href="#/simulateur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Simulateur de Paie
+                    </a>
+                    <a href="#/salaire" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Salaire
+                    </a>
+                    <a href="#/add-employee" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer
+                    </a>
+
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="clearfix"></div>
+                <div ng-app ng-controller="Ctrl">
+                    <h3>Absence du "{{date| date:'yyyy-MM-dd'}}"</h3>  
+                </div>
+                <form action="#" class="form-horizontal form-bordered ">
+                    <div class="col-md-6" style="margin-top: 90px;">
+
+                        <div class="form-group col-md-12">
+                            <label class="col-md-4 control-label">  Autorisation </label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select cause..." id="causeid" ng-model="refcause" ng-change="autorisation()">
+                                        <option value="congé">Congée</option>
+                                        <option value="absence">Absence</option>
+                                        <option value="permiss">Permission de sortir</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="display:none;" id="showaut">
+
+
+                            <input type="checkbox" id="isRebut" ng-model="checkbox" ng-true-value="1" ng-false-value="0" ng-checked="checkbox == 1" value="0" class="ng-pristine ng-valid ng-empty ng-touched">
+                            autorisée <br>
+
+
+                        </div> 
+                        <br>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>s
+

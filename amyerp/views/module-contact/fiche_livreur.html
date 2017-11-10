@@ -1,0 +1,249 @@
+<style>
+    .modal-content{
+        width: 50%;
+        left: 27% !important;
+        position: relative; 
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Fiche Livreur : {{livreur.Livreur.full_name}} 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/module-transporteur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Transporteur
+                    </a> 
+                    <a href="#/ajout-livreur" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer 
+                    </a>
+                    <a href="#/edit-livreur/{{livreur.Livreur.id}}" class="btn btn-default btn-sm">
+                        <i class="fa fa-pencil"></i> Modifier 
+                    </a>
+                    <a href="#/gestion-livreurs" class="btn btn-default btn-sm">
+                        <i class="fa fa-list"></i> Liste livreurs
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body"> 
+                <div class="tab_left">
+                    <ul  class="nav nav-tabs nav-red">
+                        <li class="active"><a href="#" data-target="#tab3_1" data-toggle="tab">Informations</a></li>
+                        <li><a href="#" data-target="#tab3_2" data-toggle="tab">Commandes récupérées</a></li>
+                        <li><a href="#" data-target="#tab3_3" data-toggle="tab">Commandes en cours de livraison</a></li>
+                        <li><a href="#" data-target="#tab3_4" data-toggle="tab">Commandes livrées</a></li>
+                        <li><a href="#" data-target="#tab3_5" data-toggle="tab">Retours</a></li>
+                        <li><a href="#" data-target="#tab3_6" data-toggle="tab">Annulations</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab3_1">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h3><span class="glyphicon glyphicon-user"></span> Fiche Livreur:</h3>
+                                </div> 
+                                <div class="panel-content">
+                                    <p><strong>Nom et Prénom: </strong> {{livreur.Livreur.full_name}}</p>
+                                    <p><strong>Adresse: </strong> {{livreur.Livreur.adress}}</p>
+                                    <p><strong>Ville: </strong> {{livreur.Ville.name}}</p>
+                                    <p><strong>Email: </strong> {{livreur.Livreur.email}}</p>
+                                    <p><strong>Téléphone Pro: </strong> {{livreur.Livreur.phone}}</p>
+                                    <p><strong>Téléphone Personel: </strong> {{livreur.Livreur.en_phone}}</p>
+                                    <p><strong>Pèrmis de conduire: </strong> {{livreur.Livreur.permis_conduire}}</p>
+                                    <p><strong>Matricule de voiture: </strong> {{livreur.Livreur.matricule_voiture}}</p>
+                                    <p><strong>Marque de voiture: </strong> {{livreur.Livreur.marque_voiture}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_2">
+                            <div class="page-header">
+                                <h3> Commandes récupérées:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div  ng-if="recuperees.length === 0">
+                                    <p>pas de commande.</p>
+                                </div>
+                                <div ng-if="recuperees.length > 0" class="col-md-12">
+                                    <table class="table table-striped" wt-responsive-table>
+                                        <tr>
+                                            <th>Référence Devis</th>
+                                            <th>Client</th>
+                                            <th>Date de Génération</th>
+                                            <th>Date de Modification</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                        <tr ng-repeat="($index, commandee) in recuperees">
+                                            <td>{{commandee.Commande.ref}}</td> 
+                                            <td>{{commandee.User.full_name}}</td>
+                                            <td>{{commandee.Commande.created}}</td>
+                                            <td>{{commandee.Commande.modified}}</td>
+                                            <td>     
+                                                <div>
+                                                    <a href="#/view-commande-client/{{commandee.Commande.id}}"  class="btn btn-info btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_3">
+                            <div class="page-header">
+                                <h3> Commandes en cours de livraison:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div  ng-if="enattentes.length === 0">
+                                    <p>pas de commande.</p>
+                                </div>
+                                <div ng-if="enattentes.length > 0" class="col-md-12">
+                                    <table class="table table-striped" wt-responsive-table>
+                                        <tr>
+                                            <th>Référence Commande</th>
+                                            <th>Client</th>
+                                            <th>Date de Livraison</th>
+                                            <th>Date de Génération</th>
+                                            <th>Date de Modification</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                        <tr ng-repeat="($index, commandee) in enattentes">
+                                            <td>{{commandee.Commande.ref}}</td> 
+                                            <td>{{commandee.User.full_name}}</td>
+                                            <td>{{commandee.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                            <td>{{commandee.Commande.created}}</td>
+                                            <td>{{commandee.Commande.modified}}</td>
+                                            <td>     
+                                                <div>
+                                                    <a href="#/view-commande-client/{{commandee.Commande.id}}"  class="btn btn-info btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_4">
+                            <div class="page-header">
+                                <h3> Commandes livrées:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div  ng-if="livrees.length === 0">
+                                    <p>pas de commandes.</p>
+                                </div>
+                                <table ng-if="livrees.length > 0" class="table table-striped" wt-responsive-table>
+                                    <tr>
+                                        <th>Référence Commande</th>
+                                        <th>Client</th>
+                                        <th>Date de Livraison</th>
+                                        <th>Date de Génération</th>
+                                        <th>Date de Modification</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr ng-repeat="($index, commandee) in livrees">
+                                        <td>{{commandee.Commande.ref}}</td> 
+                                        <td>{{commandee.User.full_name}}</td>
+                                        <td>{{commandee.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                        <td>{{commandee.Commande.created}}</td>
+                                        <td>{{commandee.Commande.modified}}</td>
+                                        <td>     
+                                            <div>
+                                                <a href="#/view-commande-client/{{commandee.Commande.id}}"  class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>                       
+                        <div class="tab-pane fade" id="tab3_5">
+                            <div class="page-header">
+                                <h3> Retours commandes:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div  ng-if="retours.length === 0">
+                                    <p>pas de retours.</p>
+                                </div>
+                                <table ng-if="retours.length > 0" class="table table-striped" wt-responsive-table>
+                                    <tr>
+                                        <th>Référence Commande</th>
+                                        <th>Client</th>
+                                        <th>Date de Génération</th>
+                                        <th>Date de Livraison</th>
+                                        <th>Date de Modification</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr ng-repeat="($index, commandee) in retours">
+                                        <td>{{commandee.Commande.ref}}</td> 
+                                        <td>{{commandee.User.full_name}}</td>
+                                        <td>{{commandee.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                        <td>{{commandee.Commande.created}}</td>
+                                        <td>{{commandee.Commande.modified}}</td>
+                                        <td>     
+                                            <div>
+                                                <a href="#/view-commande-client/{{commandee.Commande.id}}"  class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_6">
+                            <div class="page-header">
+                                <h3> Annulations</h3>
+                            </div>
+                            <div class="panel-content">
+                                <p ng-if="annulations.length === 0">
+                                    Pas d'annulations.
+                                </p>
+                                <table ng-if="annulations.length > 0" class="table table-striped" wt-responsive-table>
+                                    <tr>
+                                        <th>Référence Commande</th>
+                                        <th>Client</th>
+                                        <th>Date de Livraison</th>
+                                        <th>Date de Génération</th>
+                                        <th>Date de Modification</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr ng-repeat="($index, commandee) in annulations">
+                                        <td>{{commandee.Commande.ref}}</td> 
+                                        <td>{{commandee.User.full_name}}</td>
+                                        <td>{{commandee.Commande.date_livraison| date:'dd-MM-yyyy'}}</td>
+                                        <td>{{commandee.Commande.created}}</td>
+                                        <td>{{commandee.Commande.modified}}</td>
+                                        <td>     
+                                            <div>
+                                                <a href="#/view-commande-client/{{commandee.Commande.id}}"  class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

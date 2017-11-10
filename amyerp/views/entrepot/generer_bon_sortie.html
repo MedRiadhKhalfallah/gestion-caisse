@@ -1,0 +1,312 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+</style>
+<style>
+    .typeahead-demo .custom-popup-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        background-color: #f9f9f9;
+    }
+
+    .typeahead-demo .custom-popup-wrapper > .message {
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+        color: #868686;
+    }
+
+    .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+        position: static;
+        float: none;
+        display: block;
+        min-width: 160px;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .dropdown-menu{margin: 0 !important;}
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Bon sortie
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard 
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a> 
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="form-group col-xs-12">
+                        <label class="col-md-3 control-label">Type de transfert</label>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="input-group" style="width: 100% !important;">
+                                <select class="selectpicker" style="width: 100% !important;" title="Select Type Transfert..." ng-change='TypeTransfert()' ng-model="TypeDETransfert" id="TypeDeTransfert">
+                                    <option value="" style="display: none !important;"></option>
+                                    <option value="inter">Inter Entrepôt</option>
+                                    <option value="intra">Intra Entrepôt</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="IterEntrepot" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group col-md-12">
+                                    <label class="col-sm-4 control-label">Entrepôt de départ</label>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Entrepôt..." id="entrepotValueDebut" ng-change="entrepotDepart()" ng-model="entrepotDepartNew">
+                                                <option value=""></option>
+                                                <option value="{{item.Stock.id}}" ng-repeat="item in stocks">{{item.Stock.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group col-md-12" id="emplacementBlock" style="display: none;">
+                                    <label class="col-sm-4 control-label">Emplacements</label>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Emplacement..." id="EmplacementID" ng-change="emplacementDepart()" ng-model="EmplacementsDepartNew">
+                                                <option value=""></option>
+                                                <option ng-repeat="emplacement in emplacementsList" value="{{emplacement.Emplacement.id}}">{{emplacement.Emplacement.id}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12" id="sousemplacementBlock" style="display: none;">
+                                    <label class="col-sm-4 control-label">Sous Emplacements</label>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Sous Emplacement..." id="SousEmplacementID" ng-change="sousemplacementDepart()" ng-model="SousEmplacementsDepartNew">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group col-md-12" style="display: none;" id="EntrepotRecept">
+                                    <label class="col-sm-4 control-label">Entrepôt de Réception</label>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Entrepôt..." id="entrepotValueFin">
+                                                <option value=""></option>
+                                                <option value="{{item.Stock.id}}" ng-repeat="item in stocks">{{item.Stock.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12" id="emplacementRecept" style="display: none;">
+                                    <label class="col-sm-4 control-label">Emplacements  de Réception</label>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Emplacement..." id="EmplacementReceptID" ng-change="emplacementReceptDepart()" ng-model="EmplacementsDepartRecept">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="displayProduct" style="display: none;">
+                            <div class="col-md-6">
+                                <!--                                <div class="form-group col-md-6">
+                                                                    <label class="col-sm-4 control-label">Produits</label>
+                                                                    <div class="col-sm-6">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            <div class='container-fluid typeahead-demo' ng-controller="StocksController">
+                                                                                <h4>Produits</h4>
+                                                                                <input autocomplete="off" type="text" ng-model="selected" style="border-radius: 5px;" placeholder="Choisir un produit" uib-typeahead="state for state in commandesINstock | filter:$viewValue | limitTo:28" class="form-control" id="commnadeINstock" data-commande="{{state}}">
+                                                                            </div>  
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-2">
+                                                                    <label class="col-sm-4 control-label">Qte</label> 
+                                                                    <div class="col-sm-8">
+                                                                        <div class="input-group">
+                                                                            <input type="number" min="1" id="Qte" placeholder="Qte" name="qte" class="form-control" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-1 col-md-1">
+                                                                    <i id='addbonsortie' class='glyphicon glyphicon-plus btn btn-info btn-sm btn-embossed icon' style='width: 35px !important;height: 25px !important;position: relative;top: 20px;' ng-click="appendProduct()"></i>
+                                                                </div>-->
+                                <div class="col-md-12">
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th> Désignation </th>
+                                                <th> Ref </th>
+                                                <th> Qte </th>
+                                                <th> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="listProduct">
+
+                                        </tbody> 
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div>
+                                                        <button ng-click="genererBonSortie($event)" class="btn btn-info btn-sm pull-right" id="genererBon" style="display: none;">Générer</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="productStock" style="display: none;">
+                                <div class="row" style="margin-bottom: 20px;">
+                                    <div class="col-xs-4">
+                                        <form class="form-inline" style="float: right">
+                                            <div class="form-group">
+                                                <label >Recherche</label>
+                                                <input type="text" ng-model="searchProducts" ng-change="searchProductsFunc(searchProduct)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="other-controller">
+                                    <div class="text-center">
+                                        <ul uib-pagination
+                                            next-text="Suivant"
+                                            previous-text="Précédent"
+                                            ng-if="totalItems" 
+                                            class="pagination-sm" 
+                                            boundary-link-numbers="true" 
+                                            max-size="5" 
+                                            rotate="false" 
+                                            total-items="totalItems" 
+                                            force-ellipses="true" 
+                                            items-per-page="itemsPerPage"
+                                            ng-model="paging.page" 
+                                            ng-change="pageChanged(paging.page)"></ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" ng-repeat="($index, product) in costomstock" style="padding-left: 0;padding-right: 5px;">
+                                    <div class="panel panel-primary" style="height: 230px;">
+                                        <div class="oe_kanban_details" ng-if="product.Product.type === 'Colis'">
+                                            <div class="panel-heading" style="font-size: 12px;"><strong id="refProduct"> {{product.Product.name}}</strong></div>
+                                            <div class="panel-body" style="padding: 7px 0px 0px 3px;">
+                                                <div class="col-md-12" style="padding: 0 0 0 3px;">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Expé. :</strong> {{(product.User.raison_social||product.User.nom_commercial)}}</li>
+                                                        <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Dest. :</strong> {{product.Receiver.full_name}}</li>
+                                                    </ul> 
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer" style="height: 50px;">
+                                                <ul class="nav nav-pills pull-right">
+                                                    <li>
+                                                        <div class="col-sm-1 col-md-1">
+                                                            <i id='addbonsortie' class='glyphicon glyphicon-plus btn btn-info btn-sm btn-embossed icon' data-ref='{{product.Product.ref}}' data-name='{{product.Product.name}}' data-data-id='{{product.Product.id}}' style='width: 35px !important;height: 25px !important;position: relative;' ng-click="appendProduct()"></i>
+                                                        </div>                                       
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="oe_kanban_details" ng-if="product.Product.type != 'Colis'">
+                                            <div class="panel-heading" style="font-size: 12px;"><strong id="refProduct"> {{product.Product.ref}}</strong></div>
+                                            <div class="panel-body" style="padding: 7px 0px 0px 3px;">
+                                                <div class="col-md-12" style="padding: 0 0 0 3px;">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Famille :</strong> {{product.Famille.name}}</li>
+                                                        <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Catégorie :</strong> {{product.Category.name}}</li>
+                                                    </ul> 
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer" style="height: 50px;">
+                                                <ul class="nav nav-pills pull-right">
+                                                    <li>
+                                                        <div class="col-sm-1 col-md-1">
+                                                            <i id='addbonsortie' class='glyphicon glyphicon-plus btn btn-info btn-sm btn-embossed icon' data-ref='{{product.Product.ref}}' data-name='{{product.Product.name}}' data-data-id='{{product.Product.id}}' style='width: 35px !important;height: 25px !important;position: relative;' ng-click="appendProduct()"></i>
+                                                        </div>                                       
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- END PORTLET-->
+    </div>
+    <div class="clearfix"></div>
+</div>  
+<!-- END MAIN CONTENT -->
+
+<script>
+    var intervalBonSortie = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalBonSortie);
+            $('.selectpicker').selectpicker({
+                style: ' btn-default',
+                size: 12
+            });
+        }
+    }, 100);
+</script>

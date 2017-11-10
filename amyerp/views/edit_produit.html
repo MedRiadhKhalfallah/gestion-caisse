@@ -1,0 +1,273 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#/products">Liste Produits</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Modifié Produit </li>
+</ul>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Modifié Produit 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="col-md-6">
+                    <form action="#" id="form-username" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Code Barres</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <input type="text" id="code_barre" placeholder="Code Barres" ng-model="currentProduct.Product.code_barres" name="code barre" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Image</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+
+                                    <input type="file" file-model="myFile" />
+
+                                    <!--<input type="text" id="code_barre" placeholder="Code Barres" ng-model="currentProduct.Product.code_barres" name="code barre" class="form-control" /> </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Référence</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <input type="text" id="ref" placeholder="Référence" ng-model="currentProduct.Product.ref" name="ref" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Nom Produit</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <input type="text" id="nom" placeholder="Nom Produit" ng-model="currentProduct.Product.name" name="nom" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Prix d'achat</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="PACHAT" ng-model="currentProduct.Product.prix_achat" ng-change="changeAchatEdit()" placeholder="Prix d'achat" name="typeahead_example_4" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Marge</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="Marge" placeholder="Marge" ng-model="currentProduct.Product.marge" ng-change="changeAchatEdit()" name="typeahead_example_4" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">Prix unitaire</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <input type="text" id="PUHT" placeholder="Prix unitaire" ng-model="currentProduct.Product.price" name="Prix unitaire" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="groupType" data-value='{{currentProduct.Product.type}}'>
+                            <label class="col-sm-3 control-label">Type</label>
+                            <div class="col-sm-9 col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">  
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" ng-model="currentProduct.Product.type" data-placeholder="Select Type Product..." id="typeValue">
+                                        <option value=""></option>
+                                        <option value="Stockable">Stockable</option>
+                                        <option value="Consommable">Consommable</option>
+                                        <option value="Service">Service</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="groupTva" data-value='{{currentProduct.Product.Tva.name}}'>
+                            <label class="col-sm-3 control-label">Tva</label>
+                            <div class="col-sm-9" ng-controller="TvaController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select TVA..." ng-model="currentProduct.Product.tva_id"  ng-init="currentProduct.Product.tva_id = options[currentProduct.Product.tva_id]" id="tvaValue">
+                                        <option value=""></option>
+                                        <option  value="{{item.Tva.id}}" ng-repeat="item in tvas">{{item.Tva.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="groupCategory" data-value="{{currentProduct.Category.name}}">
+                            <label class="col-sm-3 control-label">Categorie</label>
+                            <div class="col-sm-9" ng-controller="CategorieController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Category..." ng-model="currentProduct.Product.category_id" id="categoryValue">
+                                        <option value=""></option>
+                                        <option ng-model="currentProduct.Category.name" value="{{item.Category.id}}" ng-repeat="item in categories">{{item.Category.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="groupUnite" data-value="{{currentProduct.Unite.name}}">
+                            <label class="col-sm-3 control-label">Unite</label>
+                            <div class="col-sm-9" ng-controller="UniteController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tag"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Unite..." ng-model="currentProduct.Product.unite_id" id="uniteValue">
+                                        <option value=""></option>
+                                        <option ng-model="currentProduct.Unite.id" value="{{item.Unite.id}}" ng-repeat="item in unites">{{item.Unite.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="groupFamille" data-value="{{currentProduct.Famille.name}}">
+                            <label class="col-sm-3 control-label">Famille</label>
+                            <div class="col-sm-9" ng-controller="FamilleController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" ng-model="currentProduct.Product.famille_id" data-placeholder="Select Famille..." id="familleValue">
+                                        <option value=""></option>
+                                        <option ng-model="currentProduct.Famille.name" value="{{item.Famille.id}}" ng-repeat="item in familles">{{item.Famille.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="groupFournisseur" data-value="{{currentProduct.Fournisseur.name}}">
+                            <label class="col-sm-3 control-label">Fournisseur</label>
+                            <div class="col-sm-9" ng-controller="FournisseurController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Fournisseur..." ng-model="currentProduct.Product.fournisseur_id" id="fournisseurValue">
+                                        <option value=""></option>
+                                        <option ng-model="currentProduct.Fournisseur.name" value="{{item.Fournisseur.id}}" ng-repeat="item in fournisseurs">{{item.Fournisseur.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="submit" class="btn purple" ng-click="editProduct($event)" style="float: right">
+                                        <i class="fa fa-check"></i> Modifier</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="page-header">
+                        <h3>Fiche Produit</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Code Barre</strong> : {{currentProduct.Product.code_barres}}</li>
+                        <li class="list-group-item"><strong>Nom Produit</strong> : {{currentProduct.Product.name}}</li>
+                        <li class="list-group-item"><strong>Image</strong> : <img src="http://api.amyevolution.com/img/{{currentProduct.Product.url}}" style="width: 200px; border: none !important;margin-left: 25%;" class="thumbnail" /></li>
+                        <li class="list-group-item"><strong>Nom Produit</strong> : {{currentProduct.Product.name}}</li>
+                        <li class="list-group-item"><strong>Réf. Produit</strong> : {{currentProduct.Product.ref}}</li>
+                        <li class="list-group-item"><strong>Prix Achat</strong> : {{currentProduct.Product.prix_achat| number:3}}</li>
+                        <li class="list-group-item"><strong>Marge</strong> : {{currentProduct.Product.marge}} % ({{currentProduct.Product.prix_achat * currentProduct.Product.marge / 100| number:3}})</li>
+                        <li class="list-group-item"><strong>Prix Vente HT</strong> : {{currentProduct.Product.price| number:3}}</li>
+                        <li class="list-group-item"><strong>TVA</strong> : {{currentProduct.Product.Tva.name}} ({{currentProduct.Product.price * currentProduct.Product.Tva.value / 100| number:3}})</li>
+                        <li class="list-group-item"><strong>Prix TTC vente</strong> : {{currentProduct.Product.price * (1 + currentProduct.Product.Tva.value / 100) | number:3}}</li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<script>
+            // Polling for the sake of my intern tests
+            var intervalProduct = setInterval(function () {
+                if (document.readyState === 'complete') {
+                    clearInterval(intervalProduct);
+                    done();
+                }
+            }, 100);
+    function done() {
+        //        toastr.info("PAGE LOADED");
+        setTimeout(function () {
+            //TVA
+            var typeValue = $("#groupType").attr('data-value');
+            $("#groupType .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + typeValue + "</p>");
+            var tvaValue = $("#groupTva").attr('data-value');
+            //            $("#groupTva .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + tvaValue + "</p>");
+            $("#groupTva .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + tvaValue + "</p>");
+            //CATEGORY
+            var categoryValue = $("#groupCategory").attr('data-value');
+            //            $("#groupCategory .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + categoryValue + "</p>");
+            $("#groupCategory .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + categoryValue + "</p>");
+            //FAMILLE
+            var familleValue = $("#groupFamille").attr('data-value');
+            //            $("#groupFamille .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + familleValue + "</p>");
+            $("#groupFamille .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + familleValue + "</p>");
+            //FOURNISSEUR
+            var fournisseurValue = $("#groupFournisseur").attr('data-value');
+            //            $("#groupFournisseur .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + fournisseurValue + "</p>");
+            $("#groupFournisseur .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + fournisseurValue + "</p>");
+            var uniteValue = $("#groupUnite").attr('data-value');
+            //            $("#groupFournisseur .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + fournisseurValue + "</p>");
+            $("#groupUnite .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + uniteValue + "</p>");
+        }, 2000);
+    }
+</script>

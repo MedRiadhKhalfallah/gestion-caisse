@@ -1,0 +1,261 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#/products">Liste Factures</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Ajout Facture </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>État vente </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <!--                    <a href="#/gestion-bon-livraison" class="btn btn-default btn-sm">
+                                            <i class="fa fa-list"></i> Retour Liste BL </a> -->
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal form-bordered">
+                    <div class="form-group col-md-4">
+                        <label class="control-label col-md-4">Date Début</label>
+                        <div class="col-md-8">
+                            <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input type="text" id="DateDebut" class="form-control" placeholder="Date De Début" readonly>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label col-md-4">Date Fin</label>
+                        <div class="col-md-8">
+                            <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input type="text" id="DateFin" class="form-control" placeholder="Date De Fin" readonly>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="col-sm-3 control-label">Client</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Client..." id="ClientID">
+                                    <option value=""></option>
+                                    <option value="0">Tous les client</option>
+                                    <option value="{{item.User.id}}" ng-repeat="item in clients">{{item.User.full_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions col-md-2" style="background-color: #fff;">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <etatfacturesvente></etatfacturesvente> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form><br><br>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr>
+                            <th style="width: 150px;"> Référence </th>
+                            <th> Client </th>
+                            <th> Total HT </th>
+                            <th> Tva </th>
+                            <th> Timbre </th>
+                            <th> Total TTC </th>
+                            <th> Marge </th>
+                            <th> Total Reglé </th>
+                            <th> Total Restant </th>
+                            <th> Date de Génération </th>
+                            <th style="width: 100px;"> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left;" id="list-factures">
+
+                    </tbody>
+                </table>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Total HT</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <span id="Total_Ht">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Total TVA</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <span id="Total_TVA">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Total TTC</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <span id="Total_TTC">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Marge</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <span id="Marge_Total">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Total Payée</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <span id="Total_Payee">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Total Restant</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <span id="Total_Restant">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<!-- END MAIN CONTENT -->
+<script>
+//    ComponentsDateTimePickers.init();
+    setTimeout(function () {
+//        $('#DateDebut').datepicker({dateFormat: "yy-mm-dd"});
+        $('#DateDebut').datepicker({
+            altField: "#DateFin",
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "yy-mm-dd"
+        });
+//        $('#DateFin').datepicker({dateFormat: "yy-mm-dd"});
+        $('#DateFin').datepicker({
+            altField: "#DateFin",
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "yy-mm-dd"
+        });
+
+    }, 500);
+</script>

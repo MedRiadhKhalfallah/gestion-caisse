@@ -1,0 +1,206 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Produits </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .ui-widget.ui-widget-content {
+        /*top: 1488.43px !important;*/
+        top: 1590.43px !important;
+    }
+    .CostumSlct.select2-container--bootstrap select2-container--open {
+        /*top: 1564.43px !important;*/
+
+    }
+    .bootstrap-select:not([class*='col-']):not([class*="form-control"]):not(.input-group-btn){width: 100% !important;}
+</style> 
+<div class="row">
+    <div class="col-md-12 col-sm-12">  
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Sous emplacement: {{currentSousEmplacement.Sousemplacement.name}} </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="portlet-body">
+                    <div>
+                        <div class="clearfix"></div>
+
+                        <div class="view-mode btn-group btn-group-sm pull-right">
+                            <button type="button" accesskey="K" data-view-type="kanban" title="" class="btn btn-default fa fa-th-large oe-cp-switch-kanban" data-original-title="Kanban" ng-click="ShowEntrepotBlock()"></button>
+                            <button type="button" accesskey="L" data-view-type="list" title="" class="btn btn-default fa fa-list-ul oe-cp-switch-list" data-original-title="Liste" ng-click="ShowEntrepotList()"></button>
+                            <button type="button" accesskey="F" data-view-type="form" title="" class="btn btn-default fa fa-edit oe-cp-switch-form" data-original-title="Formulaire"></button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="clearfix"></div>
+                        <div id="EntrepotBlock">
+<!--                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h3>Meals Page: {{ currentPage}}</h3>
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="search">Recherche</label>
+                                    <input ng-model="q" id="search" class="form-control" placeholder="Recherche...">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="search">Nombre d'article par page:</label>
+                                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                                </div>
+                            </div>-->
+                            <div class="clearfix" style="height: 20px;"></div>
+                            <div>
+                                <div class="col-md-3" ng-repeat="($index, stock) in listproduitssousemplacement">
+                                    <div class="panel panel-primary">
+                                        <div class="oe_kanban_details">
+                                            <div class="panel-heading" style="font-size: 13px;"><strong>{{stock.name}}</strong></div>
+                                            <div class="panel-body" style="padding: 7px 0px 0px 3px;">
+                                                <div class="col-md-4" style="padding: 0;">
+                                                    <img src="https://api.amyevolution.com/img/{{stock.url}}" class="thumbnail center-block img-responsive " />
+                                                </div>
+                                                <div class="col-md-8" style="padding: 0 0 0 3px;">
+                                                    <ul class="list-group">
+                                                        <!--                                                        <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Référence Produit :</strong> <span>{{stock.ref}}</span></li>
+                                                                                                                <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Fournisseur :</strong> {{stock.Fournisseur.name}}</li>
+                                                                                                                <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Catégorie :</strong> {{stock.Category.name}}</li>
+                                                                                                                <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Famille :</strong> {{stock.Famille.name}}</li>-->
+                                                    </ul> 
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer" style="height: 50px;">
+                                                <ul class="nav nav-pills pull-right">
+                                                    <li>
+                                                        <div>
+                                                            <a href="#/fiche-produit/{{stock.id}}"  class="btn btn-sm btn-info">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <a href="#/edit-product/{{stock.id}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                                                        </div>                                        
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <div class="other-controller">
+                                    <div class="text-center">
+                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="tpl/dirPagination.tpl.html"></dir-pagination-controls>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div style="height: 260px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="deleteProduct.html">
+    <div class="modal-dialog" id="DeleteProduct" data-id="" data-index="">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé Produit</h4>
+    </div>
+    <div class="modal-body">
+    <p>Voulez vous vraiment supprimé cet produit ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteProduct(product.Product.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+    </div>
+    </div>
+</script>
+<script>
+    setTimeout(function () {
+        //        console.clear();
+    }, 1000);
+    //    $('.selectpicker').selectpicker({
+    //        style: 'btn-info',
+    //        size: 4
+    //    });
+    var intervalEntrepot = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalEntrepot);
+            setTimeout(function () {
+                //        console.clear();
+                $('.selectpicker').selectpicker({
+                    style: ' btn-default',
+                    size: 12
+                });
+            }, 2000);
+        }
+    }, 100);
+</script>
+<script>
+    //    ComponentsDateTimePickers.init();
+    setTimeout(function () {
+        $('#DateDebut').datepicker({
+            altField: "#DateDebut",
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "dd-mm-yy"
+        });
+        $('#DateFin').datepicker({
+            altField: "#DateFin",
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "dd-mm-yy"
+        });
+        //        $('#DateDebut').datepicker({dateFormat: "yy-mm-dd"});
+        //        $('#DateFin').datepicker({dateFormat: "yy-mm-dd"});
+    }, 500);
+</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

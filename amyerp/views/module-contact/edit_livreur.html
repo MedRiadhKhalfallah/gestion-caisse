@@ -1,0 +1,242 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Modifier Livreur
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/module-transporteur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Transporteur
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a> 
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="form-group col-md-6" style="width: 100% !important;">
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="page-header">
+                            <h3 class="col-md-12"><span class="glyphicon glyphicon-user"></span> Information générale:</h3>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="panel-content">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Nom</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="last_name" ng-model="livreur.Livreur.last_name" placeholder="Nom Livreur*" name="name" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Prenom</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="first_name" ng-model="livreur.Livreur.first_name" placeholder="Prenom Livreur*" name="first name" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Téléphone Pro</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="phone" ng-model="livreur.Livreur.phone" placeholder="Téléphone Pro*" name="Telephone" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Téléphone Personel</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="en_phone" ng-model="livreur.Livreur.en_phone" placeholder="Téléphone Personel*" name="Telephone" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Email</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="email" id="email" ng-model="livreur.Livreur.email" placeholder="Email" name="email" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Adresse</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="adress" ng-model="livreur.Livreur.adress" placeholder="Adresse" name="addresse" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" id="groupVille" data-value="{{livreur.Ville.name}}" data-data-id="{{livreur.Ville.id}}">
+                                <label class="col-md-4 control-label">Ville</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-tag"></i>
+                                        </span>
+                                        <select class="form-control input-xlarge select2me col-md-12" ng-model="livreur.Livreur.ville_id" data-placeholder="Select Ville*..." id="villeValue">
+                                            <option value=""></option>
+                                            <option  value="{{item.Ville.id}}" ng-repeat="item in villes">{{item.Ville.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Permis de conduire</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="permis_conduire" ng-model="livreur.Livreur.permis_conduire" placeholder="Permis de conduire*" name="permis_conduire" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Matricule de la voiture</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="matricule_voiture" ng-model="livreur.Livreur.matricule_voiture" placeholder="Matricule de la voiture*" name="matricule_voiture" class="form-control" /> </div>
+                                </div>
+                            </div> 
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Marque de la voiture</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="marque_voiture" ng-model="livreur.Livreur.marque_voiture" placeholder="Marque de la voiture" name="matricule_voiture" class="form-control" /> </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="page-footer">
+                            <div class="form-actions"> 
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="submit" class="btn purple" ng-click="editLivreur($event)" style="float: right">
+                                            <i class="fa fa-check"></i> Modifier</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="page-header">
+                            <h3 class="col-md-12"><span class="glyphicon glyphicon-user"></span> Information de connexion:</h3>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="panel-content">
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Login</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="username" ng-model="livreur.Livreur.username" placeholder="Login*" name="username" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Mot de passe</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="password" id="password" placeholder="Mot de passe*" name="password" class="form-control" /> </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Confirmer mot de passe</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="password" id="password1" ng-model="livreur.Livreur.password" placeholder="Confirmer mot de passe*" name="password" class="form-control" /> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-footer">
+                            <div class="form-actions"> 
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="submit" class="btn purple" ng-click="editConnectionLivreur($event)" style="float: right">
+                                            <i class="fa fa-check"></i> Modifier</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="form-group col-md-12" style="width: 100% !important; height: 30px !important;">
+                    </div>
+                    <div class="clearfix"></div>
+                    <!--                    <div class="form-actions"> 
+                                            <div class="row">
+                                                <div class="col-md-offset-3 col-md-9">
+                                                    <button type="submit" class="btn purple" ng-click="ajoutLivreur($event)" style="float: right">
+                                                        <i class="fa fa-check"></i> Ajout</button>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                </form>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<script>
+    // Polling for the sake of my intern tests
+    var intervalLivreur = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalLivreur);
+            doneLivreur();
+            $('#password').hidePassword(true);
+            $('#password1').hidePassword(true);
+        }
+    }, 100);
+    function doneLivreur() {
+        setTimeout(function () {
+            var villeValue = $("#groupVille").attr('data-value');
+            var villeID = $("#groupVille").attr('data-data-id');
+            $("#villeValue option[value='" + villeID + "']").attr('selected', 'selected');
+            $("#groupVille .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + villeValue + "</p>");
+        }, 1500);
+    }
+</script>

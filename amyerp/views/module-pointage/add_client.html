@@ -1,0 +1,103 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#/products">Liste Clients</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Ajout Client </li>
+</ul>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Ajout Client 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <!--                    <a href="#/gestion-clients" class="btn btn-default btn-sm">
+                                            <i class="fa fa-align-right"></i> Liste clients 
+                                        </a>-->
+                    <!--                    <a href="javascript:history.back()">Page Précédente</A>
+                                        <form>
+                                            <input type="button" value="Précédent" onclick="history.back()">
+                                        </form>
+                                        <a href="javascript:history.go(-1)">Retour</a>
+                                        <a href="javascript:history.go(+1)">Suivante</a>-->
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <iv id="form-username" class="form-horizontal form-bordered">
+                    
+                  
+                    <div class="col-md-6">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-4 control-label">Salaire brut</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                        <input type="text" id="salaire_b" name="salaire_b"   ng-model="salaire_b" ng-change="changebrut()" class="form-control" /> 
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-4 control-label">Chef Famille</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                        <input  type="checkbox" id="chef_famille" class="CheckedBoxCostom" value="{{checkboxModel.value}}" ng-model="checkboxModel.value" ng-change="changebrut()">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-md-4 control-label">Enfant à charge</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                            <input type="text" id="enfant_encharge" name="enfant_encharge" class="form-control" ng-model="enfant" ng-change ="changebrut()"/> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <ul style="display:none;" id="showSalaire">
+                        <li> Salaire brut <span id="salaire_brut" ng-model="salaireBrut"></span> </li>
+                        <li> Retenu CNSS <span id="retenuecnss" ng-model="retenueCnss"></span> </li>
+                        <li> IRPP <span id="irpp" ng-model="Irpp"></span></li> 
+                        <li> Net à payer <span id="net" ng-model="netPayer"></span> </li>             
+                    </ul>
+                    </div> 
+
+                    <br>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END MAIN CONTENT -->

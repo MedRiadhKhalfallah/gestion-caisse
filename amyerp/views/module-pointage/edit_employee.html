@@ -1,0 +1,216 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Modifier Employé
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/dashboard-pointage" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Pointage $ Paie
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div id="form-username" class="form-horizontal form-bordered">
+                    <div class="col-md-6">
+                        <div class="page-header">
+                            <h3 class="col-md-12"><span class="glyphicon glyphicon-user"></span> Information générale:</h3>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="panel-content">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Nom</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="last_name" ng-model="employedit.User.last_name" placeholder="Nom" name="last name" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Prénom</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="first_name" ng-model="employedit.User.first_name" placeholder="Prénom" name="first name" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Numéro CIN</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="num_cin" ng-model="employedit.User.num_cin" placeholder="numéro cin" name="num_cin" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Emploi</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="statu" ng-model="employedit.User.status" placeholder="Emploi" name="statu" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Numéro CNSS</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="num_cnss" ng-model="employedit.User.num_cnss" placeholder="numéro cnss" name="num_cnss" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12" id="groupSituation" data-value="{{employedit.User.situation_familiale}}">
+                                <label class="col-sm-4 control-label">Situation familiale</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Choisir une situation familiale..." id="situationFamiliale" ng-model="employedit.User.situation_familiale">
+                                            <option value=""></option>
+                                            <option value="Célibataire">Célibataire</option>
+                                            <option value="Marié">Marié(e)</option>
+                                            <option value="Veuf">Veuf(e)</option>
+                                            <option value="Divorcé">Divorcé(e)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Chef Famille</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input  type="checkbox" id="CheckedBox" class="CheckedBoxCostom" value="{{checkboxModel.value1}}" ng-model="checkboxModel.value1">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-4 control-label">Nombre Enfant</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <input type="text" id="count_kids" ng-model="employedit.User.count_kids" placeholder="nombre enfant" name="nombre enfant" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-4 control-label">Téléphone</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <input type="text" id="phone" ng-model="employedit.User.phone" placeholder="Téléphone" name="phone" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-4 control-label">Email</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <input type="email" id="email" ng-model="employedit.User.email" placeholder="Email" name="email" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12"  id="groupVille" data-value="{{employedit.Ville.name}}" data-data-id="{{employedit.Ville.id}}">
+                                    <label class="col-md-4 control-label">Ville</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-tag"></i>
+                                            </span>
+                                            <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Ville..." ng-model="employedit.User.ville_id" id="villeValue">
+                                                <option value=""></option>
+                                                <option ng-model="ville.User.ville_id" value="{{item.Ville.id}}" ng-repeat="item in villes">{{item.Ville.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-4 control-label">Adresse</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <input type="text" id="adress" ng-model="employedit.User.adress" placeholder="Adresse" name="addresse" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-4 control-label">Salaire</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <input type="text" id="salaire" ng-model="employedit.User.salaire" placeholder="salaire" name="salaire" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn purple" ng-click="editEmployee($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Modifier</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END PORTLET-->
+        </div>
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<script>
+            // Polling for the sake of my intern tests
+            var intervalFichePaie = setInterval(function () {
+                if (document.readyState === 'complete') {
+                    clearInterval(intervalFichePaie);
+                    doneFichePaie();
+                }
+            }, 100);
+            function doneFichePaie() {
+                setTimeout(function () {
+                    var situationValue = $("#groupSituation").attr('data-value');
+                    $("#groupSituation .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + situationValue + "</p>");
+                    var villeValue = $("#groupVille").attr('data-value');
+                    var villeID = $("#groupVille").attr('data-data-id');
+                    $("#villeValue option[value='" + villeID + "']").attr('selected', 'selected');
+                    $("#groupVille .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + villeValue + "</p>");
+                }, 1500);
+            }
+</script>

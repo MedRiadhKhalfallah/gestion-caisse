@@ -1,0 +1,342 @@
+<style>
+    /*clock*/
+    @font-face {
+        font-family: 'BebasNeueRegular';
+        src: url('assets/pages/clock/BebasNeue-webfont.eot');
+        src: url('assets/pages/clock/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+            url('assets/pages/clock/BebasNeue-webfont.woff') format('woff'),
+            url('assets/pages/clock/BebasNeue-webfont.ttf') format('truetype'),
+            url('assets/pages/clock/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+
+    }
+
+    .clock {margin:0 auto; padding:30px; color:#4285F4;margin-top: -20px;}
+
+    #Date { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:22px; text-align:center; margin-left: -30px; }
+
+    .clock ul { margin:0 auto; margin-left: -30px; padding:0px; list-style:none; text-align:center; }
+    .clock ul li { display:inline; font-size:30px;font-weight: bold; text-align:center; font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; /*text-shadow:0 0 5px #00c6ff;*/ }
+
+    #point { position:relative; -moz-animation:mymove 1s ease infinite; -webkit-animation:mymove 1s ease infinite; padding-left:10px; padding-right:10px; }
+
+    @-webkit-keyframes mymove 
+    {
+        0% {opacity:1.0; text-shadow:0 0 20px #00c6ff;}
+        50% {opacity:0; text-shadow:none; }
+        100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }	
+    }
+
+
+    @-moz-keyframes mymove 
+    {
+        0% {opacity:1.0; text-shadow:0 0 20px #00c6ff;}
+        50% {opacity:0; text-shadow:none; }
+        100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }	
+    }
+</style>
+
+<div class="col-md-10">
+    <!-- BEGIN PORTLET -->
+    <div class="portlet light ">
+        <div class="portlet light bordered">
+            <div class="hidden-print portlet-title">
+                <div class=" col-md-4 caption font-dark">
+
+                    <span class="caption-subject bold uppercase"> TOTAL</span>
+                    <input type="text" value="{{ getTotal(items) | number:3}}" disabled/>
+
+                </div>
+                <div class="clock col-md-5" style="height: 85px;padding: 7px ;line-height: 35px;">
+                    <div id="Date"></div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <ul>
+                            <li id="hours"> </li>
+                            <li id="point">:</li>
+                            <li id="min"> </li>
+                            <li id="point">:</li>
+                            <li id="sec"> </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <h2 style="color:red" name="nom_client"> {{userr.full_name}}</h5>
+                </div>
+
+            </div>
+
+            <div class="portlet-body" >
+
+                <div class="hidden-print table-toolbar">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="btn-group">
+                                <a href="#" data-toggle="modal" role="button" data-target="#myModal_product" id="sample_editable_1_new" class="btn btn-sm sbold green"> Add New
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>  
+                <form class="hidden-print form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search_core" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="visible-print portlet-title">
+                    <div class="col-md-6">
+                        <h2 style="color:red" name="nom_client"> {{userr.full_name}}</h5>
+                    </div>
+
+                    <script >date_heure('date_heure');</script>
+                    <div class="col-md-6 caption font-dark">
+                        <h5 id="date_heure"></h5>
+                    </div>
+
+                </div>
+                <table id="ttbody" class="tabl_imp table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr >
+                            <th> DÉSIGNATION </th>
+                            <th>QTÉ STOCK </th>
+                            <th>QTÉ</th>
+                            <th> P.U.</th>
+                            <th> R. %</th>
+                            <th> TVA </th>
+                            <th> R.U. TTC</th>
+                            <th> TOTAL TTC</th>
+                            <th class="hidden-print"> X</th>
+                        </tr>
+                    </thead>
+
+                    <tbody >
+                        <tr class="odd gradeX" ng-repeat="($index,item) in items | filter:search_core">
+
+                            <td> {{item.Product.name}} </td>
+                            <td>
+                                {{item.Stock[0].ProductsStock.qte}}
+                            </td>
+                            <td> <input value="1" id="number"  type="number" min="1" max="100" class="form-control" data-index="{{$index}}" ng-model="item.Bon[0].qte" ng-focus="input_change($index)" onfocus="highlightActive(this);
+                                        activeinput = this"/></td>
+
+
+
+
+                            <td> {{item.Product.price|number:3}} </td>
+                            <td> <input type="number" min="0" max="100" class="form-control" ng-model="item.Bon[0].remise" value='0' ng-focus="input_remis($index)" onfocus="highlightActive(this);
+                                        activeinput = this"/>% </td>
+                            <td> {{item.Tva.name}} </td>
+                            <td> {{ getTtcPrice(item.Product.price, item.Tva.value) | number:3}} </td>
+                            <td> {{ getTotalTTC(getTtcPrice(item.Product.price, item.Tva.value), item.Bon[0].qte) | number:3}} </td>
+                            <td class="hidden-print">
+                                <button ng-click="deleteitem(item)"><i class="fa fa-times"></i></button>
+
+                            </td>
+
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+
+<!--                <fieldset class="form-group hidden-print">
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input ng-model="content" type="radio" class="form-check-input" name="optionsRadios" id="Commande" value="Commade">
+                            Bon de commande
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input ng-model="content" type="radio" class="form-check-input" name="optionsRadios" id="Livraison" value="Livraison">
+                            Bon Livraison
+                        </label>
+                    </div>
+                    <div class="form-check disabled">
+                        <label class="form-check-label">
+                            <input ng-model="content" type="radio" class="form-check-input" name="optionsRadios" id="Devis" value="Devis">
+                            Devis
+                        </label>
+                    </div>
+                </fieldset>-->
+
+               
+          
+
+               
+                
+
+                <div class="visible-print portlet-title">
+                    <div class=" col-md-6 caption font-dark">
+                    </div>
+                    <div class=" col-md-6 caption font-dark">
+
+                        <span class="caption-subject bold uppercase"> TOTAL :</span>
+                        {{ getTotal(items) | number
+                            :3}}
+                    </div>
+                </div>
+                           <button  type="button"  class=" btn purple" ng-click="validePanier()">Valide</button>
+
+<!--                <button ng-show="content == 'Commade'" type="button"  class=" hidden-print btn purple" ng-click="validePanier()">Valide Commade</button>
+                <button ng-show="content == 'Livraison'" type="button"  class=" hidden-print btn purple" ng-click="valideLivraison()">Valide Livraison</button>
+                <button ng-show="content == 'Devis'" type="button"  class=" hidden-print btn purple" ng-click="valideDevis()">Valide Devis</button>-->
+                <br><br>
+                <div ><a ng-if="commandesAdd.status == 200" ng-click="addparammodal(commandesAdd.id_comm)" href='#' data-toggle='modal' role='button' data-target='#myModal_commande1' id='sample_editable_2_new' class='hidden-print btn btn-sm sbold green'> Facturer<i class='fa fa-plus'></i></a></div>
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET -->
+</div>
+
+<!--<script>
+            function print_specific_div_content(){
+            var win = window.open('thePopup, width=50,height=600');
+                    var content = "<html>";
+                    content += "<style>.tabl_imp{margin:auto;margin-top: -21px;}
+                    .center{text - align:center; }
+            .pse_tab /*Taille tableau sondage*/{width:150px; }
+            .pse_tab2{text - align:center; width:100px; } < /style>";
+                    content += "<body onload=\"window.print(); window.close();\">";
+                    content += document.getElementById("ttbody").innerHTML;
+                    content += "</body>";
+                    content += "</html>";
+                    win.document.write(content);
+                    win.document.close();
+                    }
+</script>-->
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<div id="myModal_commande1" class="modal fade myModal_product" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 100%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <div class="portlet-body">
+                    <div class="col-xs-12" >
+                        <div>
+                            <p>Client <strong id="raison_social_reglement"> {{reglement.User.full_name}} </strong></p>
+                            <!--                        <p>Client <strong id="created_reglement"> {{reglement.Commande.created}} </strong></p>-->
+                            <p>Total TTC: <strong id="ttc_reglement"> {{ttc_total * (1 - reglement.Commande.remise_globale / 100) | number
+                                :3}} </strong></p>
+                            <p>Acompte: <strong id="acompte"> {{acompte}} </strong></p>
+                            <p>Total Reglé: <strong id="regle_reglement"> {{ttc_reglement| number:3}} </strong></p>
+                            <p>Total Restant: <strong id="reste_reglement" data-value='{{(ttc_total * (1 - reglement.Commande.remise_globale / 100)) - ttc_reglement}}'>
+                                    {{(ttc_total * (1 - reglement.Commande.remise_globale / 100)) - ttc_reglement | number
+                                        :3}}
+                                </strong>
+                            </p>
+                        </div>
+                        <div ng-if="int_rest_reglement == 0">
+                            <input type="button" value="Imprimer cette page" onClick="window.print()">
+                            <img ng-src="{{url_image}}" class="center-block" /> 
+                        </div>
+                        <div ng-if="int_rest_reglement != 0">
+                            <div class="form-group col-xs-3" style="margin-right: 5px;">
+                                <label class="control-label">Mode Payment</label> 
+                                <div class="ng-cloak" style="padding-left: 0">
+                                    <select style="height: 40px; width: 100%;" ng-model="selectedName" id="SelectPayment">
+                                        <option ng-repeat="payment in PaymentUser" value="{{payment.id}}">{{payment.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-3" style="margin-right: 5px;">
+                                <label class="control-label">Réf Document</label>
+                                <input type="text" id="refDocument" ng-model="reglement.Reglement.numero" placeholder="Ref Document" class="form-control" />
+                            </div>
+                            <div class="form-group col-xs-3" style="margin-right: 5px;">
+                                <label class="control-label">Date Reglement</label>
+                                <!--<input type="date" id="date_reglement" ng-model="reglement.Reglement.limit_date" placeholder="Date Reglement" class="form-control" />-->
+                                <input type="text" id="date_reglement" ng-model="reglement.Reglement.limit_date" placeholder="Date de Reglement" class="form-control" readonly/>
+                            </div>
+                            <div class="form-group col-xs-2" style="margin-right: 5px;">
+                                <label class="control-label">Somme</label>
+                                <input type="number" id="refValue" ng-model="reglement.Reglement.value" placeholder="Somme" class="form-control" />
+                            </div>
+                            <button class="btn btn-primary pull-right" style="margin-right: 7.2%;" type="button" ng-click="passerReglement()">Encaissement</button>
+
+                        </div>     
+                    </div>
+                    <br><br><br><br>
+                    <div class="clearfix" style=""></div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+//    setTimeout(function () {
+    setTimeout(function () {
+        $('input#date_reglement').datepicker({
+            altField: "#date_reglement",
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "dd/mm/yy"});
+    }, 1000);
+//    }, 500);
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+// Create two variable with the names of the months and days in an array
+        var monthNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+//        var monthNames = ["Janvier", "Fivrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "September", "October", "November", "December"];
+        var dayNames = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+// Create a newDate() object
+        var newDate = new Date();
+// Extract the current date from Date object
+        newDate.setDate(newDate.getDate());
+// Output the day, date, month and year    
+//        $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+        $('#Date').html(newDate.getDate() + '-' + monthNames[newDate.getMonth()] + '-' + newDate.getFullYear());
+
+        setInterval(function () {
+// Create a newDate() object and extract the seconds of the current time on the visitor's
+            var seconds = new Date().getSeconds();
+// Add a leading zero to seconds value
+            $("#sec").html((seconds < 10 ? "0" : "") + seconds);
+        }, 1000);
+
+        setInterval(function () {
+// Create a newDate() object and extract the minutes of the current time on the visitor's
+            var minutes = new Date().getMinutes();
+// Add a leading zero to the minutes value
+            $("#min").html((minutes < 10 ? "0" : "") + minutes);
+        }, 1000);
+
+        setInterval(function () {
+// Create a newDate() object and extract the hours of the current time on the visitor's
+            var hours = new Date().getHours();
+// Add a leading zero to the hours value
+            $("#hours").html((hours < 10 ? "0" : "") + hours);
+        }, 1000);
+
+    });
+</script>

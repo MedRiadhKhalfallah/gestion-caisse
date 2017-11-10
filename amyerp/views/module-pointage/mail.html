@@ -1,0 +1,140 @@
+<style>
+    body{ margin-top:50px;}
+    .badgeCount{
+        margin-top: 2px !important;
+    }
+    .nav-tabs .glyphicon:not(.no-margin) { margin-right:10px; }
+    .tab-pane .list-group-item:first-child {border-top-right-radius: 0px;border-top-left-radius: 0px;}
+    .tab-pane .list-group-item:last-child {border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}
+    .tab-pane .list-group .checkbox { display: inline-block;margin: 0px; }
+    .tab-pane .list-group input[type="checkbox"]{     margin-top: 7px; margin-left: -11px; }
+    .tab-pane .list-group .glyphicon { margin-right:5px; }
+    .tab-pane .list-group .glyphicon:hover { color:#FFBC00; }
+    a.list-group-item.read { color: #222;background-color: #F3F3F3; }
+    hr { margin-top: 5px;margin-bottom: 10px; }
+    .nav-pills>li>a {padding: 5px 10px;}
+    .unread {
+        font-weight: bold;
+        color: #222;
+        background: rgba(255,255,255,.9);
+    }
+    read {
+
+        background: rgba(243,243,243,.85);
+        color: #222;
+    }
+    .ad { padding: 5px;background: #F5F5F5;color: #222;font-size: 80%;border: 1px solid #E5E5E5; }
+    .ad a.title {color: #15C;text-decoration: none;font-weight: bold;font-size: 110%;}
+    .ad a.url {color: #093;text-decoration: none;}
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i> Envoyer e-mail </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <!--                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                            <i class="fa fa-print"></i> Print </a>-->
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-inline" style="float: left">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input type="text"  style="width:200px" id="email" value="{{user.User.email}}" data-user_id="{{viewclient.User.id}}" name="typeahead_example_1" class="form-control" /> 
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-inline" style="float: left">
+                    <!--<div class="form-group">-->
+                    <label class="col-sm-2 control-label">Pièce jointe</label>
+                    <div class="col-sm-4">
+                     
+                        <div>
+                            <img ng-src="{{image_source}}" id="imgPreview" class="thumbnail" style="float: left;width: 20%;margin-right: 10px;height: 40px;">
+                            <input type="file" file-model="myFile" />
+                            <input style="width: 165px !important;" type="file" file-model="myFile" class="form-control" id="trigger" onchange="angular.element(this).scope().setFile(this)" accept="image/*" />
+                        </div>
+                    </div>
+                    <!--</div>-->
+                </form>
+                <form class="form-inline" style="float: left">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Objet</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input type="text"  style="width:200px" id="objet" name="typeahead_example_1" class="form-control" /> 
+                            </div>
+                        </div>
+                    </div>
+                </form> <br />
+                <form class="form-inline" style="float: left">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Content</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input type="text"  style="width:200px" id="content" name="typeahead_example_1" class="form-control" /> 
+                            </div>
+                        </div>
+                    </div>
+                </form> 
+
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn purple" ng-click="addemail($event)">
+                                <i class="fa fa-check"></i> Envoyer </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+            setTimeout(function () {
+                //        console.clear();
+            }, 1000);
+
+            function preuvePreview() {
+                $("a#preuve").fancybox({
+                    'titleShow': false,
+                    'transitionIn': 'elastic',
+                    'transitionOut': 'elastic',
+                    'easingIn': 'easeOutBack',
+                    'easingOut': 'easeInBack'
+                });
+            }
+</script>

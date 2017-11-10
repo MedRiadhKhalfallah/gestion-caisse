@@ -1,0 +1,257 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+    .portlet.box.green-turquoise{border: none;}
+    @media print and (color) {
+        #footer{ 
+            display: block !important;
+            /*position: absolute;*/ 
+            /*bottom: 10px;*/
+            font-size: 9px !important;
+            /*top: 4px;*/
+            /*        right: 10%;
+                    left: 10%;*/
+        }
+        tr.MarginTR{
+            /*margin-top: 130px !important;*/
+            clear: both;
+            /*border: solid #000 2px !important;*/
+        }
+        blockquote,ul,ol {
+            page-break-inside: avoid;
+        }
+        h1,h2,h3,caption {
+            page-break-after: avoid;
+        }
+
+        /* 5. Affichage des liens */
+        #content a:after {
+            content: " » " attr(href) " ";
+        }
+        .Condition, PourcentageDevis, block_signature{display: none !important;}
+        .PourcentageDevis{display: none !important;}
+        .block_signature{display: none !important;}
+        .merci{display: none !important;}
+        /*.contentToPrint{position: relative; left: -20px !important;}*/
+        .rotationBlock {
+            position: relative;
+            top: 20px !important;
+        }
+        #footer #InformationEntreprise{top: 0px !important;}
+        h4.displayBlock{display: none !important;}
+    }
+</style>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="portlet box green-turquoise no-print">
+    <div class="portlet-title no-print">
+        <div style="width: 50px;float: left !important;" class="actions">
+            <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+            </a>
+        </div>
+        <div class="actions">
+            <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick=""><i class="fa fa-send-o"></i> Envoyer par mail </a>
+            <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick="print('block_border')"><i class="fa fa-print"></i> Imprimer </a>
+            <button class="no-print btn btn-primary btn-sm" style="background-color: transparent;border-color: #fff;" onclick="generatePDF()"><i class="fa fa-file-pdf-o"></i> Exporter en PDF </button>
+            <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                <i class="fa fa-align-right"></i> Dashboard
+            </a>
+            <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                <i class="fa fa-align-right"></i> Gestion commerciale
+            </a>
+            <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i>  
+            </a>
+        </div>
+    </div>
+</div>
+<div class="main-content" id="block_border">
+    <div class="main-content-inner">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet">
+
+            <!--            <div class="portlet-title">  
+                            <div class="caption">
+                                <i class="fa fa-cogs"></i>View Facture </div>
+                                            <div class="actions">
+                                                <a href="javascript:;" class="btn btn-default btn-sm">
+                                                    <i class="fa fa-plus"></i> Add </a>
+                                                <a href="javascript:;" class="btn btn-default btn-sm">
+                                                    <i class="fa fa-print"></i> Print </a>
+                                            </div>
+                        </div>-->
+            <div class="col-md-12 portlets" style="width: 100%;margin: -10px 10px 10px 10px; background: #fff;">
+                <!--<h3 class="rotationBlock" style="color: #24445c; position: absolute !important;" ng-controller="ErpCtrl"><strong>FACTURE <span my-current-time="format1"><span></strong><strong>-N°{{count}}</strong>-->
+                <h3 class="rotationBlock" style="color: #24445c; position: absolute !important;" ng-controller="ErpCtrl"><strong>FACTURE: {{ref3}}- {{count}}</strong>
+                </h3>
+                <div class="panel-header panel-controls"> 
+                    <!--                    <input type="text" ng-model="name" /> {{name | words}}-->
+                    <!--<div class="col-md-10 pull-left" >-->
+                    <h3 class="text-center DateFacture" style="color: #24445c;"><strong my-current-time="formatCreated"></strong>
+                        <!--                    <span my-current-time="format"></span>-->
+
+                    </h3>
+                    <!--                        <br>-->
+                    <!--<p my-current-time="format"></p>-->
+                    <!--                    </div>-->
+                    <div class="col-xs-5 PrintBlock">
+                        <div  class="image" style="margin-left: 53px;">
+                            <img src='assets/pages/img/logo.png' class="pull-left img-responsive logo-amyevolut" style="max-width:150px;margin-left: 15px;" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <div style="margin-top: -15px !important;" class=" text-center">
+                            <h3 style="color:#26619c;font-size: 15px;"> 
+                                <strong> {{config.Configuration.raison_social}} </strong>
+                            </h3>  
+                            <address class="text-center" style="font-size: 12px;">
+                                <!--<strong style="color:#26619C;"> {{config.Configuration.raison_social}} </strong><br>-->
+                                <strong style="color:#26619C;"> {{config.Configuration.telephone_1}} </strong><br>
+                                <strong style="color:#26619C;"> {{config.Configuration.telephone_2}} </strong><br>
+                                <strong style="color:#26619C;"> {{config.Configuration.telephone_3}} </strong><br>
+                                <strong style="color:#26619C;"> {{config.Configuration.email}} </strong><br> 
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-4"></div>
+                    <!--                                    <h5 style="color:#26619C; text-align: right">Réf. Facture : <strong>{{facture.Facture.ref}}</strong></h5>-->
+                    <!--                                    <h5 style="font-weight: 700;color:#26619c; text-align: right">Client: Code TVA:  <strong>{{facture.User.codetva}}</strong></h5>-->
+                    <div class="col-xs-5 col-md-4 PrintBlock raisonSocial pull-right" style="font-size: 11px;margin-top: 80px;"> 
+                        <address  class="PrintBlock" style="padding-left: 55px; color:#26619c;">
+                            <span style="line-height: 10px;">Raison Social </span><strong>{{facture.Fournisseur.name}}</strong><br>
+                            <span style="line-height: 10px;" ng-if="facture.Fournisseur.adresse != empty">Adresse: </span><strong>{{facture.Fournisseur.adresse}}</strong><br ng-if="facture.Fournisseur.adresse != empty">
+                            <span style="line-height: 10px;">Email: </span> <strong>{{facture.Fournisseur.email}}</strong><br>
+                            <span style="line-height: 10px;">Tél: </span> <strong>{{facture.Fournisseur.phone}}</strong><br>
+                            <span style="line-height: 10px;" ng-if="facture.Fournisseur.tva != empty">TVA: </span> <strong>{{facture.Fournisseur.tva}}</strong><br ng-if="facture.Fournisseur.tva != empty">
+                            <span style="line-height: 10px;" ng-if="facture.Fournisseur.rib != empty">RIB: </span> <strong>{{facture.Fournisseur.rib}}</strong>
+                        </address>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!--<p class="Object"><strong>Objet de Facture: </strong>{{facture.Facture.object}}</p>-->
+                <div class="panel-content">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr style="background: #F2F2F2">
+                                <th>Ref</th>
+                                <th>Désignation</th>
+                                <th>Qte</th>
+                                <th>R.%</th>
+                                <th>Prix U.HT</th>
+                                <th>Prix U.TTC</th>
+                                <th>TOTAL HT</th>
+                                <th>TOTAL TTC</th>
+                                <th style="width: 40px;">TVA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in facture.Product">
+                                <td style="width: 110px;">{{item.ref}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.FacturesProduct.qte}}</td>
+                                <td>{{item.FacturesProduct.remise}}%</td>
+                                <td>{{item.FacturesProduct.last_unit_price| number:3}}</td>
+                                <td>{{item.FacturesProduct.last_unit_price * (1 + item.Tva.value / 100) * (1 - item.FacturesProduct.remise / 100) | number:3}}</td>
+                                <td>{{item.FacturesProduct.last_unit_price * item.FacturesProduct.qte| number:3}}</td>
+                                <td>{{item.FacturesProduct.last_unit_price * (1 + item.Tva.value / 100) * item.FacturesProduct.qte * (1 - item.FacturesProduct.remise / 100) | number:3}}</td>
+                                <td>{{item.Tva.name}}</td>
+                            </tr>
+                            <tr>
+                                <td class='factureNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='5'></td>
+                                <td class='text-right' colspan='2'><strong>Total HT</strong></td>
+                                <td colspan='2'> {{total_ht| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='factureNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='5'></td>
+                                <td class='text-right' colspan='2'><strong>Total TVA</strong></td>
+                                <td colspan='2'>{{total_ttc - total_ht| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='factureNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='5'></td>
+                                <td class='text-right' colspan='2'><strong>Total TTC</strong></td>
+                                <td colspan='2'>{{total_ttc| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='factureNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='5'></td>
+                                <td class='text-right' colspan='2'><strong>Timbre Fiscal</strong></td>
+                                <td colspan='2'>{{config.Configuration.price_timbre| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='factureNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='5'></td>
+                                <td class='text-right' colspan='2'><strong>Remise G. {{facture.Facture.remise_globale}} %</strong></td>
+                                <td colspan='2'> {{total_ttc * facture.Facture.remise_globale / 100 + remiseProduit| number:3}}</td>
+                            </tr>
+                            <tr>
+                                <td class='factureNone' style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom:  1px solid #fff !important;"  colspan='5'></td>
+                                <td class='text-right' colspan='2'><strong>NET À PAYER</strong></td>
+                                <td colspan='2'>{{total_ttc * (1 - facture.Facture.remise_globale / 100) | number:3}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: -50px;font-size: 12px; position: relative; left: -20px !important;" class="validation">
+                    <br> 
+                    <h4 style="margin-bottom: -12px; margin-left: 1px; display: none;" class="displayBlock" >* {{facture.Facture.pourcentage}}</h4>
+                    <p class="text-left displayBlock" style="display: none; width: 470px !important;">* Arrêté la pésente facture à la somme de {{totalFinalText}} TTC </p>
+
+                </div>
+                <p class="text-center SommeText" >Arrêté la présente facture à la somme de {{totalFinalText}} TTC </p>
+                <!--<p class="text-center">Arrêté le présent facture à la somme de {{totalFinal[0]| words}} Dinars et {{totalFinal[1]| words}} Millimes TTC </p>-->
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="cb no-print"></div><br>
+</div>
+<script>
+            var userAgent = navigator.userAgent;
+            if (userAgent.indexOf("Chrome") > - 1){
+    //Add Print for Chrome
+    $("head").append(" <link href='" + base_url() + "assets/pages/css/print_chrome.css' rel='stylesheet' type='text/css' />")
+    }
+    if (userAgent.indexOf("Firefox") > - 1){
+    //Add Print for Firefox
+    $("head").append(" <link href='" + base_url() + "assets/pages/css/print_firefox.css' rel='stylesheet' type='text/css' />")
+
+    }
+    if (userAgent.indexOf("Firefox") === - 1 && userAgent.indexOf("Chrome") === - 1){
+    //Add Print for Any Browser
+    $("head").append(" <link href='" + base_url() + "assets/pages/css/print_other.css' rel='stylesheet' type='text/css' />")
+    }
+//            setTimeout(function(){
+//            var ifPageBreak = $("#listItem tr:eq(9)").length;
+//                    if (ifPageBreak === 1) {
+//            $("#listItem tr:eq(9)").attr('class', 'ng-scope page-break');
+//            }
+//            },1000);
+//            var ifRefresh = sessionStorage.getItem('ifRefresh');
+//            var currentUrl = document.location.href;
+//            console.log(ifRefresh);
+//            console.log(ifRefresh == null);
+//            console.log(ifRefresh === null);
+//            console.log(ifRefresh === 'null');
+//            if (ifRefresh == null || ifRefresh === 'null'){
+//    document.location.reload(currentUrl);
+//            sessionStorage.setItem('ifRefresh', 'refreshed');
+//    }
+
+</script>

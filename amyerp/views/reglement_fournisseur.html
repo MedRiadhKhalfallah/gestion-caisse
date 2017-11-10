@@ -1,0 +1,97 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Passer Reglement 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="col-xs-12" >
+                    <div>
+                        <p>Fournisseur <strong id="raison_social_reglement" data-fournisseur='{{facture.Fournisseur.id}}'> {{facture.Fournisseur.name}} </strong></p>
+                        <!--                        <p>Client <strong id="created_reglement"> {{reglement.Commande.created}} </strong></p>-->
+                        <p>Total TTC: <strong id="ttc_reglement"> {{ttc_total| number:3}} </strong></p>
+                        <p>Acompte: <strong id="acompte"> {{acompte}} </strong></p>
+                        <p>Total Reglé: <strong id="regle_reglement"> {{ttc_reglement| number:3}} </strong></p>
+                        <p>Total Restant: <strong id="reste_reglement" data-value='{{ttc_total - ttc_reglement}}'>
+                                {{ttc_total - ttc_reglement| number:3}}
+                            </strong>
+                        </p>
+                    </div>
+                    <div ng-if="int_rest_reglement == 0">
+                        <img ng-src="{{url_image}}" class="center-block" /> 
+                    </div>
+                    <div ng-if="int_rest_reglement != 0">
+                        <div class="form-group col-xs-3" style="margin-right: 5px;">
+                            <label class="control-label">Mode Payment</label> 
+                            <div class="ng-cloak" ng-controller="PaymentsController" style="padding-left: 0">
+                                <select style="height: 40px; width: 100%;" ng-model="selectedName" id="SelectPayment">
+                                    <option ng-repeat="payment in payments" value="{{payment.Payment.id}}">{{payment.Payment.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-3" style="margin-right: 5px;">
+                            <label class="control-label">Réf Document</label>
+                            <input type="text" id="refDocument" ng-model="reglement.Reglement.numero" placeholder="Ref Document" class="form-control" />
+                        </div>
+                        <div class="form-group col-xs-3" style="margin-right: 5px;">
+                            <label class="control-label">Date d'échéance</label>
+                            <input type="text" id="date_reglement" ng-model="reglement.Reglement.limit_date" placeholder="Date d'échéance" class="form-control" readonly/>
+                        </div>
+                        <div class="form-group col-xs-2" style="margin-right: 5px;">
+                            <label class="control-label">Somme</label>
+                            <input type="number" id="refValue" ng-model="reglement.Reglement.value" placeholder="Somme" class="form-control"/>
+                        </div>
+                        <button class="btn btn-primary pull-right" style="margin-right: 7.2%;" type="button" ng-click="passerReglementFournisseur($event)">Encaissement</button>
+
+                    </div>     
+                </div>
+                <br><br><br><br>
+                <div class="clearfix" style=""></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+//    setTimeout(function () {
+    setTimeout(function () {
+        $('input#date_reglement').datepicker({
+            altField: "#date_reglement",
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "dd/mm/yy"});
+    }, 1000);
+//    }, 500);
+
+</script>

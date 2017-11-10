@@ -1,0 +1,362 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Produits </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<style>
+    .sous-menu{
+        color: #000 !important;font-weight: bold !important;font-size: 14px !important;
+    }
+    .theme-panel .theme-colors>li.theme-color {
+        padding: 8px 8px !important;
+    }
+    .block-acces-rapide{min-width: 200px !important;border: 2px solid #4285F4 !important; padding-top: 5px !important;padding-left: 0px !important;}
+    .acces-rapide{margin-top: 3px !important;padding-left: 3px !important;padding-right: 3px !important;}
+    .acces-rapide a{
+        background: 0 0!important;
+        border: 1px solid #fff !important;
+        color: #fff !important;
+        opacity: 1 !important;
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        margin-top: -2px !important;
+    }
+    .acces-rapide a i{ color: #fff !important;font-size: 12px !important;}
+    .acces-rapide li a{color: #000 !important; }
+    .acces-rapide li i{color: #000 !important; }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Entrepôts </div>
+                <!--                <div class="actions">
+                                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                        <i class="fa fa-print"></i> <button ng-click="exportData()">Export</button> </a>
+                                </div>-->
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm" style="float: left;">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm" style="float: left;">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm" style="float: right;">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <a href="#/ajout-entrepot" class="btn btn-default btn-sm" style="float: right;">
+                        <i class="fa fa-plus"></i> Créer 
+                    </a>
+                    <div class="page-toolbar" style="float: right;">
+                        <!-- BEGIN THEME PANEL -->
+                        <div class="btn-group btn-theme-panel acces-rapide">
+                            <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-list"></i> Accès stocks
+                            </a>
+                            <div class="dropdown-menu theme-panel pull-right col-md-2 dropdown-custom hold-on-click block-acces-rapide">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ul class="theme-colors">
+                                            <li class="theme-color theme-color-default active" data-theme="default"> 
+                                                <i class="fa fa-tags" aria-hidden="true"></i> 
+                                                <a href="#/valider-stocks" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name"> Validation Stocks</span></a>
+                                            </li>
+                                            <li class="theme-color theme-color-light" data-theme="light">
+                                                <i class="fa fa-tag" aria-hidden="true"></i> 
+                                                <a href="#/mouvement-stock" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name"> Mouvement Stocks</span></a>
+                                            </li>
+                                            <li class="theme-color theme-color-light" data-theme="light">
+                                                <i class="fa fa-tag" aria-hidden="true"></i> 
+                                                <a href="#/bon-sortie" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name"> Bon Sortie</span></a>
+                                            </li>
+                                            <li class="theme-color theme-color-light" data-theme="light">
+                                                <i class="fa fa-tag" aria-hidden="true"></i> 
+                                                <a href="#/bon-entree" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name"> Bon d'entrée</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <div class="view-mode btn-group btn-group-sm pull-right">
+                    <button type="button" accesskey="K" data-view-type="kanban" title="" class="btn btn-default fa fa-th-large oe-cp-switch-kanban" data-original-title="Kanban" ng-click="ShowEntrepotBlock()"></button>
+                    <button type="button" accesskey="L" data-view-type="list" title="" class="btn btn-default fa fa-list-ul oe-cp-switch-list" data-original-title="Liste" ng-click="ShowEntrepotList()"></button>
+                    <button type="button" accesskey="F" data-view-type="form" title="" class="btn btn-default fa fa-edit oe-cp-switch-form" data-original-title="Formulaire"></button>
+                </div>
+                <div id="exportableList">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="exportable">
+                        <thead>
+                            <tr>
+                                <th style="width: 230px;"> Nom de l'entrepôt </th>
+                                <th> Nombre de Produit </th>
+                                <th> Adresse </th>
+                                <th> Date de création </th>
+                                <th> Actions </th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: left;">
+                            <tr class="odd gradeX" dir-paginate="($index, stock) in stocks | filter:search |itemsPerPage:10" id="StockRows">
+                                <td style="width: 200px;">{{stock.Stock.name}}</td>
+                                <td>{{stock.Stock.productCount}}</td>
+                                <td>{{stock.Stock.adresse}}</td>
+                                <td>{{stock.Stock.created}}</td>
+                                <td style="width: 150px;">
+                                    <ul class="nav nav-pills">
+                                        <li>
+                                            <div ng-click="editStock(stock.Stock.id)">
+                                                <a href="#/edit-stock/{{stock.Stock.id}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                                            </div>                                        
+                                        </li>
+                                        <li>                                      
+                                            <div ng-click="viewStock(stock.Stock.id)">
+                                                <a href="#/view-entrepot/{{stock.Stock.id}}"  class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div ng-controller="ModalStockCtrl">
+                                                <button id="stockSumbit" data-index="{{$index}}" data-stock="{{stock.Stock.id}}"  ng-click="open(stock.Stock.id, $index)" data-name="{{stock.Stock.name}}" data-cmd="{{stock.Stock.id}}" class="btn btn-sm btn-danger btn-embossed">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </li>                                    
+                                    </ul>               
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls
+                        max-size="5"
+                        direction-links="true"
+                        boundary-links="true"  style="float: right; top: -28px;position: relative;" class="portlet-body">
+                    </dir-pagination-controls>
+
+                </div>
+                <br><br>
+                <div ng-show="true" id="EntrepotBlock">
+                    <div class="col-md-4" ng-repeat="($index, stock) in stocks">  
+                        <div class="panel panel-primary">
+                            <!--<div class="oe_kanban_details">-->
+                            <div class="panel-heading"><strong>{{stock.Stock.name}}</strong></div>
+                            <div class="panel-body">
+                                <ul class="nav">
+                                    <li style=" line-height: 25px;">Nombre de Produit : <span>{{stock.Stock.productCount}}</span></li>
+                                    <li style=" line-height: 25px;">Adresse : {{stock.Stock.adresse}}</li>
+                                    <li style=" line-height: 25px;">Date de création : {{stock.Stock.created}}</li>
+
+
+                                </ul>
+                            </div>
+                            <div class="panel-footer" style="height: 50px;">
+                                <ul class="nav nav-pills listEntrepot">
+                                    <li>
+                                        <div ng-click="editStock(stock.Stock.id)">
+                                            <a href="#/edit-stock/{{stock.Stock.id}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                                        </div>                                        
+                                    </li>
+                                    <li>                                      
+                                        <div ng-click="viewStock(stock.Stock.id)">
+                                            <a href="#/view-entrepot/{{stock.Stock.id}}"  class="btn btn-info btn-sm">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div ng-controller="ModalStockCtrl">
+                                            <button id="stockSumbit" data-index="{{$index}}" data-stock="{{stock.Stock.id}}"  ng-click="open(stock.Stock.id, $index)" data-name="{{stock.Stock.name}}" data-cmd="{{stock.Stock.id}}" class="btn btn-sm btn-danger btn-embossed">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </li>                                    
+                                </ul> 
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!--                <div class="col-md-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><strong>Total Achat Entrée (HT)</strong></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="input-group">
+                                                <span id="Total_Achat">
+                                                    {{total_achat_entree}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><strong>Total HT Entrée</strong></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="input-group">
+                                                <span id="Total_Entree">
+                                                    {{total_ht_entree}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><strong>Total HT Sortie</strong></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="input-group">
+                                                <span id="Total_Sortie">
+                                                    {{total_ht_sortie}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><strong>Total HT Restant</strong></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="input-group">
+                                                <span id="Total_Restant">
+                                                    {{total_ht_restant}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="clearfix"></div>
+                                <div class="col-md-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><strong>Total Achat Entrée (TTC)</strong></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="input-group">
+                                                <span id="Total_Achat">
+                                                    {{total_achat_entree_ttc}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><strong>Total TTC Entrée</strong></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="input-group">
+                                                <span id="Total_Entree">
+                                                    {{total_ttc_entree}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><strong>Total TTC Sortie</strong></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="input-group">
+                                                <span id="Total_Sortie">
+                                                    {{total_ttc_sortie}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><strong>Total TTC Restant</strong></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="input-group">
+                                                <span id="Total_Restant">
+                                                    {{total_ttc_restant}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+        <div id="login-box" class="login-popup" data-id="" data-index="" ng-controller="ModalStockCtrl">
+            <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+            <form method="post" class="signin" action="#">
+                <fieldset class="textbox">
+                    <label class="password">
+                        <span>Code Validation</span>
+                        <input id="codeRoot" ng-model="codeRoot" value="" type="password" placeholder="Code Validation">
+                    </label>
+                    <button class="submit button" type="button" ng-click="validateAction($event)">Activer</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="deleteStock.html">
+    <div class="modal-dialog" id="DeleteStock" data-id="" data-index="">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé Stock</h4>
+    </div>
+    <div class="modal-body">
+    <p>Voulez vous vraiment supprimé ce stock ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteStock(stock.Stock.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+    </div>
+    </div>
+</script>
+<script>
+    setTimeout(function () {
+//        console.clear();
+    }, 1000);
+</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

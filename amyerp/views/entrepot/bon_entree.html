@@ -1,0 +1,111 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+</style>  
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Ajout Emplacement
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard 
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a> 
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body"> 
+                <div class="row">
+                    <div class="col-xs-4">
+                        <!--<h3>Meals Page: {{ currentPage}}</h3>-->
+                    </div>
+                    <div class="col-xs-4">
+                        <!--<h3>Meals Page: {{ currentPage}}</h3>-->
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="search">Recherche</label>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th> Réf</th>
+                            <th> Entrepôt de départ </th>
+                            <th> Entrepôt de Réception </th>
+                            <th> Type de transfert </th>
+                            <th> État </th>
+                            <th> Date de génération </th>
+                            <th> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left;">
+                        <tr class="odd gradeX" dir-paginate="($index, item) in bonentrees | filter:q | itemsPerPage: pageSize" current-page="currentPage" id="SortieRows">
+                            <td>{{item.Entree.ref}}</td>
+                            <td>{{item.Entree.entrepot_depart}}</td>
+                            <td>{{item.Entree.entrepot_arrivee}}</td>
+                            <td ng-if="item.Entree.type_changement == 'Externe'">Inter Entrepôt</td>
+                            <td ng-if="item.Entree.type_changement == 'Interne'">Intra Entrepôt</td>
+                            <td ng-if="item.Entree.isActive == true">Valide</td>
+                            <td ng-if="item.Entree.isActive == false">En Attente</td>
+                            <td>{{item.Entree.created}}</td>
+                            <td>  
+                                <ul class="nav nav-pills">
+                                    <li>
+                                        <div>
+                                            <!--<a href="#/view-bon-sortie/{{item.Sortie.id}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>-->
+                                            <a href="#/" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                                        </div>                                      
+                                    </li>                                   
+                                    <li>
+                                        <div>
+                                            <a href="#/valider-bon-entree/{{item.Entree.id}}" class="btn btn-warning btn-sm">Valider</a>
+                                        </div>                                      
+                                    </li>                                   
+                                </ul>               
+                            </td> 
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="other-controller">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="tpl/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>  
+<!-- END MAIN CONTENT -->

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>test </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+</head>
+<body ng-app="changeExample">
+    <div ng-controller="ExampleController">
+        <div class="container">
+            <div class="col-md-3 well" ng-init="count=0">
+                First Name:  <input type="text" class="form-control" ng-change="isTextChange()" ng-model="text" />
+                <pre><b>Changed</b> {{isChange}} {{count}} </pre>
+            </div>
+        </div>
+    </div>
+    <script>
+    var app = angular.module("changeExample", []);
+    app.controller('ExampleController', ['$scope', function ($scope) {
+        $scope.isChange = false;
+        $scope.isTextChange = function () {
+            $scope.isChange = true;
+            $scope.count = $scope.count + 1;
+        }
+    }]);
+</script>
+</body>
+</html>

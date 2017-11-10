@@ -1,0 +1,123 @@
+<style>
+    body{ margin-top:50px;}
+    .badgeCount{
+        margin-top: 2px !important;
+    }
+    .nav-tabs .glyphicon:not(.no-margin) { margin-right:10px; }
+    .tab-pane .list-group-item:first-child {border-top-right-radius: 0px;border-top-left-radius: 0px;}
+    .tab-pane .list-group-item:last-child {border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}
+    .tab-pane .list-group .checkbox { display: inline-block;margin: 0px; }
+    .tab-pane .list-group input[type="checkbox"]{     margin-top: 7px; margin-left: -11px; }
+    .tab-pane .list-group .glyphicon { margin-right:5px; }
+    .tab-pane .list-group .glyphicon:hover { color:#FFBC00; }
+    a.list-group-item.read { color: #222;background-color: #F3F3F3; }
+    hr { margin-top: 5px;margin-bottom: 10px; }
+    .nav-pills>li>a {padding: 5px 10px;}
+    .unread {
+        font-weight: bold;
+        color: #222;
+        background: rgba(255,255,255,.9);
+    }
+    read {
+
+        background: rgba(243,243,243,.85);
+        color: #222;
+    }
+    .ad { padding: 5px;background: #F5F5F5;color: #222;font-size: 80%;border: 1px solid #E5E5E5; }
+    .ad a.title {color: #15C;text-decoration: none;font-weight: bold;font-size: 110%;}
+    .ad a.url {color: #093;text-decoration: none;}
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Commandes </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Boîte de réception </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <!--                    <a href="#/ajout-commande" class="btn btn-default btn-sm">
+                                            <i class="fa fa-plus"></i> Créer 
+                                        </a>-->
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <!--                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                            <i class="fa fa-print"></i> Print </a>-->
+                </div>
+            </div>
+            <div class="portlet-body">
+                <hr />
+                <div class="row">
+                    <div class="col-sm-9 col-md-10">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="javascript:;" data-toggle="tab">
+                                    <span class="glyphicon glyphicon-inbox"></span>Nouveau message
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="form-group col-md-8" style="margin-top: 10px;">
+                                <label class="control-label col-md-4">Envoyer par</label>
+                                <div class="input-group col-md-6">
+                                    <input type="email" id="EmailFrom" placeholder="Email" class="form-control" /> </div>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label class="control-label col-md-4">Envoyer à</label>
+                                <div class="input-group col-md-6">
+                                    <input type="email" id="EmailTo" placeholder="Email" class="form-control" /> </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <form name="form" novalidate>
+                                    <textarea data-ui-tinymce id="tinymce1" data-ng-model="from_one.from_one"></textarea>
+                                </form>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-actions" style="margin-top: 20px;">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="submit" class="btn purple" ng-click="" style="float: right; margin-right: 15px;">
+                                            <i class="fa fa-check"></i> Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="clearfix"></div>-->
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET--> 
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            //        console.clear();
+        }, 1000);
+    </script>
+    <!--<script>
+        TableDatatablesManaged.init();
+    </script>-->
+    <!-- END MAIN JS -->

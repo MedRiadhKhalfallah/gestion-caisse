@@ -1,0 +1,137 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .label-absent{
+        font-size: 25px !important;
+        position: relative;
+        top: 7px;
+    }
+</style>
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Présence 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/gestion-employees" class="btn btn-default btn-sm" ng-click="exportDataemploye()">
+                        <i class="fa fa-align-right"></i> Export To Excel
+                    </a>
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" ng-controller="ModalEmailCtrl" ng-click="open()"><i class="fa fa-send-o"></i> Envoyer par mail </a>
+
+
+                    <a href="#/simulateur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Simulateur de Paie
+                    </a>
+                    <a href="#/gestion-paie" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion paie
+                    </a>
+                    <a href="#/dashboard-pointage" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Pointage & Paie
+                    </a>
+
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!--<div class="clearfix"></div>-->
+                <div class="col-md-12">
+                    <div>
+                        <h3 class="col-md-5">
+                            <span class="glyphicon glyphicon-user"> Présence du "{{date| date:'dd-MM-yyyy'}}"</span>
+                        </h3>  
+                        <div class="col-md-2"></div>
+                        <div class="form-group col-md-5" style="border-bottom: none !important;">
+                            <label class="control-label col-md-4">Choisir date </label>
+                            <div class="col-md-7" style="padding-left: 0;">
+                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-end-date="+0d">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                    <input type="text" ng-model="dateChanger" id="dateChanger" ng-change="dateChangedAuto()" placeholder="Choisir date" class="form-control" readonly>
+                                </div>
+                                <!-- /input-group -->
+                                <!--<span class="help-block"> Select date </span>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="tableId" style="overflow-x: scroll;padding-bottom: 10px;">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" style="margin-top: 20px;">
+                            <thead>
+                                <tr>
+                                    <th>Nom & Prénom</th>
+                                    <th ng-repeat="inOut in in_out_auto track by $index">{{inOut}}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gestion_pointage">
+                                <tr ng-repeat="($index,name) in listPointagesAuto" data-length="{{name.Pointage.length}}" ng-if="name.Pointage.length > 0"> 
+                                    <td> {{name.User.first_name}} {{name.User.last_name}}</td>
+                                    <td ng-repeat="time in name.Pointage[0].datePointage" data-length="{{max_length_auto - name.Pointage[0].datePointage.length}}">{{time.DateTime.substr(11, 5)}}</td>
+                                    <td colspan="{{max_length_auto - name.Pointage[0].datePointage.length}}" ng-if="(max_length_auto - name.Pointage[0].datePointage.length) != 0"></td>
+                                </tr>
+                                <tr ng-repeat="($index,name) in listPointagesAuto" ng-if="name.Pointage.length == 0"> 
+                                    <td> {{name.User.first_name}} {{name.User.last_name}}</td>
+                                    <td  ng-if="name.Pointage.length == 0" colspan="{{max_length_auto}}" style="text-align: center;"><label class="label label-danger label-absent label-sm"> Employé Absent</label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<script>
+    function preuvePreview() {
+    console.log('preuvePreview');
+    $("a#preuve").fancybox({
+    'titleShow': false,
+            'transitionIn': 'elastic',
+            'transitionOut': 'elastic',
+            'easingIn': 'easeOutBack',
+            'easingOut': 'easeInBack'
+    });
+    }
+    var intervalNoteFrais = setInterval(function () {
+    if (document.readyState === 'complete') {
+    clearInterval(intervalNoteFrais);
+    setTimeout(preuvePreview, 1000);
+    setTimeout(function () {
+    $('input#dateChanger').datepicker({
+    altField: "#dateChanger",
+            maxDate: new Date,
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: "dd-mm-yy"});
+    }, 1000);
+    }
+    });</script>

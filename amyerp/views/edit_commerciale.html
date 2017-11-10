@@ -1,0 +1,203 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#/products">Liste Commerciales</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Ajout Commerciale </li>
+</ul>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Modifier Commercial 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <!--                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                                            <i class="fa fa-align-right"></i> Gestion commerciale
+                                        </a>-->
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-4 control-label">Login</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="text" ng-model="client.User.username" id="username" placeholder="Login" name="username" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-4 control-label">Mot de passe</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="password" ng-model="client.User.password" id="password" placeholder="Mot de passe" name="password" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12" id="HiddenForType">
+                            <label class="col-md-4 control-label">Raison Sociale</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="raison_social" ng-model="client.User.raison_social" placeholder="Raison Social" name="raison_social" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-md-4 control-label">Nom</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="last_name" ng-model="client.User.last_name" placeholder="Nom Commercial" name="name" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-md-4 control-label">Prenom</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="first_name" ng-model="client.User.first_name" placeholder="Prenom Commerciale" name="first name" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-md-4 control-label">Téléphone</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="phone" ng-model="client.User.phone" placeholder="Téléphone" name="Telephone" class="form-control" /> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-4 control-label">Email</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="email" id="email" ng-model="client.User.email" placeholder="Email" name="email" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-md-4 control-label">Adresse</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="adress" ng-model="client.User.adress" placeholder="Adresse" name="addresse" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12"  id="groupVille" data-value="{{client.Ville.name}}">
+                            <label class="col-md-4 control-label">Ville</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tag"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Ville..." ng-model="ville.User.ville_id" id="villeValue">
+                                        <option value=""></option>
+                                        <option ng-model="ville.User.ville_id" value="{{item.Ville.id}}" ng-repeat="item in villes">{{item.Ville.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6" style="width: 100% !important;">
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn purple" ng-click="editCommerciale($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Modifier</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<script>
+    // Polling for the sake of my intern tests
+    var intervalFiscale = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalFiscale);
+            doneFiscale();
+        }
+    }, 100);
+    function doneFiscale() {
+        setTimeout(function () {
+            var matricule = $("#matricule").val();
+            var code_tva = $("#codetva").val();
+            var code_category = $("#code_category").val();
+            var num_etab = $("#num_etab").val();
+            $("#IdentiteFiscale").text(matricule + "/" + code_tva + "/" + code_category + "/" + num_etab);
+            // type client select
+            var clientValue = $("#groupCommerciale").attr('data-value');
+            var villeValue = $("#groupVille").attr('data-value');
+//            $("#groupCp .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + cpValue + "</p>");
+            $("#groupCommerciale .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + clientValue + "</p>");
+            $("#groupVille .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + villeValue + "</p>");
+            var Type = $('#TypeCommerciale :selected').text();
+            if (Type === "Particulier") {
+                //                        console.log(Type);
+                $('#HiddenForType').hide();
+                $('#HiddenCTVAForType').hide();
+                $('#HiddenMFForType').hide();
+                $('#HiddenCategoryForType').hide();
+                $('#HiddenEtabForType').hide();
+                $('#Fiscale').hide();
+            } else {
+                //                        console.log(Type);
+                $('#HiddenForType').show();
+                $('#HiddenCTVAForType').show();
+                $('#HiddenMFForType').show();
+                $('#HiddenCategoryForType').show();
+                $('#HiddenEtabForType').show();
+                $('#Fiscale').show();
+
+            }
+        }, 1500);
+    }
+</script>

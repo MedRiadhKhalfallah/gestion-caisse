@@ -1,0 +1,72 @@
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i> Prospection sélèctive par e-mail  </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+
+                </div>
+            </div>
+            <div class="portlet-body">
+               <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-sm-9 col-md-10">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"> contenu de l'e-mail </label>
+                            <div class="col-sm-9">
+
+                              
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="javascript:;" data-toggle="tab">
+                                                <span class="glyphicon glyphicon-inbox"></span>Nouveau message
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <form name="form" novalidate>
+                                            <textarea data-ui-tinymce id="tinymce1" data-ng-model="from_one.from_one"></textarea>
+                                        </form>
+                                    </div>
+                       
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-9 col-md-9">
+                                    <button type="submit" class="btn purple" ng-click="ajoutermultiemail($event)">
+                                        <i class="fa fa-check"></i> Envoyer </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function () {
+        //        console.clear();
+    }, 1000);
+</script>
+
+

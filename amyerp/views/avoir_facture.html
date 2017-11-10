@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Avoir Facture
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body"> 
+                <div class="col-md-6 portlets">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Avoir Sur Facture</h3>
+                            <p>
+                                Mettre la facture <strong>{{facture.Facture.code_facture}}</strong> 
+                                créer le <strong>{{facture.Facture.created}}</strong> 
+                                de <strong>{{facture.User.full_name}}</strong> en avoir
+                            </p>
+                        </div>
+                        <div class="panel-content">
+                            <ul class="nav">
+                                <li class="choice"><input id="checkboxAvoir" value="{{facture.Facture.avoir}}" ng-model="facture.Facture.avoir" ng-click="avoirFacture(facture.Facture.id)" data-data-id="{{facture.Facture.id}}" type="checkbox" /> Avoir</li>
+                            </ul>
+                            <!--                            <ul class="nav" ng-if="facture.Facture.avoir == true">
+                                                            <li class="choice"><input id="checkboxInvalid" value="{{facture.Facture.avoir}}" ng-model="facture.Facture.avoir" ng-click="avoirFacture('false', facture.Facture.id)" data-data-id="{{facture.Facture.id}}" type="checkbox" /> annuler Avoir</li>
+                                                        </ul>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 portlets">
+                    <div class="panel">
+                        <div class="panel-header"> 
+                            <h3>Informations Facture</h3>
+                            <ul class="nav">
+                                <li><strong>CODE FACTURE</strong>&nbsp;:&nbsp; {{facture.Facture.code_facture}}</li>
+                                <li><strong>DATE FACTURE</strong>&nbsp;:&nbsp; {{facture.Facture.created}}</li>
+                                <li><strong>CLIENT</strong>&nbsp;:&nbsp; {{facture.User.full_name}}</li>
+                                <li><strong>RAISON SOCIALE</strong>&nbsp;:&nbsp; {{facture.User.raison_social}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

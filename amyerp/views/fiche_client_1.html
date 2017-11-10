@@ -1,0 +1,164 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Fiche Client </div>
+            </div>
+            <div class="portlet-body">
+                <div id="tabContainer" ng-cloak>
+                    <md-content class="md-padding">
+                        <md-tabs style="min-height: 768px !important;" md-selected="data.selectedIndex" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
+                            <md-tab id="tab1">
+                                <md-tab-label>Informations</md-tab-label>
+                                <md-tab-body>
+                                    <h3 class="md-display-2" style="font-size: 2em">Fiche Client: <strong> {{client.User.raison_social}}</strong></h3>
+                                    <div>
+                                        <p><strong>Raison Sociale: </strong> {{client.User.raison_social}}</p>
+                                        <p><strong>Adresse: </strong> {{client.User.adresse}}</p>
+                                        <p><strong>Téléphone: </strong> {{client.User.phone_1}}</p>
+                                        <p><strong>Matricule Fiscale: </strong> {{client.User.mf}}</p>
+                                    </div>
+
+                                </md-tab-body>
+                            </md-tab>
+                            <md-tab id="tab2">
+                                <md-tab-label>Factures</md-tab-label>
+                                <md-tab-body>
+                                    <h1 class="md-display-2">Liste Facture</h1>
+                                    <p>
+                                    <table class="table table-striped" wt-responsive-table>
+
+                                        <tr>
+                                            <!--<th>id</th>-->
+                                            <th>Code Facture</th>
+                                            <th>Client</th>
+                                            <th>Ref</th>
+                                            <th>Date de Génération</th>
+                                            <th>Date de Modification</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                        <tr ng-repeat="($index, facture) in factures">
+                                            <td>{{facture.Facture.ref}}</td>
+                                            <td>{{facture.User.raison_social}}</td>
+                                            <td>{{facture.Facture.ref}}</td>
+                                            <td>{{facture.Facture.created}}</td>
+                                            <td>{{facture.Facture.modified}}</td>
+                                            <td>     
+                                                <div ng-click="showFacture(facture.Facture.id)">
+                                                    <a href="#/facture/{{facture.Facture.id}}"  class="btn btn-info btn-sm">
+                                                        <i class="fa fa-eye fa-2x"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </md-tab-body>
+                            </md-tab>
+                            <md-tab id="tab3">
+                                <md-tab-label>Commandes</md-tab-label>
+                                <md-tab-body>
+                                    <h1 class="md-display-2">Liste Commandes</h1>
+                                    <p>
+                                    <table class="table table-striped" wt-responsive-table>
+
+                                        <tr>
+                                            <th>Référence Commande</th>
+                                            <th>Client</th>
+                                            <th>Commerciale</th>
+                                            <th>Date de Génération</th>
+                                            <th>Date de Modification</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                        <tr ng-repeat="($index, commandee) in commandes">
+                                            <td>{{commandee.Commande.ref}}</td>
+                                            <td>{{commandee.User.raison_social}}</td>
+                                            <td>{{commandee.Commercial.first_name}} {{commandee.Commercial.last_name}} </td>
+                                            <td>{{commandee.Commande.created}}</td>
+                                            <td>{{commandee.Commande.modified}}</td>
+                                            <td>     
+                                                <div ng-click="showCommande(commandee.Commande.id)">
+                                                    <a href="#/commande/{{commandee.Commande.id}}"  class="btn btn-info btn-sm">
+                                                        <i class="fa fa-eye fa-2x"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    </p>
+                                </md-tab-body>
+                            </md-tab>
+                            <md-tab id="tab4">
+                                <md-tab-label>Solde</md-tab-label>
+                                <md-tab-body>
+                                    <h1 class="md-display-2">Solde</h1>
+                                    <div>
+                                        <p>Entrées Total HT: <strong> {{ht| number:3}} </strong> | Entrées Total TTC: <strong>{{ttc| number:3}} </strong></p>
+                                        <p>Total Facturé: <strong> {{ttc| number:3}}</strong></p>
+                                        <p>Total Reglé: <strong> {{total_reglement| number:3}} </strong></p>
+                                        <p>Total Restant: <strong> {{total_restee| number:3}} </strong>
+                                        </p>
+                                    </div>
+                                </md-tab-body>
+                            </md-tab>
+                            <md-tab id="tab5">
+                                <md-tab-label>Réglements</md-tab-label>
+                                <md-tab-body>
+                                    <h1 class="md-display-2">Reglement</h1>
+
+                                    <p ng-if="dataRegle.length == 0">
+                                        Pas de réglements émis pour ce client.
+                                    </p>
+                                    <p ng-if="dataRegle.length > 0">
+                                    <table ng-if="dataRegle.length > 0" class="table table-striped" wt-responsive-table >
+                                        <tr>
+                                            <th>Commande</th>
+                                            <th>Type</th>
+                                            <th>Réf.</th>
+                                            <th>Echéance</th>
+                                            <th>Somme</th>
+                                            <th>Validé</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                        <tr ng-repeat="($index, regle) in dataRegle" id='ReglementRows'>
+                                            <!--<td>{{item.Commande.id}}</td>-->
+                                            <td>{{regle.ref}}</td>
+                                            <td>{{regle.type}}</td>
+                                            <td>{{regle.numero}}</td>
+                                            <td>{{regle.date}}</td>
+                                            <td>{{regle.value| number:3}}</td>
+                                            <td>
+                                                <!--                                        <input id="choiceValide" type="radio" ng-model="regleValide" value="{{regle.valide}}" ng-click="checkStuff()" name="choice{{regle.id}}" data-id="{{regle.id}}"/>
+                                                                                        <input id="choiceValide" type="radio" ng-model="regleValide" value="{{regle.valide}}" ng-click="checkStuff()" name="choice{{regle.id}}" data-id="{{regle.id}}"/>-->
+                                                <ul class="nav" ng-if="regle.valide == false">
+                                                    <li class="choice"><input id="choiceValide" type="radio" value="true" ng-click="checkStuff('true', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> oui</li>
+                                                    <li class="choice"><input id="choiceValide" type="radio" ng-model="regleInValide" value="false" ng-click="checkStuff('false', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> non</li>
+                                                </ul>
+                                                <ul class="nav" ng-if="regle.valide == true">
+                                                    <li class="choice"><input id="choiceValide" type="radio" ng-model="regleValide" value="true" ng-click="checkStuff('true', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> oui</li>
+                                                    <li class="choice"><input id="choiceValide" type="radio" value="false" ng-click="checkStuff('false', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> non</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <div ng-controller="">
+                                                    <button id="reglementSumbit" data-index="{{$index}}" data-client="{{regle.id}}"  ng-click="open(regle.id, $index)" data-name="{{regle.ref}}" data-cmd="{{regle.id}}" class="btn btn-danger btn-embossed btn-sm">
+                                                        Annuler &nbsp;<i class="fa fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </md-tab-body>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

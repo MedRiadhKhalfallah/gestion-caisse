@@ -1,0 +1,120 @@
+<style>
+    input.checkChoice {
+        display: none;
+        margin-right: 5px;
+        margin-left: 2px;
+        width : 60px;
+        border: 2px solid #000;
+    }
+    li.choice{
+        display: inline-block !important;
+        list-style: none;
+    }
+</style>
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Validation Stocks </div>
+                <!--                <div class="actions">
+                                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                        <i class="fa fa-print"></i> <button ng-click="exportData()">Export</button> </a>
+                                </div>-->
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="exportable">
+                    <thead>
+                        <tr>
+                            <th> REF </th>
+                            <th> Produit </th>
+                            <!--<th> Famille </th>-->
+                            <th> Fournisseur </th>
+                            <th> Entrée </th>
+                            <th> Sortie </th>
+                            <th> Stock </th>
+                            <!--<th> Stock Restant Vente(HT) </th>-->
+                            <!--<th> Prix d'achat </th>-->
+                            <th> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left;">
+                        <tr class="odd gradeX" dir-paginate="($index, stock) in stocks | filter:search |itemsPerPage:10" id="StockRows">
+                            <td style="width: 110px;">{{stock.Product.ref}}</td>
+                            <td>{{stock.Product.name}}</td>
+                            <!--<td>{{stock.Product.Famille.name}}</td>-->
+                            <td>{{stock.Product.Fournisseur.name}}</td> 
+                            <td><span class="label label-success">{{stock.Stock.qte}}</span></td>
+                            <td><span class="label label-danger">{{-stock.Stock.countOut}}</span></td> 
+                            <td><span class="label label-success">{{stock.Stock.qte - (-stock.Stock.countOut)}}</span></td>
+                            <!--<td>{{stock.Product.price * stock.Stock.qte| number:3}}</td>--> 
+                            <!--<td>{{stock.Product.prix_achat| number:3}}</td>--> 
+                            <td>
+                                <ul class="nav" ng-if="stock.Stock.valide == false">
+                                    <li class="choice"><input id="choiceValide" type="radio" value="true" ng-click="valideStock('true', stock.Stock.id)" name="choice{{stock.Stock.id}}" data-id="{{stock.Stock.id}}"/> oui</li>
+                                    <li class="choice"><input id="choiceValide" type="radio" ng-model="stockInValide" value="false" ng-click="valideStock('false', stock.Stock.id)" name="choice{{stock.Stock.id}}" data-id="{{stock.Stock.id}}"/> non</li>
+                                </ul>
+                                <ul class="nav" ng-if="stock.Stock.valide == true">
+                                    <li class="choice"><input id="choiceValide" type="radio" ng-model="stockValide" value="true" ng-click="valideStock('true', stock.Stock.id)" name="choice{{stock.Stock.id}}" data-id="{{stock.Stock.id}}"/> oui</li>
+                                    <li class="choice"><input id="choiceValide" type="radio" value="false" ng-click="valideStock('false', stock.Stock.id)" name="choice{{stock.Stock.id}}" data-id="{{stock.Stock.id}}"/> non</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <dir-pagination-controls
+                    max-size="5"
+                    direction-links="true"
+                    boundary-links="true"  style="float: right; top: -28px;position: relative;" class="portlet-body">
+                </dir-pagination-controls>
+                <br><br>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+
+    </div>
+</div>
+
+<script>
+    setTimeout(function () {
+        $("tbody td.validation").each(function () {
+            $(this).children().eq(2).attr('class', 'icheckbox_minimal-grey pull-right');
+        });
+    }, 2000);
+
+    setTimeout(function () {
+//        console.clear();
+    }, 1000);
+</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

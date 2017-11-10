@@ -1,0 +1,730 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .form .form-bordered .form-group>div {
+        border-left: none !important; 
+    }
+    .col-md-3{padding-right: 0 !important;}
+    .col-md-2{padding-right: 0 !important;}
+    custom-type-colis .bootstrap-select{
+        width: 300px !important;
+    }
+    .bootstrap-select{width: 100% !important;height: 34px !important;}
+    select{width: 100% !important;height: 34px !important;}
+    /*li span{color: #000 !important;}*/
+    .selectize-control.single .selectize-input{box-shadow: none !important;background: none !important;}
+    .selectize-input{padding: 6px 12px !important;border-radius: 0 4px 4px 0 !important;}
+    .selectize-control {height: 34px !important;}
+    .gallery-box span.title{display: none !important;}
+    .thumbnail:hover img{
+        opacity:0.5 !important;
+    }
+    .thumbnail:hover i.addIMGProfile{
+        display: block !important;
+        position: absolute;
+        top: 38%;
+        left: 45%;
+        color: #000;
+        font-size: 20px;
+    }
+    /*    div.show-image:hover input {
+            display: block;
+        }
+        div.show-image input {
+            position:absolute;
+            display:none;
+        }*/
+    .thumbnail a>img, .thumbnail>img {
+        min-height: 100px !important;
+    }
+    .bs-searchbox input{border-radius: 5px !important;}
+    @media (min-width: 768px){
+        .modal-dialog{width: 70% !important;}
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#/products">Liste Produits</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Ajout Produit </li>
+</ul>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Ajout Commande 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <!--
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>-->
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="col-md-8">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h3><span class="glyphicon glyphicon-user"></span> Expéditeur</h3>
+                            </div> 
+                            <div class="panel-content" ng-controller="ErpCtrl">
+                                <div class="form-group col-md-10" ng-controller="UsersController">
+                                    <label class="control-label col-md-2" style="text-align: left;">Client : </label>
+                                    <div class="col-md-6">
+                                        <div class="col-md-12">
+                                            <select class="form-control input-xlarge select2me col-md-10" ng-change='NewClient()' ng-model="SelectClient" data-placeholder="Select Client..." id="SelectUser">
+                                                <option value=""></option>
+                                                <option value="{{item.User.id}}" data-etat="{{item.User.etat_client}}" data-url="{{item.User.url}}" data-name="{{item.User.first_name}}" data-prenom="{{item.User.last_name}}" data-adresse="{{item.User.adress}}" data-phone="{{item.User.phone}}" data-commerciale="{{item.User.commerciale_id}}" ng-repeat="item in clients">{{item.User.raison_social}} {{item.User.nom_commercial}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button ng-controller="ModalNewClientCtrl" type="button"  id="addNewClient"  class="btn btn-info" ng-click="open()"><i addbuttonsdevis id='addNewClient' class='fa fa-plus'></i></button>
+                                    </div>
+                                    <!--<i addbuttonsdevis id='addNewClient' class='glyphicon glyphicon-plus btn btn-info btn-sm btn-embossed icon col-md-2'></i>-->
+                                    <!--<div id="label_etat_client"></div>-->
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-7" style="margin-top: 20px;">
+                                    <div class="form-group" style="border-bottom: none;">
+                                        <div class="panel panel-default" style="border-left: 1px solid #efefef !important;">
+                                            <div class="panel-body" id="SelectUser" data-user="{{AuthID}}">
+                                                <div class="col-md-5">
+                                                    <!--<img src="assets/layouts/layout4/img/avatar9.jpg" class="img-responsive" style="max-width: 40px;">-->
+                                                <div flow-init="{singleFile:true,testChunks:false}"
+                                                         flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-files-submitted="$flow.upload()" id='flowData'>
+
+                                                        <div class="thumbnail show-image" ng-show="!$flow.files.length" flow-btn>
+                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" class="modifImg"/>
+                                                        </div>
+                                                        <div class="thumbnail" ng-show="$flow.files.length" flow-btn>
+                                                            <img flow-img="$flow.files[0]" />
+                                                        </div>
+                                                        <div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <ul class="nav">
+                                                        <li><label>Nom: <strong id="NameUser"> </strong></label></li>
+                                                        <li><label>Prenom: <strong id="PrenomUser"> </strong></label></li>
+                                                        <li><label>Adresse: <strong id="AdresseUser"></strong></label></li>
+                                                        <li><label>Téléphone: <strong id="PhoneUser"></strong></label></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><strong>Quel est votre point de dépôt: ?</strong></h3>
+                                    </div>
+                                    <div class="clearfix"></div></br>
+                                    <div class="panel-content">
+                                        <div class="clearfix"></div></br>
+                                        <div class="col-md-10" id="TypeRemettre">
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="text-align: left;"><strong>Choisir le point de dépôt: </strong></label>
+                                                <div class="input-group col-md-7" style="padding-left: 0;">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-tag"></i>
+                                                    </span>
+                                                    <!--                                                    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Ville..." id="villeID">
+                                                                                                            <option value=""></option>
+                                                                                                            <option  value="{{item.Ville.id}}" ng-repeat="item in villes">{{item.Ville.name}}</option>
+                                                                                                        </select>-->
+                                                    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Ville..." id="villeID">
+                                                        <option value=""></option>
+                                                        <option value="megrine">Megrine</option>
+                                                        <option value="sfax">Sfax</option>
+                                                        <option value="gafsa">Gafsa</option>
+                                                        <option value="jerjisse">Jerba/Jerjisse</option>
+                                                        <option value="kef">El Kef</option>
+                                                        <option value="gabes">Gabes</option>                                                     
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h3><span class="fa fa-tags"></span> Détail de votre expédition</h3>
+                            </div> 
+                            <div class="panel-content">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group col-md-4" ng-controller="EspaceClientController" style="border-bottom: none;padding-left: 0;"> 
+                                            <label class="col-md-10 control-label" style="text-align: left;padding-left: 0;">Échange ?</label>
+                                            <div class="col-md-2" style="padding-left: 0;">
+                                                <div class="input-group">
+                                                    <input type="checkbox" id="isEchange"
+                                                           ng-model="checkboxEchange" 
+                                                           ng-true-value="1" 
+                                                           ng-false-value="0" 
+                                                           ng-checked="checkboxEchange == 1" value="{{checkboxEchange}}" ng-change="isEchange()" />
+                                                    <!--<input id="choiceRebut" ng-true-value="'true'" ng-false-value="'false'" type="checkbox" ng-model="checkboxModel.value1" />-->
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="form-group col-md-6" style=" display: none;" id="NoneEchange">
+                                            <label class="col-md-3 control-label" style="text-align: left;padding-left: 0;">Déscriptif</label>
+                                            <div class="input-group col-md-9">
+                                                <textarea id="descriptifEchange" placeholder="Déscriptif" name="Déscriptif" class="form-control"></textarea>
+                                                <!--<input ng-blur="contentRequired()" type="text" id="Contenu" placeholder="Contenu" name="content" class="form-control" />-->
+                                            </div>
+                                        </div> 
+                                        <div class="clearfix"></div> 
+                                        <div class="form-group col-md-4" ng-controller="EspaceClientController" style="border-bottom: none;padding-left: 0;"> 
+                                            <label class="col-md-10 control-label" style="text-align: left;padding-left: 0;">Avec contre rembourcement ?</label>
+                                            <div class="col-md-2" style="padding-left: 0;">
+                                                <div class="input-group">
+                                                    <input type="checkbox" id="isContreRembourcement"
+                                                           ng-model="checkbox" 
+                                                           ng-true-value="1" 
+                                                           ng-false-value="0" 
+                                                           ng-checked="checkbox == 1" value="{{checkbox}}" ng-change="isContreRembourcement()" />
+                                                    <!--<input id="choiceRebut" ng-true-value="'true'" ng-false-value="'false'" type="checkbox" ng-model="checkboxModel.value1" />-->
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="form-group col-md-8" style="padding-left: 0;padding-top: 0;border-bottom: none; display: none;" id="avecContreRenbourcement">
+                                            <div class="form-group col-md-6" style="padding-left: 0;padding-top: 0;border-bottom: none;">
+                                                <label class="col-sm-4 control-label">Montant</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </span> 
+                                                        <input type="text" id="Mantant" placeholder="Montant" name="Mantant" class="form-control" /> </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6" style="padding-top: 0;border-bottom: none;">
+                                                <label class="col-sm-4 control-label">Type Paiement</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-check"></i>
+                                                        </span>
+                                                        <select class="selectpicker" title="Select type paiement..." ng-model="TypePaiement" id="TypePaiement">
+                                                            <option value="" style="display: none !important;"></option>
+                                                            <option value="deux">Espèce et chèque</option>
+                                                            <option value="espece">Espèce</option>
+                                                            <option value="cheque">Chèque</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" style='text-align: left;'>Type de colis</label>
+                                        <div class="col-md-8" style="padding-left: 0;">
+                                            <div class="input-group">
+                                                <custom-type-colis class="col-md-12" style="padding-right: 0;" item='name' change-event="change()" />
+                                            </div>
+                                        </div> 
+                                        <div id="MessageId">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12" style="padding-bottom: 20px;">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">Dimension</label>
+                                        <div class="col-md-12" style="padding-left: 0; padding-right: 0;" id="ListDimension">
+                                            <div class="col-md-12" style="padding-left: 0; padding-right: 0;" id="DimensionColis">
+                                                <div class="col-md-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            N°1
+                                                        </span>
+                                                        <input type="number" id="longueur" placeholder="Longueur(cm)" name="longueur" class="form-control" /> 
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <input type="number" id="largeur" placeholder="Largeur(cm)" name="largeur" class="form-control" /> 
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <input type="number" id="hauteur" placeholder="Hauteur(cm)" name="hauteur" class="form-control" /> 
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <input type="number" id="poid" placeholder="Poid(kg)" name="poid" class="form-control" />
+                                                    </div>
+                                                </div> 
+                                                <div class="col-md-3">
+                                                    <div class="input-group">
+                                                        <textarea id="Contenu" placeholder="Contenu" name="content" class="form-control" style="height: 35px;"></textarea>
+                                                        <!--<input type="text" id="Contenu" placeholder="Contenu" name="content" class="form-control" />-->
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class='clearfix'></div>
+                                        </div>
+                                        <listdimensioncolis style="margin-left: 15px;"></listdimensioncolis>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="padding-left: 0;">
+                        <div class="page-header">
+                            <h3><span class="glyphicon glyphicon-user"></span> Destinataire</h3>
+                        </div> 
+                        <div class="panel-content">
+                            <div class="col-md-12" style="padding-left: 0;">
+                                <div class="form-group ">
+                                    <label class="col-md-3 control-label" style="text-align: left;">Type</label>
+                                    <div class="col-sm-7 col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <select class="selectpicker" style="width: 100% !important;" title="Select Type Destinataire..." ng-change='TypeDestinataire()' ng-model="TypeDEDestinataire" id="TypeDestinataire">
+                                                <option value="" style="display: none !important;"></option>
+                                                <option>Professionnel</option>
+                                                <option>Particulier</option>
+                                            </select>
+                                            <!--                                            <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Type Destinataire..." ng-change='TypeDestinataire()' ng-model="TypeDEDestinataire" id="TypeDestinataire">
+                                                                                            <option value="" style="display: none !important;"></option>
+                                                                                            <option>Professionnel</option>
+                                                                                            <option>Particulier</option>
+                                                                                        </select>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group " id="HiddenRaisonSociale" style="display: none;">
+                                    <label class="col-md-3 control-label" style="text-align: left;">Raison sociale</label>
+                                    <div class="col-sm-7 col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <input type="text" id="raison_sociale" placeholder="raison sociale" name="raison sociale" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-md-3 control-label" style="text-align: left;">Nom</label>
+                                    <div class="col-sm-7 col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <input type="text" id="first_name" placeholder="Nom" name="firstname" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-md-3 control-label" style="text-align: left;">Prenom</label>
+                                    <div class="col-sm-7 col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <input type="text" id="last_name" placeholder="Prenom" name="lastname" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-md-3 control-label" style="text-align: left;">Téléphone</label>
+                                    <div class="col-sm-7 col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <input type="text" id="Phone" placeholder="Téléphone" name="phone" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-md-3 control-label" style="text-align: left;">Email</label>
+                                    <div class="col-sm-7 col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <input type="email" id="Email" placeholder="Email" name="Email" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-md-3 control-label" style="text-align: left;">Adresse</label>
+                                    <div class="col-sm-7 col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <input type="text" id="Adresse" placeholder="Adresse" name="Adresse" class="form-control" /> </div>
+                                    </div>
+                                </div>
+
+                                <!--                                <div class="form-group">
+                                                                    <label class="col-md-2 control-label" style="text-align: left;">Ville</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-tag"></i>
+                                                                            </span>
+                                                                            <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Ville..." id="villeValue">
+                                                                                <option value=""></option>
+                                                                                <option  value="{{item.Ville.id}}" ng-repeat="item in villes">{{item.Ville.name}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" style="text-align: left;">
+                                        Gouvernorat
+                                    </label>
+                                    <div class="col-md-7">
+                                        <div class="input-group" style="width: 100%;">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <select style="height: 34px;width: 100%;border-radius: 0 4px 4px 0;border: 1px solid #c2cad8;"  class="demo-default" data-placeholder="Choix Ville..." id="villeValue">
+                                                <option value=""></option>
+                                                <option  value="{{item.Ville.id}}" ng-repeat="item in villes">{{item.Ville.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                               
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" style="text-align: left;">
+                                        Délégation
+                                    </label>
+                                    <div class="col-md-7">
+                                        <div class="input-group" style="width: 100%;">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <select style="height: 34px;width: 100%;border-radius: 0 4px 4px 0;border: 1px solid #c2cad8;"  id="select-country" class="demo-default" placeholder="Choix Délégation..."></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" style="text-align: left;">
+                                        Localité
+                                    </label>
+                                    <div class="col-md-7">
+                                        <div class="input-group" style="width: 100%;">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-barcode"></i>
+                                            </span>
+                                            <select style="height: 34px;width: 100%;border-radius: 0 4px 4px 0;border: 1px solid #c2cad8;"  id="select-localite" class="demo-default" ng-change="changeLocalitee()" ng-model="changeLocalitees" placeholder="Choix Localité..."></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='zip_code'>
+                                </div>
+                                <!--                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label" style="text-align: left;">Code Postal</label>
+                                                                    <div class="col-md-7">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-pencil"></i>
+                                                                            </span>
+                                                                            <input type="text" disabled id="postal" placeholder="Code Postal" name="Code Postal" class="form-control" /> </div>
+                                                                    </div>
+                                                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button id="submitCmdClient" type="submit" class="btn purple" ng-click="ajoutCommandeClient($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Ajout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<!-- END MAIN CONTENT -->
+<!--<script>
+            ComponentsFormTools.init(); // init todo page
+</script>-->
+<script>
+            //    ComponentsDateTimePickers.init();
+            setTimeout(function () {
+                $('#DateExpedition').datepicker({
+                    altField: "#DateFin",
+                    closeText: 'Fermer',
+                    prevText: 'Précédent',
+                    nextText: 'Suivant',
+                    currentText: 'Aujourd\'hui',
+                    monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                    monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                    dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                    dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                    weekHeader: 'Sem.',
+                    dateFormat: "dd-mm-yy"
+                });
+            }, 500);</script>
+<script>
+            setTimeout(function () {
+//            console.clear();
+                var intervalEntrepot = setInterval(function () {
+                    if (document.readyState === 'complete') {
+                        clearInterval(intervalEntrepot);
+                        setTimeout(function () {
+                            //        console.clear();
+                            $('.selectpicker').selectpicker({
+                                style: ' btn-default',
+                                size: 12
+                            });
+                            initSelectize();
+                        }, 2000);
+                    }
+                }, 100);
+            }, 1000);
+</script>
+<script type="text/ng-template" id="myModalContentNewClient.html">
+    <div class="modal-header" id="modal-new-client" data-cmdid="" data-index="">
+    <h3 class="modal-title">Nouveau client</h3>
+    </div>
+    <div class="modal-body" ng-controller="UsersController">
+    <div>
+    <form action="#" id="form-username" class="form-horizontal form-bordered">
+    <div class="form-group col-md-6">
+    <label class="col-md-4 control-label">Type Client</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-check"></i> 
+    </span>
+    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Type Client..." ng-change='TypeClient()' ng-model="TypeDEClient" id="TypeClient" style='width: 100% !important;'>
+    <option value=""></option>
+    <option>Professionnel</option>
+    <option>Particulier</option>
+    </select>
+    </div>
+    </div>
+    </div>
+    <div class="form-group col-md-6">
+    <label class="col-md-4 control-label">État Client</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-check"></i> 
+    </span>
+    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select État Client..." ng-model="EtatDEClient" id="EtatClient" style='width: 100% !important;'>
+    <option value=""></option>
+    <option>Normal</option>
+    <option>Sous Surveillance</option>
+    <option>Bloqué</option>
+    </select>
+    </div>
+    </div>
+    </div>
+    <div class="form-group col-md-6" style="width: 100% !important;">
+    </div>
+    <div class="col-md-6">
+    <div class="form-group col-md-12" id="HiddenForType">
+    <label class="col-md-4 control-label">Raison Sociale</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="raison_social" placeholder="Raison Social" name="raison_social" class="form-control" /> </div>
+    </div>
+    </div>
+    <div class="form-group col-md-12">
+    <label class="col-md-4 control-label">Nom</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="last_name" placeholder="Nom Client" name="name" class="form-control" /> </div>
+    </div>
+    </div>
+    <div class="form-group col-md-12">
+    <label class="col-md-4 control-label">Prenom</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="first_name" placeholder="Prenom Client" name="first name" class="form-control" /> </div>
+    </div>
+    </div>
+    <div class="form-group col-md-12">
+    <label class="col-md-4 control-label">Téléphone</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="phone" placeholder="Téléphone" name="Telephone" class="form-control" /> </div>
+    </div>
+    </div>
+    <div class="form-group col-md-12">
+    <label class="col-md-4 control-label">Commercial</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-tag"></i>
+    </span>
+    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Commercial..." id="commercialeValue" style="width: 100% !important;">
+    <option value=""></option>
+    <option  value="{{item.User.id}}" ng-repeat="item in commerciales">{{item.User.full_name}}</option>
+    </select>
+    </div>
+    </div>
+    </div> 
+    </div>
+    <div class="col-md-6">
+    <div class="form-group col-md-12">
+    <label class="col-md-4 control-label">Email</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="email" id="email" placeholder="Email" name="email" class="form-control" /> </div>
+    </div>
+    </div>
+    <div class="form-group col-md-12">
+    <label class="col-md-4 control-label">Adresse</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="adress" placeholder="Adresse" name="addresse" class="form-control" /> </div>
+    </div>
+    </div>
+    <div class="form-group col-md-12">
+    <label class="col-md-4 control-label">Code Postal</label>
+    <div class="col-md-8">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="postal" placeholder="Code Postal" name="Code Postal" class="form-control" /> </div>
+    </div>
+    </div>
+    <div class="form-group col-md-12">
+    <label class="col-md-4 control-label">Ville</label>
+    <div class="col-md-8">
+    <div class="input-group" ng-controller="UsersController">
+    <span class="input-group-addon">
+    <i class="fa fa-tag"></i>
+    </span>
+    <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Ville..." id="villeValue" style="width: 100% !important;">
+    <option value=""></option>
+    <option  value="{{item.Ville.id}}" ng-repeat="item in villes">{{item.Ville.name}}</option>
+    </select>
+    </div>
+    </div>
+    </div> 
+    </div> 
+    <div class="form-group col-md-12" style="width: 100% !important; height: 30px !important;">
+    </div>
+    <!--<div>-->
+    <div class="col-md-3" id="HiddenMFForType">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+    <h3 class="panel-title"><strong>Matricule</strong></h3>
+    </div>
+    <div class="panel-body">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="matricule" placeholder="Matricule Fiscale" name="Matricule Fiscale" class="form-control" />
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-md-3" id="HiddenCTVAForType">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+    <h3 class="panel-title"><strong>Code TVA</strong></h3>
+    </div>
+    <div class="panel-body">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="codetva" placeholder="Code Tva" name="Code Tva" class="form-control" />
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-md-3" id="HiddenCategoryForType">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+    <h3 class="panel-title"><strong>Code Catégorie</strong></h3>
+    </div>
+    <div class="panel-body">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="code_category" placeholder="Code Catégorie" name="Code Catégorie" class="form-control" />
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-md-3" id="HiddenEtabForType">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+    <h3 class="panel-title"><strong>N° Établissement</strong></h3>
+    </div>
+    <div class="panel-body">
+    <div class="input-group">
+    <span class="input-group-addon">
+    <i class="fa fa-pencil"></i>
+    </span>
+    <input type="text" id="num_etab" ng-change="identite_fiscale()" ng-model="num_etab" placeholder="N° Établissement" name="N° Établissement" class="form-control" />
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-md-12">
+    </div>
+    <br>
+    </form>
+    </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ajoutNewClient($event)">Ajouter</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>        
+</script>

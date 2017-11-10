@@ -1,0 +1,170 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Clients </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Clients </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/prospectiontt" ng-controller="prospectionController" class="btn btn-default btn-sm" ng-click="addCookies('msg')"><i class="fa fa-align-right"></i>prospection SMS pour tout </a> 
+                    <a href="#/prospectionemailtt" ng-controller="prospectionController" class="btn btn-default btn-sm" ng-click="addCookies('email')">  <i class="fa fa-align-right"></i> prospection e-mail pour tout </a> 
+                    <a href="#/webphone" ng-controller="prospectionController" class="btn btn-default btn-sm" ><i class="fa fa-align-right"></i> prospection téléphonique </a> 
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="#/ajout-client" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer 
+                    </a>
+
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+
+
+
+                    <!--                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                            <i class="fa fa-print"></i> Print </a>-->
+                </div>
+            </div>
+            <div class="portlet-body" ng-controller="prospectionController">
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr>
+                            <th> Nom </th>
+                            <th> État </th>
+                            <th> Téléphone </th>
+                            <th> Email </th>
+                            <th> Addresse </th>
+                            <th> Ville </th>
+                            <th> Raison Sociale </th>
+                            <th> Actions </th>
+
+                            <th><input type="checkbox" name="checkedAll" id="checkedAll" ng-controller="prospectionController"/>Sélèctionner tout </th>
+                            <!--                            <th>Historique </th>-->
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left;" id="listUser">
+                        <tr class="odd gradeX" dir-paginate="($index, item) in clients | filter:search |itemsPerPage:10" id="ClientRows" data-data-id="{{item.User.id}}" data-userclient="{{item.User.id}}">
+                            <td style="width: 140px;">{{item.User.full_name}}</td>
+                            <td ng-if="item.User.etat_client === 'Normal'"><label class='label label-success'>{{item.User.etat_client}}</label></td>
+                            <td ng-if="item.User.etat_client === 'Bloqué'"><label class='label label-danger'>{{item.User.etat_client}}</label></td>
+                            <td ng-if="item.User.etat_client === 'Sous Surveillance'"><label class='label label-info'>{{item.User.etat_client}}</label></td>
+                            <td>{{item.User.phone}}</td>
+                            <td>{{item.User.email}}</td>
+                            <td>{{item.User.adress}}</td>
+                            <td>{{item.Ville.name}}</td>
+                            <td>{{item.User.raison_social}}</td> 
+
+                            <td style="width: 175px;">      <!-- Single button -->
+                                <div class="btn-group">
+                                    <a href="#/fiche-client/{{item.User.id}}" class="btn btn-info btn-sm ng-scope" >
+                                        <i class="fa fa-eye"></i> fiche client
+                                    </a>
+                                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li> <a href="#/view-client/{{item.User.id}}" class="btn btn-default btn-sm" style=" text-align:left ;border: none;color: #36c6d3; font-size: 13px; font-weight: bold;"> <i class ="glyphicon glyphicon-envelope" style="color: #36c6d3;"></i> Prospection SMS</a> </li>
+                                        <li><a href="#/prospectionemail/{{item.User.id}}" class="btn btn-default btn-sm" style=" text-align:left ;border: none;color: #b066ff; font-size: 13px; font-weight: bold;">  <i class ="glyphicon glyphicon-comment" style="color:#b066ff ;" ></i> Prospection e-mail</a> </li>
+                                        <!--                                        <li><a href="#/historique-email/{{item.User.id}}" class="btn btn-default btn-sm" style=" text-align: left ;border: none;color: #F1C40F; font-size: 13px; font-weight: bold;"> <i class ="glyphicon glyphicon-duplicate" style="color:#F1C40F ;"></i> historique client </a> </li>-->
+                                        <li><a href="#/historiques/{{item.User.id}}" class="btn btn-default btn-sm" ng-click="saveID(item.User.id)" style=" text-align: left ;border: none;color: #F1C40F; font-size: 13px; font-weight: bold;"> <i class ="glyphicon glyphicon-duplicate" style="color:#F1C40F ;"></i> historique client </a> </li>
+                                        <li> 
+                                            <a href="#/edit-client/{{item.User.id}}" class="btn btn-default btn-sm" style=" text-align:left ;border: none;color:#3FC023 ; font-size: 13px; font-weight: bold;"><i class="fa fa-pencil" style="color:#3FC023  ;" ></i> Modifier client </a>
+                                        </li>
+                                        <li>
+                                            <!--<div ng-controller="ModalClientCtrl">-->
+                                            <a id="clientSumbit" style=" text-align:left ;border: none;color: #ed6b20; font-size: 13px; font-weight: bold;" ng-controller="ModalClientCtrl" data-index="{{$index}}" data-item="{{item.User.id}}"  ng-click="open(item.User.id, $index)" data-name="{{item.User.name}}" data-cmd="{{item.User.id}}" class="btn btn-default btn-sm ">
+                                                <i class="fa fa-times" style="color: #ed6b20 ;" ></i>  Supprimer  
+                                            </a>
+                                            <!--</div>-->
+                                        </li>                                    
+                                    </ul>
+                                </div>
+                            </td>
+                            <!--end single button--> 
+                            <td> <input type="checkbox" name="checkAll" class="checkSingle" /> </td>   
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+                <div class="other-controller" style="float: right;">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="tpl/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+        <div id="login-box" class="login-popup" data-id="" data-index="" ng-controller="ModalClientCtrl">
+            <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+            <form method="post" class="signin" action="#">
+                <fieldset class="textbox">
+                    <label class="password">
+                        <span>Code Validation</span>
+                        <input id="codeRoot" ng-model="codeRoot" value="" type="password" placeholder="Code Validation">
+                    </label>
+                    <button class="submit button" type="button" ng-click="validateAction($event)">Activer</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="deleteClient.html">
+    <div class="modal-header" id="DeleteClient" data-id="" data-index="">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé Client</h4>
+    </div>
+    <div class="modal-body">
+    <p>Voulez vous vraiment supprimé cet client ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteClient(item.User.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+</script>
+<script>
+    setTimeout(function () {
+//        console.clear()
+    }, 1000);
+    $("#checkedAll").change(function () {
+        if (this.checked) {
+            $(".checkSingle").each(function () {
+                this.checked = true;
+            })
+        } else {
+            $(".checkSingle").each(function () {
+                this.checked = false;
+            })
+        }
+    });</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

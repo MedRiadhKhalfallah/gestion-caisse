@@ -1,0 +1,300 @@
+<style>
+    .modal-content{
+        width: 50%;
+        left: 27% !important;
+        position: relative; 
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Fiche Client 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="#/ajout-client" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer 
+                    </a>
+                    <a href="#/edit-client/{{client.User.id}}" class="btn btn-default btn-sm">
+                        <i class="fa fa-pencil"></i> Modifier 
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <!--                                        <a href="javascript:;" class="btn btn-default btn-sm">
+                                                                <i class="fa fa-print"></i> Print </a>-->
+                </div>
+            </div>
+            <div class="portlet-body"> 
+                <div class="tab_left">
+                    <ul  class="nav nav-tabs nav-red">
+                        <li class="active"><a href="#" data-target="#tab3_1" data-toggle="tab">Informations</a></li>
+                        <li><a href="#" data-target="#tab3_2" data-toggle="tab">Devis</a></li>
+                        <li><a href="#" data-target="#tab3_3" data-toggle="tab">Commandes</a></li>
+                        <li><a href="#" data-target="#tab3_4" data-toggle="tab">Factures</a></li>
+                        <li><a href="#" data-target="#tab3_5" data-toggle="tab">Solde</a></li>
+                        <li><a href="#" data-target="#tab3_6" data-toggle="tab">Reglement</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab3_1">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h3><span class="glyphicon glyphicon-user"></span> Fiche Client:</h3>
+                                </div> 
+                                <div class="panel-content">
+                                    <p><strong>Raison Sociale: </strong> {{client.User.full_name}}</p>
+                                    <p><strong>Adresse: </strong> {{client.User.adress}}</p>
+                                    <p><strong>Ville: </strong> {{client.Ville.name}}</p>
+                                    <p><strong>Code Postal: </strong> {{client.User.postal}}</p>
+                                    <p><strong>Email: </strong> {{client.User.email}}</p>
+                                    <p><strong>Téléphone: </strong> {{client.User.phone}}</p>
+                                    <p><strong>Identité Fiscale: </strong> {{client.User.mf}}</p> 
+                                    <div class="col-md-3">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title"><strong>Matricule</strong></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                {{matricule}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title"><strong>Code TVA</strong></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                {{codetva}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title"><strong>Code catégorie</strong></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                {{codecategory}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title"><strong>N° Etablissement</strong></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                {{numetab}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_2">
+                            <div class="page-header">
+                                <h3> Liste des Devis:</h3>
+                            </div>
+                            <div class="panel-content" ng-controller="DevisUser">
+                                <div  ng-if="devisuser.length === 0">
+                                    <p>pas de devis émis pour cet client.</p>
+                                </div>
+                                <div ng-if="devisuser.length > 0" class="col-md-12">
+                                    <table class="table table-striped" wt-responsive-table>
+                                        <tr>
+                                            <th>Référence Devis</th>
+                                            <th>Client</th>
+                                            <th>Date de Génération</th>
+                                            <th>Date de Modification</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                        <tr ng-repeat="($index, commandee) in devisuser">
+                                            <td>{{commandee.Commande.ref}}</td> 
+                                            <td>{{commandee.User.full_name}}</td>
+                                            <td>{{commandee.Commande.created}}</td>
+                                            <td>{{commandee.Commande.modified}}</td>
+                                            <td>     
+                                                <div ng-click="showCommande(commandee.Commande.id)">
+                                                    <a href="#/view-commande/{{commandee.Commande.id}}"  class="btn btn-info btn-sm">
+                                                        <i class="fa fa-eye fa-2x"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_3">
+                            <div class="page-header">
+                                <h3> Liste des Commandes:</h3>
+                            </div>
+                            <div class="panel-content" ng-controller="CommandeController">
+                                <div  ng-if="commandesuser.length === 0">
+                                    <p>pas de commande émis pour cet client.</p>
+                                </div>
+                                <div ng-if="commandesuser.length > 0" class="col-md-12">
+                                    <table class="table table-striped" wt-responsive-table>
+                                        <tr>
+                                            <th>Référence Commande</th>
+                                            <th>Client</th>
+                                            <th>Client</th>
+                                            <th>Date de Génération</th>
+                                            <th>Date de Modification</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                        <tr ng-repeat="($index, commandee) in commandesuser">
+                                            <td>{{commandee.Commande.ref}}</td> 
+                                            <td>{{commandee.User.id}}</td>
+                                            <td>{{commandee.User.full_name}}</td>
+                                            <td>{{commandee.Commande.created}}</td>
+                                            <td>{{commandee.Commande.modified}}</td>
+                                            <td>     
+                                                <div ng-click="showCommande(commandee.Commande.id)">
+                                                    <a href="#/view-commande/{{commandee.Commande.id}}"  class="btn btn-info btn-sm">
+                                                        <i class="fa fa-eye fa-2x"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div>
+                                        <a href="#/generer-facture/{{commandesuser[0].User.id}}"  class="btn btn-info btn-sm pull-right">
+                                            générer
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_4">
+                            <div class="page-header">
+                                <h3> Liste des Factures:</h3>
+                            </div>
+                            <div class="panel-content" ng-controller="FicheController">
+                                <div  ng-if="facturesuser.length === 0">
+                                    <p>pas de facture émis pour cet client.</p>
+                                </div>
+                                <table ng-if="facturesuser.length > 0" class="table table-striped" wt-responsive-table>
+                                    <tr>
+                                        <th>Code Facture</th>
+                                        <th>Client</th>
+                                        <!--<th>Ref</th>-->
+                                        <th>Date de Génération</th>
+                                        <!--<th>Date de Modification</th>-->
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr ng-repeat="($index, facture) in facturesuser">
+                                        <td>{{facture.Facture.code_facture}}</td>
+                                        <td>{{facture.User.full_name}}</td> 
+                                        <!--<td>{{facture.Facture.ref}}</td>-->
+                                        <td>{{facture.Facture.created}}</td>
+                                        <!--<td>{{facture.Facture.modified}}</td>-->
+                                        <td>     
+                                            <div ng-click="showFacture(facture.Facture.id)">
+                                                <a href="#/view-facture/{{facture.Facture.id}}"  class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye fa-2x"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="tab3_5"  ng-controller="CommandeController">
+                            <div class="page-header">
+                                <h3> Solde:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div>
+                                    <p>Entrées Total HT: <strong> {{ht| number:3}} </strong> | Entrées Total TTC: <strong>{{ttc| number:3}} </strong></p>
+                                    <p>Total Facturé: <strong> {{ttc| number:3}}</strong></p>
+                                    <p>Total Reglé: <strong> {{total_reglement| number:3}} </strong></p>
+                                    <p>Total Restant: <strong> {{total_restee| number:3}} </strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3_6"  ng-controller="CommandeController">
+                            <div class="page-header">
+                                <h3> Reglement:</h3>
+                            </div>
+                            <div class="panel-content">
+                                <p ng-if="dataRegle.length === 0">
+                                    Pas de réglements émis pour ce client.
+                                </p>
+                                <p ng-if="dataRegle.length > 0">
+                                <table ng-if="dataRegle.length > 0" class="table table-striped" wt-responsive-table >
+                                    <tr>
+                                        <th>Commande</th>
+                                        <th>Type</th>
+                                        <th>Réf.</th>
+                                        <th>Echéance</th>
+                                        <th>Somme</th>
+                                        <th>Validé</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr ng-repeat="($index, regle) in dataRegle" id='ReglementRows'>
+                                        <!--<td>{{item.Commande.id}}</td>-->
+                                        <td>{{regle.ref}}</td>
+                                        <td>{{regle.type}}</td>
+                                        <td>{{regle.numero}}</td>
+                                        <td>{{regle.date}}</td>
+                                        <td>{{regle.value| number:3}}</td>
+                                        <td>
+                                            <!--                                        <input id="choiceValide" type="radio" ng-model="regleValide" value="{{regle.valide}}" ng-click="checkStuff()" name="choice{{regle.id}}" data-id="{{regle.id}}"/>
+                                                                                    <input id="choiceValide" type="radio" ng-model="regleValide" value="{{regle.valide}}" ng-click="checkStuff()" name="choice{{regle.id}}" data-id="{{regle.id}}"/>-->
+                                            <ul class="nav" ng-if="regle.valide == false">
+                                                <li class="choice"><input id="choiceValide" type="radio" value="true" ng-click="checkStuff('true', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> oui</li>
+                                                <li class="choice"><input id="choiceValide" type="radio" ng-model="regleInValide" value="false" ng-click="checkStuff('false', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> non</li>
+                                            </ul>
+                                            <ul class="nav" ng-if="regle.valide == true">
+                                                <li class="choice"><input id="choiceValide" type="radio" ng-model="regleValide" value="true" ng-click="checkStuff('true', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> oui</li>
+                                                <li class="choice"><input id="choiceValide" type="radio" value="false" ng-click="checkStuff('false', regle.id)" name="choice{{regle.id}}" data-id="{{regle.id}}"/> non</li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <div ng-controller="ModalReglementCtrl">
+                                                <button id="reglementSumbit" data-index="{{$index}}" data-client="{{regle.id}}"  ng-click="open(regle.id, $index)" data-name="{{regle.ref}}" data-cmd="{{regle.id}}" class="btn btn-danger btn-embossed btn-sm">
+                                                    Annuler &nbsp;<i class="fa fa-times"></i>
+                                                </button>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="myModalReglement.html">
+    <div class="modal-header" id="modal-header-reglement" data-cmdid="" data-index="">
+    <h3 class="modal-title">Suppression Reglement: </h3>
+    </div>
+    <div class="modal-body">
+    <p> voulez vous vraiment supprimer cette Reglement ? <p>
+    <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="cancelReglement(regle.id)">Delete</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

@@ -1,0 +1,131 @@
+<div id="myModal_product" class="modal fade myModal_product" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 100%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <!--////////////////-->
+                <div class="list-group" style="margin-top:30px;">
+                    <div class="row">
+                        <div class="col-md-2" style="float: left">
+                            <h2>liste d'achat</h2>
+                            <div ng-repeat="item in items">    
+    <a href="#" class="list-group-item active">item {{items.indexOf(item)+1}}</a>
+    <a href="#" class="list-group-item"><img src="https://api.amyevolution.com/img/{{item.Product.url}} " class="thumbnail center-block img-responsive "/></a>
+    <a href="#" class="list-group-item">Nom produit : {{item.Product.name}}</a>
+    <a href="#" class="list-group-item">Qte : {{item.Bon[0].qte}}</a>
+    <br>
+                            </div>
+
+                        </div>
+                        <div class="col-md-10">
+                            <div id="EntrepotBlock" class="col-md-12">
+                                <div class="row">
+                                    <div class=" form-group col-md-8">
+                                        <div class="col-md-8"></div>
+                                        <label class="col-md-4 control-label">Recherche</label>
+
+                                        <label class="col-md-4 control-label">categorie :</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select TVA..." id="tvaValue" ng-model="Category_name" >
+                                                <option></option>
+                                                <option ng-repeat="categorie in categories">{{categorie.Category.name}}</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-md-4 control-label">famille :</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="Famille_name" >
+                                                <option></option>
+                                                <option ng-repeat="famille in familles">{{famille.Famille.name}}</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-md-4 control-label">fournisseur :</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="Fournisseur_name" >
+                                                <option></option>
+                                                <option ng-repeat="fournisseur in fournisseurs">{{fournisseur.Fournisseur.name}}</option>
+                                            </select>
+                                        </div>
+                                        <!--<input ng-model="q" id="search" class="form-control" placeholder="Recherche...">-->
+                                        <!--<input ng-model="q1" id="search" class="form-control" placeholder="Recherche...">-->
+                                        <!--<input ng-model="q2" id="search" class="form-control" placeholder="Recherche...">-->
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label for="search">Nombre d'article par page:</label>
+                                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-4" dir-paginate="($index, product) in products | filter:{Category:{name:Category_name}} | filter:{Famille:{name:Famille_name}}| filter:{Fournisseur:{name:Fournisseur_name}}| itemsPerPage: pageSize" current-page="currentPage"  style="margin-top: 20px;">
+                                    <div class="panel panel-primary">
+                                        <div class="oe_kanban_details">
+                                            <div class="panel-heading" style="height: 60px;font-size: 13px;"><strong>{{product.Product.name}}</strong></div>
+                                            <div class="panel-body" style="height: 180px;padding: 7px 0px 0px 3px;">
+                                                <div class="col-md-4" style="padding: 0;">
+                                                    <img src="https://api.amyevolution.com/img/{{product.Product.url}}" class="thumbnail center-block img-responsive " />
+                                                </div>
+                                                <div class="col-md-8" style="padding: 0 0 0 3px;">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item"  style=" line-height: 16px;font-size: 12px;"><strong>Référence Produit :</strong> <span>{{product.ref}}</span></li>
+                                                        <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Fournisseur :</strong> {{product.Fournisseur.name}}</li>
+                                                        <li class="list-group-item" ng-model="testfilter" style=" line-height: 16px;font-size: 12px;"><strong>Catégorie :</strong> {{product.Category.name}}</li>
+                                                        <li class="list-group-item" style=" line-height: 16px;font-size: 12px;"><strong>Famille :</strong> {{product.Famille.name}}</li>
+                                                    </ul> 
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer" style="height: 50px;">
+                                                <ul class="nav nav-pills pull-right">
+                                                    <li>
+                                                        <div>
+                                                            <a ng-click="extractitem(product)" class="btn btn-sm red"><i class="fa fa-minus"></i></a>
+                                                        </div>                                        
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <a href="#/fiche-produit/{{product.Product.id}}" target="_blank" class="btn btn-sm btn-info">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <a ng-click="additem(product)" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+                                                        </div>                                        
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="other-controller">
+                                    <div class="text-center">
+                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="tpl/dirPagination.tpl_1.html"></dir-pagination-controls>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!--//////////////////////////////////////////-->
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

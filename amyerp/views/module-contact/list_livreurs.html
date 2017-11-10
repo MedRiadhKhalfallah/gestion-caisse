@@ -1,0 +1,135 @@
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Listes Livreurs </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/module-transporteur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Transporteur
+                    </a> 
+                    <a href="#/ajout-livreur" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <!--                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                             <i class="fa fa-print"></i> Print </a>-->
+                </div>
+            </div>
+            <div class="portlet-body"> 
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr>
+                            <th> Nom de livreur</th>
+                            <th> Téléphone Pro</th>
+                            <th> Téléphone Personel</th>
+                            <th> Email </th>
+                            <th> Addresse </th>
+                            <th> Matricule de voiture </th>
+                            <th> Marque de voiture </th>
+                            <th> Permis de conduire </th>
+                            <th> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left;">
+                        <tr class="odd gradeX dataClientUser" dir-paginate="($index, item) in livreurs | filter:search |itemsPerPage:10" id="ClientRows" data-userclient='{{item.Livreur.id}}'>
+                            <td style="width: 160px;">{{item.Livreur.full_name}}</td>
+                            <td>{{item.Livreur.phone}}</td>
+                            <td>{{item.Livreur.en_phone}}</td>
+                            <td>{{item.Livreur.email}}</td>
+                            <td>{{item.Livreur.adress}}</td>
+                            <td>{{item.Livreur.matricule_voiture}}</td>
+                            <td>{{item.Livreur.marque_voiture}}</td>
+                            <td>{{item.Livreur.permis_conduire}}</td>
+                            <td style="width: 250px;">  
+                                <ul class="nav nav-pills">
+                                    <li>
+                                        <div>
+                                            <a href="#/edit-livreur/{{item.Livreur.id}}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
+                                        </div>                                        
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <a href="#/fiche-livreur/{{item.Livreur.id}}" class="btn btn-info btn-sm"><i class="fa fa-user"></i> Fiche Livreur</a>
+                                        </div>                                      
+                                    </li>
+
+                                    <li>
+                                        <div ng-controller="ModalClientCtrl">
+                                            <button id="clientSumbit" data-index="{{$index}}" data-item="{{item.Livreur.id}}"  ng-click="open(item.Livreur.id, $index)" data-name="{{item.Livreur.name}}" data-cmd="{{item.Livreur.id}}" class="btn btn-danger btn-embossed btn-sm">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </li>                                    
+                                </ul>               
+                            </td> 
+                        </tr>
+                    </tbody>
+                </table>
+                <dir-pagination-controls
+                    max-size="5"
+                    direction-links="true"
+                    boundary-links="true"  style="float: right; top: -28px;position: relative;" class="portlet-body">
+                </dir-pagination-controls>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+        <div id="login-box" class="login-popup" data-id="" data-index="" ng-controller="ModalClientCtrl">
+            <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+            <form method="post" class="signin" action="#">
+                <fieldset class="textbox">
+                    <label class="password">
+                        <span>Code Validation</span>
+                        <input id="codeRoot" ng-model="codeRoot" value="" type="password" placeholder="Code Validation">
+                    </label>
+                    <button class="submit button" type="button" ng-click="validateAction($event)">Activer</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="deleteClient.html">
+    <div class="modal-dialog" id="DeleteClient" data-id="" data-index="">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé Livreur</h4>
+    </div>
+    <div class="modal-body">
+    <p>Voulez vous vraiment supprimé cet Livreur ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteClient(item.Livreur.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+    </div>
+</script>
+<script>
+    setTimeout(function () {
+//        console.clear();
+    }, 1000);
+</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

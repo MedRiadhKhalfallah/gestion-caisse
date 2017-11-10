@@ -1,0 +1,504 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .form .form-bordered .form-group{
+        text-align: center;
+    }
+    .row{
+        padding-left: 20px;
+        margin: 0;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+</style>
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#/gestion-devis">Liste Devis</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Modifier Devis </li>
+</ul>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Modifier Devis 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="form-group col-md-3" ng-controller="UsersController"  id="EditClient" data-value="{{commande.User.full_name}}">
+                        <label class="control-label">Client</label>
+                        <div class="input-group">
+                            <select class="form-control input-xlarge select2me col-sm-12" ng-model="commande.Commande.user_id" ng-change='EtatClient()' data-placeholder="Select Client..." id="SelectUser">
+                                <option value=""></option>
+                                <option value="{{item.User.id}}" data-etat="{{item.User.etat_client}}" data-commerciale="{{item.User.commerciale_id}}" ng-repeat="item in clients">{{item.User.full_name}} {{item.User.raison_social}}</option>
+                            </select>
+                        </div>
+                        <div id="label_etat_client"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Remise Globale</label>
+                        <div class="input-group">
+                            <input type="text" min="0" id="RemiseGlob" ng-model="commande.Commande.remise_globale" ng-change="remiseglobale()" placeholder="Remise Globale" value="0" name="remise globale" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Objet</label>
+                        <div class="input-group  col-md-12">
+                            <input type="text" id="Object" ng-model="commande.Commande.object" placeholder="Objet"  name="object" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Validité</label>
+                        <div class="input-group  col-md-12">
+                            <input type="text" id="Validation" ng-model="commande.Commande.validate" placeholder="Validité"  name="Validation" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Modalité</label>
+                        <div class="input-group  col-md-12">
+                            <input type="text" id="Pourcentage" ng-model="commande.Commande.pourcentage" placeholder="Modalité"  name="Pourcentage" class="form-control" /> </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-12" style="padding-left: 0; padding-right: 0;" ng-controller="FamilleController">
+                    <div class="form-group col-md-6">
+                            <label class="col-sm-3 control-label">Famille</label>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tags"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Famille..." id="familleValue" ng-model="familleID" ng-change="changeFamilleID()">
+                                        <option value=""></option>
+                                        <option value="{{item.Famille.id}}" ng-repeat="item in familles">{{item.Famille.name}}</option>
+                                    </select>
+                                </div>
+                            </div> 
+                        </div>
+                       <div class="clearfix"></div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Produit</label>
+                        <div class="ui-widget">
+                            <select id="combobox" ng-model="data.model" ng-change="myFunc()">
+                                <option value="">Select one...</option>
+                                <option value="{{item.Product.price}}" data-achat="{{item.Product.prix_achat}}" data-stock-entree="{{item.Stock}}" data-stock-sortie="{{item.Stock[0].countOut}}" data-id="{{item.Product.id}}" data-ref="{{item.Product.ref}}" data-tva="{{item.Tva.value}}" data-tvaid="{{item.Tva.id}}" ng-repeat="item in productsfamille">{{item.Product.name}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Qte</label>
+                        <div class="input-group">
+                            <input type="number" min="1" id="Qte" ng-model="qte" ng-focus="initQte()" ng-change="changeQte()" placeholder="Qte" name="qte" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Remise</label>
+                        <div class="input-group">
+                            <input type="number" min="0" id="Remise" ng-model="remiseByProduct"  ng-value="{{remiseByProduct}}" placeholder="Remise" name="remise" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Prix unitaire</label>
+                        <div class="input-group">
+                            <input type="number" id="PU" ng-change="change()" ng-model="price" placeholder="Prix unitaire" value="{{data.model}}" name="price" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Prix TTC</label>
+                        <div class="input-group">
+                            <input type="number" id="ttc" placeholder="Prix TTC" value="0" name="ttc" class="form-control" /> </div>
+                    </div>
+                    <div class="col-sm-1 col-md-1" style="float: right;position: relative;top: 60px;" id="ADDNEW_Prod">
+                        <addbuttonsbutton></addbuttonsbutton>
+                    </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div id="SelectNewTva" style="display: none;">
+                            <div class='form-group col-md-2' id="NewProduct"></div> 
+                            <div class='form-group col-md-2'>
+                                <input type='number' id='NewPrixAchat' class='form-control' placeholder="Prix d'achat"/>
+                            </div> 
+                            <div class='form-group col-md-1'>
+                                <input type='number' id='NewMarge' ng-model="NewMarge" ng-change="changeMarge()" class='form-control' placeholder='Marge'/>
+                            </div> 
+                            <div class="col-sm-1" ng-controller="TvaController">
+                                <select class="form-control input-xlarge select2me col-sm-12" ng-model="Select_Tva" ng-change="NewPrice()" data-placeholder="Select TVA..." id="NewTva">
+                                    <option value=""></option>
+                                    <option value="{{item.Tva.id}}" data-tva="{{item.Tva.value}}" ng-repeat="item in tvas">{{item.Tva.name}}</option>
+                                </select> 
+                            </div>
+                            <div class="col-sm-2" ng-controller="CategorieController">
+                                <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Catégorie..." id="NewCategory">
+                                    <option value=""></option>
+                                    <option value="{{item.Category.id}}" ng-repeat="item in categories">{{item.Category.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2" ng-controller="FamilleController">
+                                <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Famille..." id="NewFamille">
+                                    <option value=""></option> 
+                                    <option value="{{item.Famille.id}}" ng-repeat="item in familles">{{item.Famille.name}}</option> 
+                                </select>
+                            </div>
+                            <div class="col-sm-2" ng-controller="FournisseurController">
+                                <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Fournisseur..." id="NewFournisseur">
+                                    <option value=""></option>
+                                    <option value="{{item.Fournisseur.id}}" ng-repeat="item in fournisseurs">{{item.Fournisseur.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <table class="table table-striped">
+                            <thead class="title-tab"> 
+                                <tr> 
+                                    <th>Réf</th>
+                                    <th>Article</th>
+                                    <th>PU</th>
+                                    <th>TTC</th>
+                                    <th>QTE</th>
+                                    <th>Remise</th>
+                                    <th>TOTAL HT</th>
+                                    <th>TOTAL TTC</th> 
+                                    <th>Stock</th> 
+                                    <th>Action</th> 
+                                </tr> 
+                            </thead> 
+                            <tbody id="space-for-buttons">
+                                <tr ng-repeat="($index, item) in commande.Bon" data-bon="{{item.id}}" data-marge='{{item.Product.marge}}' data-achat="{{item.Product.prix_achat}}" data-priceprod='{{item.Product.price}}' data-data-id='{{item.product_id}}' id="itemProduct">
+                                    <td>{{item.Product.ref}}</td>
+                                    <td>{{item.Product.name}}</td>
+                                    <td data-ht='{{item.Product.price}}' data-ht-indicateur="{{item.last_unit_price}}">{{(item.last_unit_price| number:3).replace(',','.')}}</td>
+                                    <td data-ttc='{{item.last_unit_price * (1 + item.Product.Tva.value / 100)}}' data-tva='{{item.Product.Tva.value}}'>{{(item.last_unit_price * (1 + item.Product.Tva.value / 100) | number:3).replace(',', '.')}}</td>
+                                    <td id='ModifQte'>{{item.qte}}</td>
+                                    <td id='ModifRemise'>{{item.remise}}</td>
+                                    <!--<td data-ht="{{item.last_unit_price * item.qte}}">{{(item.last_unit_price * item.qte | number:3).replace(',','.')}}</td>-->
+                                    <td data-ht="{{item.last_unit_price * item.qte}}">{{(item.last_unit_price * item.qte| number:3).replace(',','.')}}</td>
+                                    <td data-ttc="{{item.last_unit_price * (1 + item.Product.Tva.value / 100) * item.qte}}">{{(item.last_unit_price * (1 + item.Product.Tva.value / 100) * item.qte | number:3).replace(',', '.')}}</td>
+                                    <!--<td id="currentStock">{{item.Product.Stock[0].qte }} {{ item.Product.Stock[0].countOut}}</td>-->
+                                    <td data-index="{{$index}}" id="currentStock">{{item.Product.Stock[0].qte - ( - item.Product.Stock[0].qte_out)}}</td>
+                                    <td><div id='deleteItem' ng-click='deleteBon($index, item.id)'><i style='cursor: pointer; color: #34aadc;' class='fa fa-times fa-2x'></i></div></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="9" class="text-right">Remise Globale</th>
+                                    <td id="remiseglobale">{{(total_ht_net * commande.Commande.remise_globale / 100) + remiseProduit| number:3}}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="9" class="text-right">Total NET HT</th>
+                                    <td id="total_ht">{{total_ht| number:3}}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="9" class="text-right">Total TVA</th>
+                                    <td id="total_tva">{{total_tva| number:3}}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="9" class="text-right">Timbre Fiscal</th>
+                                    <td id="timbre_fiscale">{{commande.Commande.last_timbre_price| number:3}}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="9" class="text-right">Indicateur</th>
+                                    <td id="Indicateur">0</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="9" class="text-right">TOTAL NET À PAYER</th>
+                                    <td id="net_ttc">{{total_tva + total_ht - ( - commande.Commande.last_timbre_price) | number:3}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>     
+                    <!--<div class="row">-->
+                    <!--<div class="col-sm-3 col-md-3">-->
+                    <button class="btn btn-default btn-submit pull-right" type="submit" ng-click="editDevis($event)" style="margin-right: 35px; margin-bottom: 30px;">Modifier</button>
+                    <!--                    </div>-->
+                    <!--</div>-->
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<div id="login-box1" class="login-popup" data-id="" data-index=""> 
+    <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+    <form method="post" class="signin" action="#">
+        <fieldset class="textbox">
+            <label class="password">
+                <span>Qte</span>
+                <input id="NewQte" ng-model="NewQte" value="" type="number" placeholder="Qte">
+            </label>
+            <button class="submit button" type="button" ng-click="validateQte($event)">valider</button>
+        </fieldset>
+    </form>
+</div>
+<div id="login-box2" class="login-popup" data-id="" data-index="">
+    <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+    <form method="post" class="signin" action="#">
+        <fieldset class="textbox">
+            <label class="password">
+                <span>Remise</span>
+                <input id="NewRemise" ng-model="NewRemise" value="" type="number" placeholder="Remise">
+            </label>
+            <button class="submit button" type="button" ng-click="validateRemise($event)">valider</button>
+        </fieldset>
+    </form> 
+</div>
+<!-- END MAIN CONTENT -->
+<!--<script>
+    ComponentsFormTools.init(); // init todo page
+</script>-->
+<script>
+            var intervalIndic = setInterval(function () {
+            if (document.readyState === 'complete') {
+            clearInterval(intervalIndic);
+                    setTimeout(function(){
+                    colorStock();
+//                            showIndicateur();
+                            totalDevis();
+                            var clientValue = $("#EditClient").attr('data-value');
+                            var clientID = $("#EditClient").attr('data-id');
+                            $("#EditClient .select2-selection__placeholder").html("<p style='color: #555;padding: 0;' value='" + clientID + "'>" + clientValue + "</p>");
+                            var etat_client = $('#SelectUser :selected').attr("data-etat");
+                            if (etat_client === "Normal") {
+                    $("#label_etat_client").html("<label class='label label-success'>Client: " + etat_client + "</label>");
+                    }
+                    if (etat_client === "Sous Surveillance") {
+                    $("#label_etat_client").html("<label class='label label-info'>Client: " + etat_client + "</label>");
+                    }
+                    if (etat_client === "Bloqué") {
+                    $("#label_etat_client").html("<label class='label label-danger'>Client: " + etat_client + "</label>");
+                    }
+                    }, 2500);
+            }
+            }, 100);
+            function colorStock(){
+            $("#space-for-buttons tr td#currentStock").each(function(i, v){
+            var indexTd = $(v).attr('data-index');
+                    var currentStock = parseFloat($.trim($(v).text()));
+                    var minusStock = parseFloat($.trim($("#space-for-buttons tr:eq(" + indexTd + ") td:eq(4)").text()));
+//                    var qte = parseFloat(currentStock.split(" ")[0]);
+//                    var countOut = parseFloat(currentStock.split(" ")[1]);
+//                    console.log(indexTd);
+//                    console.log(currentStock);
+                    console.log("----");
+                    console.log("INDEX LOOP => " + i);
+                    console.log(minusStock);
+                    if (currentStock <= 2 && currentStock > 0){
+            //Traitement
+            $(v).html("<label class='label label-warning'>" + currentStock + " [" + (currentStock - minusStock) + "]</label>");
+            }
+            if (currentStock <= 0){
+            //Traitement
+            $(v).html("<label class='label label-danger'>" + currentStock + " [" + (currentStock - minusStock) + "]</label>");
+            }
+            if (currentStock > 2){
+            //Traitement
+            $(v).html("<label class='label label-success'>" + currentStock + " [" + (currentStock - minusStock) + "]</label>");
+            }
+            if ((currentStock - minusStock) <= 2 && (currentStock - minusStock) > 0){
+            toastr.warning("Votre Stock va bientôt s'épuiser", "Attention");
+                    $(v).attr('data-msg', "Votre Stock va bientôt s'épuiser");
+                    $(v).attr('data-lvl', "warning");
+            }
+            if ((currentStock - minusStock) === 0){
+            toastr.error("Plus de stock disponible après commande", "Attention");
+                    $(v).attr('data-msg', "Plus de stock disponible après commande");
+                    $(v).attr('data-lvl', "error");
+            }
+            if ((currentStock - minusStock) < 0){
+            toastr.error("Stock Indisponible", "Attention");
+                    $(v).attr('data-msg', "Stock Indisponible");
+                    $(v).attr('data-lvl', "error");
+            }
+            });
+            };
+            function showIndicateur(){
+//            console.clear();
+            var total_ht = 0;
+                    var total_tva = 0;
+                    var total_ttc_net = 0;
+                    var indicateur = 0;
+                    var remise_product = 0;
+                    $('tr#itemProduct').each(function (i, v) {
+            var qte = parseFloat($(v).children().eq(4).text());
+                    var remise = parseFloat($(v).children().eq(5).text());
+                    var ht = parseFloat($(v).children().eq(2).attr('data-ht').replace(" ", ""));
+                    var dataHT = parseFloat($(v).children().eq(2).attr('data-ht').replace(" ", ""));
+                    if ($.trim($(v).children().eq(1).text()) === "Main d'oeuvre"){
+            dataHT = 0;
+            }
+            var tva = parseFloat($(v).children().eq(3).attr('data-tva'));
+                    remise_product = remise_product + (ht * qte * remise / 100);
+                    total_tva = total_tva + (ht * qte * (1 - remise / 100) * tva / 100);
+                    total_ht = total_ht + (ht * qte * (1 - remise / 100));
+                    indicateur = indicateur + (((dataHT * (1 - remise / 100)) - parseFloat($(v).attr('data-achat'))) * qte);
+            });
+                    var indicateur_final = parseFloat(indicateur) - (parseFloat(total_ht) * parseFloat($('#RemiseGlob').val()) / 100);
+                    console.log("Indicateur Final: " + indicateur_final);
+                    setTimeout(function () {
+                    $('#Indicateur').text(parseFloat(indicateur_final).toFixed(3));
+                    }, 500);
+            }
+    setTimeout(function () {
+    (function ($) {
+    $.widget("custom.combobox", {
+    _create: function () {
+    this.wrapper = $("<span>")
+            .addClass("custom-combobox")
+            .insertAfter(this.element);
+            this.element.hide();
+            this._createAutocomplete();
+            this._createShowAllButton();
+    },
+            _createAutocomplete: function () {
+            var selected = this.element.children(":selected"),
+                    value = selected.val() ? selected.text() : "";
+                    this.input = $("<input>")
+                    .appendTo(this.wrapper)
+                    .val(value)
+                    .attr("title", "")
+                    .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                    .autocomplete({
+                    delay: 0,
+                            minLength: 0,
+                            source: $.proxy(this, "_source")
+                    })
+                    .tooltip({
+                    tooltipClass: "ui-state-highlight"
+                    });
+                    this._on(this.input, {
+                    autocompleteselect: function (event, ui) {
+                    ui.item.option.selected = true;
+                            this._trigger("select", event, {
+                            item: ui.item.option
+                            });
+                    },
+                            autocompletechange: "_removeIfInvalid"
+                    });
+            },
+            _createShowAllButton: function () {
+            var input = this.input,
+                    wasOpen = false;
+                    $("<a>")
+                    .attr("tabIndex", - 1)
+                    .attr("title", "Show All Items")
+                    .tooltip()
+                    .appendTo(this.wrapper)
+                    .button({
+                    icons: {
+                    primary: "ui-icon-triangle-1-s"
+                    },
+                            text: false
+                    })
+                    .removeClass("ui-corner-all")
+                    .addClass("custom-combobox-toggle ui-corner-right")
+                    .mousedown(function () {
+                    wasOpen = input.autocomplete("widget").is(":visible");
+                    })
+                    .click(function () {
+                    input.focus();
+                            // Close if already visible
+                            if (wasOpen) {
+                    return;
+                    }
+
+                    // Pass empty string as value to search for, displaying all results
+                    input.autocomplete("search", "");
+                    });
+            },
+            _source: function (request, response) {
+            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(this.element.children("option").map(function () {
+                    var text = $(this).text();
+                            if (this.value && (!request.term || matcher.test(text)))
+                            return {
+                            label: text,
+                                    value: text,
+                                    option: this
+                            };
+                    }));
+            },
+            _removeIfInvalid: function (event, ui) {
+
+            // Selected an item, nothing to do
+            if (ui.item) {
+            return;
+            }
+
+            // Search for a match (case-insensitive)
+            var value = this.input.val(),
+                    valueLowerCase = value.toLowerCase(),
+                    valid = false;
+                    this.element.children("option").each(function () {
+            if ($(this).text().toLowerCase() === valueLowerCase) {
+            this.selected = valid = true;
+                    return false;
+            }
+            });
+                    // Found a match, nothing to do
+                    if (valid) {
+            return;
+            }
+
+            // Remove invalid value
+            this.input
+//                	.val( "" )
+//                	.attr( "title", value + " didn't match any item" )
+//                            .tooltip("open");
+                    this.element.val("");
+                    this._delay(function () {
+//                        this.input.tooltip("close").attr("title", "");
+//                    angular.element(document.getElementById('NewProduct')).append("<input type='text' id='NewRef' class='form-control' placeholder='Référence Produit'/>");
+//                            $("#SelectNewTva").show();
+//                        $('i[id="addProfile"]').attr('ng-click','ajoutProduct()');
+                    }, 500);
+                    this.input.autocomplete("instance").term = "";
+            },
+            _destroy: function () {
+            this.wrapper.remove();
+                    this.element.show();
+            }
+    });
+    })(jQuery);
+            $(function () {
+            $("#combobox").combobox();
+                    $("#toggle").click(function () {
+            $("#combobox").toggle();
+            });
+            });
+    }, 500);
+</script>

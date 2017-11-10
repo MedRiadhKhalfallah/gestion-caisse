@@ -1,0 +1,104 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+</style>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal form-bordered">
+                    <div class="clearfix"></div>
+                    <div class="col-sm-2" style="height: 25px;"></div>
+                    <div class="form-group col-sm-12">
+                        <table class="table table-striped">
+                            <thead class="title-tab"> 
+                                <tr> 
+                                    <th>Article</th>
+                                    <th>QTE demandée</th>
+                                    <th>Qte reçue</th>
+                                    <th>
+                                        <form name='myForm' class='nav nav-pills' ng-controller='StateLivraisonController'>
+                                            <input  type='checkbox' id='checkAll' value='{{checkboxModel.value}}' ng-change="checkAllRamassage()" ng-model='checkboxModel.value'/>
+                                        </form>
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            <tbody id="commande-produit">
+                                <tr ng-repeat="($index, item) in bonentree.Bon" id="itemBonEntree" data-bon="{{item.id}}">
+                                    <td >{{item.content}}</td>
+                                    <td>{{item.qte}}</td>
+                                    <td>
+                                        <div class="input-group col-md-6">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <input type="number" min="1" id="Qte_reçue" placeholder="Qte reçue" value="{{item.qte_recue}}" name="Qte reçue" class="form-control col-md-6" /> 
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <form name="myForm"  class="nav nav-pills"  ng-controller='StateLivraisonController'>
+                                            <input  type="checkbox" id="CheckedBox" class="CheckedBoxCostom" value="{{checkboxModel.value}}" ng-model="checkboxModel.value">
+                                        </form> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn purple" ng-click="valideBonEntree($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Valider</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<!-- END MAIN CONTENT -->

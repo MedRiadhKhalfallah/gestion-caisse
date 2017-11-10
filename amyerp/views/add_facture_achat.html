@@ -1,0 +1,419 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 90% !important;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        width: 100%;
+    }
+</style>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Ajout Facture Achat
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal form-bordered">
+                    <div class="form-group col-sm-6">
+                        <label class="control-label col-sm-4">Date de facturation</label>
+                        <div class="col-sm-8">
+                            <div class="input-group input-medium date date-picker" style="width: 100% !important;" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input type="text" id="DateEcheance" class="form-control" placeholder="Date de facturation" readonly>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-4 control-label">Type Paiement</label>
+                        <div class="col-sm-8" ng-controller="PaymentsController">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                                <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Mode de Paiement..." id="paymentValue">
+                                    <option value=""></option>
+                                    <option value="{{item.Payment.id}}" ng-repeat="item in payments">{{item.Payment.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-4 control-label">Fournisseur</label>
+                        <div class="col-sm-8" ng-controller="FournisseurController">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Fournisseur..." id="fournisseurID">
+                                    <option value=""></option>
+                                    <option value="{{item.Fournisseur.id}}" ng-repeat="item in fournisseurs">{{item.Fournisseur.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-4 control-label">Remise Globale</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="number" min="0" value="0" id="Remise_Globale" placeholder="Remise Globale" name="Remise Globale" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-4 control-label">Acompte</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <input type="number" id="Accompte" value="0" placeholder="Acompte" name="Acompte" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-sm-12">
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-4 control-label">Produit</label>
+                            <div class="col-sm-8" ng-controller="ProductsController">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-arrows-alt"></i>
+                                    </span>
+                                    <div class="ui-widget">
+                                        <select id="combobox">
+                                            <option value="">Select Product...</option>
+                                            <option value="{{item.Product.id}}" data-price="{{item.Product.price}}" ng-repeat="item in products">{{item.Product.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label class="col-sm-3 control-label">Qte</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <!--                                    <span class="input-group-addon">
+                                                                            <i class="fa fa-check"></i>
+                                                                        </span>-->
+                                    <input type="number" min="1" id="Qte" placeholder="Quantité" name="Quantité" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-3 control-label">Prix Achat</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <!--                                    <span class="input-group-addon">
+                                                                            <i class="fa fa-check"></i>
+                                                                        </span>-->
+                                    <input type="number" min="1" id="Prix_Achat" placeholder="Prix d'achat" name="prix achat" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-3 control-label">Remise</label>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <!--                                    <span class="input-group-addon">
+                                                                            <i class="fa fa-check"></i>
+                                                                        </span>-->
+                                    <input type="number" min="0" id="Remise" placeholder="Remise" value="0" name="Remise" class="form-control" /> </div>
+                            </div>
+                            <div class="col-sm-1 col-md-1" style="float: right;position: relative;">
+                                <addbuttonsfactureachat></addbuttonsfactureachat>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div id="SelectNewTva" style="display: none;">
+                                <div class='form-group col-md-2' id="NewProduct"></div> 
+                                <div class='form-group col-md-1'>
+                                    <input type='number' id='NewMarge' ng-model="NewMarge" ng-change="changeMargeAchat()" class='form-control' placeholder='Marge'/>
+                                </div> 
+                                <div class='form-group col-md-2'>
+                                    <input type='number' id='NewPrixUnit' class='form-control' placeholder="Prix Unitaire"/>
+                                </div> 
+                                <div class="col-sm-1" ng-controller="TvaController">
+                                    <select class="form-control input-xlarge select2me col-sm-12" ng-model="Select_Tva" ng-change="NewPrice()" data-placeholder="Select TVA..." id="NewTva">
+                                        <option value=""></option>
+                                        <option value="{{item.Tva.id}}" data-tva="{{item.Tva.value}}" ng-repeat="item in tvas">{{item.Tva.name}}</option>
+                                    </select> 
+                                </div>
+                                <div class="col-sm-2" ng-controller="CategorieController">
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Catégorie..." id="NewCategory">
+                                        <option value=""></option>
+                                        <option value="{{item.Category.id}}" ng-repeat="item in categories">{{item.Category.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2" ng-controller="FamilleController">
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Famille..." id="NewFamille">
+                                        <option value=""></option> 
+                                        <option value="{{item.Famille.id}}" ng-repeat="item in familles">{{item.Famille.name}}</option> 
+                                    </select>
+                                </div>
+                                <div class="col-sm-2" ng-controller="FournisseurController">
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Fournisseur..." id="NewFournisseur">
+                                        <option value=""></option>
+                                        <option value="{{item.Fournisseur.id}}" ng-repeat="item in fournisseurs">{{item.Fournisseur.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="form-group col-sm-10">
+                        <table class="table table-striped">
+                            <thead class="title-tab"> 
+                                <tr> 
+                                    <th>Article</th>
+                                    <th>Prix Achat</th>
+                                    <th>QTE</th>
+                                    <th>Remise</th>
+                                    <th>Action</th> 
+                                </tr> 
+                            </thead> 
+                            <tbody id="facture-produit"></tbody> 
+                        </table>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn purple" ng-click="ajoutFactureAchat($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Ajout</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="form_modal2" class="modal fade" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Datepickers In Modal</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="#" class="form-horizontal">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Date D'Echéance</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group input-medium date date-picker" data-date="" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                <input type="text" class="form-control" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <!-- /input-group -->
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<!-- END MAIN CONTENT -->
+<script>
+//    ComponentsDateTimePickers.init();
+    $("#combobox :selected").bind("change", function () {
+        setTimeout(function () {
+            var price_achat = parseFloat($("#combobox :selected").attr('data-price')).toFixed(3);
+            $("#Prix_Achat").val(price_achat);
+        }, 300);
+    });
+    setTimeout(function () {
+        $('#DateEcheance').datepicker({dateFormat: "yy-mm-dd"});
+        setTimeout(function () {
+            $("input.custom-combobox-input").attr("ng-model", "Product");
+            $("input.custom-combobox-input").attr("ng-change", "changePrice()");
+        }, 1500);
+        (function ($) {
+            $.widget("custom.combobox", {
+                _create: function () {
+                    this.wrapper = $("<span>")
+                            .addClass("custom-combobox")
+                            .insertAfter(this.element);
+
+                    this.element.hide();
+                    this._createAutocomplete();
+                    this._createShowAllButton();
+                },
+                _createAutocomplete: function () {
+                    var selected = this.element.children(":selected"),
+                            value = selected.val() ? selected.text() : "";
+
+                    this.input = $("<input>")
+                            .appendTo(this.wrapper)
+                            .val(value)
+                            .attr("title", "")
+                            .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                            .autocomplete({
+                                delay: 0,
+                                minLength: 0,
+                                source: $.proxy(this, "_source")
+                            })
+                            .tooltip({
+                                tooltipClass: "ui-state-highlight"
+                            });
+
+                    this._on(this.input, {
+                        autocompleteselect: function (event, ui) {
+                            ui.item.option.selected = true;
+                            this._trigger("select", event, {
+                                item: ui.item.option
+                            });
+                        },
+                        autocompletechange: "_removeIfInvalid"
+                    });
+                },
+                _createShowAllButton: function () {
+                    var input = this.input,
+                            wasOpen = false;
+
+                    $("<a>")
+                            .attr("tabIndex", -1)
+                            .attr("title", "Show All Items")
+                            .tooltip()
+                            .appendTo(this.wrapper)
+                            .button({
+                                icons: {
+                                    primary: "ui-icon-triangle-1-s"
+                                },
+                                text: false
+                            })
+                            .removeClass("ui-corner-all")
+                            .addClass("custom-combobox-toggle ui-corner-right")
+                            .mousedown(function () {
+                                wasOpen = input.autocomplete("widget").is(":visible");
+                            })
+                            .click(function () {
+                                input.focus();
+
+                                // Close if already visible
+                                if (wasOpen) {
+                                    return;
+                                }
+
+                                // Pass empty string as value to search for, displaying all results
+                                input.autocomplete("search", "");
+                            });
+                },
+                _source: function (request, response) {
+                    var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(this.element.children("option").map(function () {
+                        var text = $(this).text();
+                        if (this.value && (!request.term || matcher.test(text)))
+                            return {
+                                label: text,
+                                value: text,
+                                option: this
+                            };
+//                        console.log('here');
+                    }));
+                },
+                _removeIfInvalid: function (event, ui) {
+                    // Selected an item, nothing to do 
+                    if (ui.item) {
+                        var price_achat = parseFloat($("#combobox :selected").attr('data-price')).toFixed(3);
+                        $("#Prix_Achat").val(price_achat);
+                        return;
+
+                    }
+
+                    // Search for a match (case-insensitive)
+                    var value = this.input.val(),
+                            valueLowerCase = value.toLowerCase(),
+                            valid = false;
+                    this.element.children("option").each(function () {
+                        if ($(this).text().toLowerCase() === valueLowerCase) {
+                            this.selected = valid = true;
+
+                            return false;
+                        }
+                    });
+
+                    // Found a match, nothing to do
+                    if (valid) {
+                        return;
+                    }
+
+                    // Remove invalid value
+                    this.input
+//                	.val( "" )
+//                	.attr( "title", value + " didn't match any item" )
+//                            .tooltip("open");
+                    this.element.val("");
+                    this._delay(function () {
+//                        this.input.tooltip("close").attr("title", "");
+                        angular.element(document.getElementById('NewProduct')).append("<input type='text' id='NewRef' class='form-control' placeholder='Référence Produit'/>");
+                        $("#SelectNewTva").show();
+//                        $('i[id="addProfile"]').attr('ng-click','ajoutProduct()');
+                    }, 500);
+                    this.input.autocomplete("instance").term = "";
+                },
+                _destroy: function () {
+                    this.wrapper.remove();
+                    this.element.show();
+                }
+            });
+        })(jQuery);
+
+        $(function () {
+            $("#combobox").combobox();
+            $("#toggle").click(function () {
+                $("#combobox").toggle();
+            });
+        });
+    }, 500);
+</script>

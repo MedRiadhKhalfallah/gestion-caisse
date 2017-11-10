@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste bon chargement 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/module-transporteur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Transporteur
+                    </a>
+                    <a href="#/affecter-groupe-commande" class="btn btn-default btn-sm">
+                        <i class="fa fa-plus"></i> Créer bon de chargement
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div> 
+            </div>
+            <div class="portlet-body">
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" class="form-control" placeholder="Recherche...">
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                    <thead>
+                        <tr>
+                            <th> Date de Génération </th>
+                            <th> Référence </th>
+                            <th> Zone </th>
+                            <th> Livreur </th>
+                            <th> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd gradeX" dir-paginate="($index, commande) in bonchargements | filter:search |itemsPerPage:10" id="CommandeRows">
+                            <td>{{commande.Chargement.modified}}</td>
+                            <td>{{commande.Chargement.ref}}</td>
+                            <td>{{commande.Chargement.destination}}</td>
+                            <td>{{commande.Livreur.full_name}}</td>
+                            <td style="width: 345px;">  
+                                <ul class="nav nav-pills">
+                                    <li>
+                                        <div>
+                                            <a href="#/bon-chargement/{{commande.Chargement.id}}"  class="btn btn-info btn-sm">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </div>                                        
+                                    </li>
+                                </ul> 
+                            </td>
+                        </tr>
+                    </tbody> 
+                </table>
+                <dir-pagination-controls
+                    max-size="5"
+                    direction-links="true"
+                    boundary-links="true"  style="float: right;top: -28px;position: relative;" class="portlet-body">
+                </dir-pagination-controls>
+            </div>
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET--> 
+    </div>
+</div>
+
+
+<script>
+    setTimeout(function () {
+//        console.clear();
+    }, 1000);
+</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

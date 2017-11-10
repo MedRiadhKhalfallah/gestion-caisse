@@ -1,0 +1,54 @@
+<div class="portlet light ">
+        <ul class="nav nav-pills">
+            <li class="active"><a data-target="#ACTION_VENDEUR" data-toggle="pill" href="#">ACTION VENDEUR</a></li>
+            <li><a data-target="#ACTION_GLOBALE" data-toggle="pill" href="#">ACTION GLOBALE</a></li>
+            <li><a data-target="#REGLEMENT" data-toggle="pill" href="#">REGLEMENT</a></li>
+            <li><a data-target="#COORDONNEES_CLIENT" data-toggle="pill" href="#">COORDONNEES CLIENT</a></li>
+            <li><a data-target="#ENTREE_STOCK" data-toggle="pill" href="#">ENTREE STOCK</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="ACTION_VENDEUR" class="tab-pane fade in active">
+                <input type="button" value="Journal de Caisse Vendeur" class="btn purple btn-md" />
+                <input type="button" value="Suivi Journalier d'activité Vendeur" class="btn purple btn-md" />
+                <input type="button" value="Décompte de Caisse" class="btn purple btn-md"/>
+                <input type="button" value="Recherche de documents" class="btn purple btn-md"/>
+            </div>
+            <div id="ACTION_GLOBALE" class="tab-pane fade">
+                <input type="button" value="Journal de Caisse Global" class="btn purple btn-md"/>
+                <input type="button" value="Suivi Journalier d'activité" class="btn purple btn-md"/>
+                <input type="button" value="Recherche de documents" class="btn purple btn-md"/>
+                <input type="button" value="Controle Decompte de caisse" class="btn purple btn-md"/>
+                <input type="button" value="Statistiques Caisse" class="btn purple btn-md"/>
+                <input type="button" value="Parametres sora Caisse" class="btn purple btn-md"/>
+            </div>
+            <div id="REGLEMENT" class="tab-pane fade">
+
+
+
+            </div>
+            <div id="COORDONNEES_CLIENT" class="tab-pane fade">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">                          
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-search"></i>
+                            </span>
+                            <input type="text" id="typeahead_example_2" name="typeahead_example_2" class="form-control" />   
+                            <span class="input-group-btn">
+                                <a href="javascript:;" class="btn green" id="username1_checker">
+                                    <i class="fa fa-check"></i> recherche un client </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="button" value="Creer un nouveau Client" class="btn purple btn-md" onclick=' document.location.href = "/#/ajout-client", true'/>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ENTREE_STOCK" class="tab-pane fade">
+                <input type="button" value="Ajouter les produits au stock" class="btn purple btn-md"/></div>
+        </div>
+    </div>

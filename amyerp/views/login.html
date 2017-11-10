@@ -1,0 +1,93 @@
+<style>
+    #logo-erp{
+        background-image: url('assets/login/meteorshower2.jpg');
+    }
+    .center{
+        text-align: center;
+    }
+    .green {
+        color: #69aa46!important;
+    }
+    .red {
+        color: #dd5a43!important;
+    }
+    .white {
+        color: #fff!important;
+    }
+    @media (min-width: 992px){
+        .col-md-offset-2 {
+            margin-left: 13.66667%;
+        }
+        .col-md-offset-7 {
+            margin-left: 54%;
+        }
+    }
+    w-div{display: none !important;}
+</style>
+<div class="center col-md-10">
+    <h1>
+        <i class="ace-icon fa fa-leaf green"></i>
+        <span class="red">ERP</span>
+        <span class="white" id="id-text2">Amy Evolution</span>
+    </h1>
+    <h4 class="blue" id="id-company-text"></h4>
+</div>
+<div class="clearfix"></div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-md-offset-2 col-md-7">
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Login</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"> </a>
+                    <a href="#" data-toggle="modal" class="config"> </a>
+                    <a href="javascript:;" class="reload"> </a>
+                    <a href="javascript:;" class="remove"> </a>
+                </div>
+            </div>
+            <div class="portlet-body form" style="min-height: auto !important;">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="form-group ">
+                        <label class="col-sm-3 control-label">Login</label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-unlock-alt"></i>
+                                </span>
+                                <input type="text" id="username" placeholder="Login" name="username" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="col-sm-3 control-label">Mot de Passe</label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input type="password" id="password" placeholder="Mot de passe" name="password" class="form-control" /> </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-7 col-md-5">
+                                <button type="submit" class="btn purple" ng-click="loginPost($event)">
+                                    <i class="fa fa-check"></i> Se connecter</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<script>
+    setTimeout(function () {
+//        console.clear()
+    }, 1000);
+</script>
+<!-- END MAIN CONTENT -->
+<!--<script>
+            ComponentsFormTools.init(); // init todo page
+</script>-->

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="MetronicApp">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <title data-ng-bind="'AmyErp | ' + $state.current.data.pageTitle"></title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />-->
+        <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="assets/pages/css/filtrify.css">
+        <link rel="stylesheet" href="assets/pages/css/jquery.fancybox-1.3.4.css">
+        <link rel="stylesheet" href="assets/pages/breadcrumb/styles/main.css">
+        <link rel="stylesheet" href="assets/pages/css/rootAccess.css">
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN DYMANICLY LOADED CSS FILES(all plugin and page related styles must be loaded between GLOBAL and THEME css files ) -->
+        <link id="ng_load_plugins_before" />
+        <!-- END DYMANICLY LOADED CSS FILES -->
+        <!-- BEGIN THEME STYLES -->
+        <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+        <link href="assets/global/css/components-rounded.min.css" id="style_components" rel="stylesheet" type="text/css" />
+        <link href="assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/pages/css/toastr.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/pages/css/jquery-ui.css" rel="stylesheet" type="text/css">
+        <!-- END THEME STYLES -->
+        <style>
+            html{zoom: 90%;}
+            .modal-dialog {margin-top: 10% !important;}
+            #footer{
+                display: none;
+            }
+            #logo-erp {
+                height: 650px;
+                overflow: auto;
+            }
+            .table-checkable tr > td:first-child, .table-checkable tr > th:first-child {
+                max-width: 300px !important;
+            }
+            #bottom {
+                display: block;
+                margin-top: 2000px;
+            }
+            #gp0bmrx .g51eq9w .g9vh8ht:hover {
+                color: #fff!important;
+                background: #4285F4!important;
+            }
+            #gp0bmrx .g51eq9w .g9vh8ht {
+                color: #fff!important;
+                background: #4285F4!important;
+            }
+            #footerERP { clear: both; z-index: 200; height: 3em; bottom: 0;position: fixed;width: 100%; }
+            #footerERP {background-color: #bbc0cc;color: #485a6a; font-size: 15px; font-weight: 500; text-align: center; line-height: 3em; }
+            .ScrolSidebar{
+                position: fixed !important;
+                z-index: 100;
+                border-top: 0 !important;
+                padding-bottom: 20px !important;
+                /*overflow-y: auto !important;*/
+                min-height: 100% !important;
+                bottom: 45px !important;
+                top: 106px !important;
+                min-height: 0 !important; 
+            }
+            .filterform input{   
+                width: 100%;
+                height: 34px;
+                padding: 6px 12px;
+                background-color: #fff;
+                border: 1px solid #c2cad8;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+            #wrap {
+                padding: 10px;
+            }
+            w-div{display: none !important;}
+            /*            @media(max-width: 1100px){
+                            w-div{display: none !important;}
+                        }*/
+            .portlet .portlet-body{min-height: 735px !important;}
+
+        </style>
+        <link rel="shortcut icon" href="favicon.ico" /> </head>
+    <body ng-controller="AppController" class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed-hide-logo page-on-load" ng-class="{
+                'page-sidebar - closed': settings.layout.pageSidebarClosed}" id="logo-erp" ng-controller="ScrollController">
+        <div id="TestBorder" style="display: none;"></div>
+        <!-- BEGIN PAGE SPINNER -->
+        <div ng-spinner-bar class="page-spinner-bar no-print">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+        <!-- END PAGE SPINNER -->
+        <!-- BEGIN HEADER -->
+        <div data-ng-include="'tpl/header.html'" data-ng-controller="HeaderController" class="page-header navbar navbar-fixed-top no-print"> </div>
+        <!-- END HEADER -->
+        <div class="clearfix no-print"> </div>
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container" style="margin-bottom: 5em;">
+            <!-- BEGIN SIDEBAR -->
+            <div data-ng-include="'tpl/sidebar.html'" data-ng-controller="SidebarController" class="page-sidebar-wrapper no-print ScrolSidebar" id="ScrolSidebarClosed"> </div>
+            <!-- END SIDEBAR -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEAD -->
+                    <!--<div data-ng-include="'tpl/page-head.html'" data-ng-controller="PageHeadController" class="page-head"> </div>-->
+                    <!-- END PAGE HEAD -->
+                    <!-- BEGIN ACTUAL CONTENT -->
+                    <div ui-view class="fade-in-up"> </div>
+                    <!-- END ACTUAL CONTENT -->
+                </div>
+            </div>
+            <!--            <div id="footerTest"  data-ng-controller="ErpCtrl">
+                            <span style="font-size: 10px;">CONDITIONS & MODES DE PAIEMENT</span><br> 
+                        </div> -->
+            <div id="footer"  data-ng-controller="ErpCtrl"> 
+                <div style="color:#26619c;margin-top: 10px; position: relative !important; left: 16px; top: 20px !important;" class="Condition">
+                    <span style="font-size: 10px;">CONDITIONS & MODES DE PAIEMENT</span><br> 
+                    <br>
+                    <strong><input type="checkbox"/>Virement bancaire * </strong> <span>Veuillez nous envoyer l'avis d'opéré sur {{config.Configuration.email}}</span><br>
+                    <strong><input type="checkbox"/> Chèque * </strong> <span>Veuillez le mettre à l'ordre de {{config.Configuration.name}}</span><br>
+                    <strong><input type="checkbox"/> Espéce </strong>
+                </div>
+                <div class="col-xs-12 PourcentageDevis " style="margin-left: 35px;  position: relative !important; left: 30px; top: 17px !important">
+                    <div style="border: 2px solid #26619c; margin-left: -63px;margin-top: 10px; color: #26619c; " class="col-xs-6 PourcentageDevis col-md-4 block_border border-color">
+                        * RIB BANCAIRE: {{config.Configuration.rib}}<br> 
+                        * {{config.Configuration.banque}}<br>
+                        * IBAN: {{config.Configuration.iban}}<br> 
+                        * CODE SWIFT: {{config.Configuration.swift}} 
+                    </div>
+                    <div class="col-md-3"> </div>
+
+                    <div style="border: 2px solid #26619c; width: 242px;height: 95px;margin-top: 10px; margin-right: 75px;" class="col-xs-4 pull-right text-center block_border block_signature">
+                        <span style="position: relative; top: 78%;  color: #26619c;"> Signature Client</span>
+                    </div>
+                </div>
+                <div class="text-center merci" style=" color: #2E8B57;top: 18px; left:80px !important; position: relative; top: 30px !important"> 
+                    En cas d'accord {{type_bill}}, merci de nous le retouner signé et cacheté.
+                </div>
+                <div class="clearfix"></div><br><br><br>
+                <div id="InformationEntreprise" style="position: relative; left: 30px !important;"> 
+                    <address class="text-center center-block" style="font-size: 10px; margin-left: 100px; position: relative; left: -5px !important;" >
+                        {{config.Configuration.name}}<br>
+                        RC: {{config.Configuration.rc}} M.F: {{config.Configuration.matricule_fiscale}}<br>
+                        Siége Social: {{config.Configuration.siege}}  Agence: {{config.Configuration.agence}}<br>
+                        {{config.Configuration.email}}  Tel: +(216) {{config.Configuration.telephone_2}}  +(33) {{config.Configuration.telephone_3}}<br>
+                    </address>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- BEGIN QUICK SIDEBAR -->
+            <a href="javascript:;" class="page-quick-sidebar-toggler">
+                <i class="icon-login"></i>
+            </a>
+            <div data-ng-include="'tpl/quick-sidebar.html'" data-ng-controller="QuickSidebarController" class="page-quick-sidebar-wrapper"></div>
+            <!-- END QUICK SIDEBAR -->
+            <!-- BEGIN QUICK SIDEBAR -->
+            <a href="javascript:;" class="page-quick-sidebar-toggler">
+                <i class="icon-login"></i>
+            </a>
+            <!-- END QUICK SIDEBAR -->
+        </div> 
+        <div class="clearfix"></div>
+        <div id="footerERP" style="display:none;" class="no-print">Copyright 2016 © AMY ERP. Tous les droits sont réservés. Créé par AMY EVOLUTION</div>
+
+
+
+        <!-- BEGIN MAIN CONTENT -->
+        <!-- END CONTAINER --> 
+        <!-- BEGIN FOOTER --> 
+        <!--<div data-ng-include="'tpl/footer.html'" data-ng-controller="FooterController" class="page-footer"> </div>-->
+        <!-- END FOOTER --> 
+        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+        <!-- BEGIN CORE JQUERY PLUGINS -->
+        <!--[if lt IE 9]>
+        <script src="assets/global/plugins/respond.min.js"></script>
+        <script src="assets/global/plugins/excanvas.min.js"></script> 
+        <![endif]-->
+        <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script> 
+        <script src="assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <!--<script src="js/JsBarcode.all.min.js" type="text/javascript"></script>-->
+        <script src="assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/exports/tableExport.js"></script>
+        <script type="text/javascript" src="js/exports/jquery.base64.js"></script>
+        <script type="text/javascript" src="js/exports/jspdf/libs/sprintf.js"></script>
+        <script type="text/javascript" src="js/exports/jspdf/jspdf.js"></script>
+        <script type="text/javascript" src="js/exports/jspdf/libs/base64.js"></script>
+        <!-- END CORE JQUERY PLUGINS -->
+        <!-- BEGIN CORE ANGULARJS PLUGINS -->
+        <script src="assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/angular-material.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/angular-animate.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/angular-aria.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/angular-messages.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/angular-sanitize.min.js" type="text/javascript"></script>
+        <script src="js/ng-file-upload.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/svg-assets-cache.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/angular-touch.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/plugins/angular-ui-router.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+
+        <!-- END CORE ANGULARJS PLUGINS -->
+        <!-- START Datepicker -->
+        <script src="assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/clockface/js/clockface.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js" type="text/javascript"></script>
+        <!--<script src="assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>-->
+        <script src="assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap-datetimepicker.fr.js" type="text/javascript"></script>
+
+        <!-- END Datepicker -->
+        <!-- BEGIN APP LEVEL ANGULARJS SCRIPTS -->
+        <script src="js/main.js" type="text/javascript"></script>
+        <script src="js/directives.js" type="text/javascript"></script>
+        <script src="js/controllers/controller.js" type="text/javascript"></script>
+        <script src="js/controllers/controller_p2.js" type="text/javascript"></script>
+        <script src="js/services/services_transporteur.js" type="text/javascript"></script>
+        <script src="js/controllers/controller_stock.js" type="text/javascript"></script>
+        <!--start module prospection-->
+        <script src="js/controllers/ ProspectionController.js" type="text/javascript"></script>
+        <script src="js/services/services_prospection.js" type="text/javascript"></script>
+        <!--end module prospection-->
+        <!--start module pointage-->
+        <script src="js/controllers/pointageController.js" type="text/javascript"></script>
+        <script src="js/controllers/pointageController_1.js" type="text/javascript"></script>
+        <script src="js/services/service_pointage.js" type="text/javascript"></script>
+
+        <!--end module pointage-->
+        <!--start module prospection-->
+        <!--<script src="js/controllers/EspaceClientController.js" type="text/javascript"></script>-->
+        <script src="js/services/service.js" type="text/javascript"></script>
+        <script src="js/directive/directive.js" type="text/javascript"></script>
+        <script src="js/canvasjs.js"></script>
+        <script src="js/angular-io-barcode.min.js"></script>
+        <script src="js/tinymce/tinymce/jquery-ui.js"></script>
+        <script src="https://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+        <!--<script src="js/tinymce/tinymce/tinymce.min.js"></script>-->
+        <!--<script src="js/tinymce/tinymce.js"></script>--> 
+        <!-- END APP LEVEL ANGULARJS SCRIPTS -->
+        <!-- BEGIN APP LEVEL JQUERY SCRIPTS -->
+        <script src="assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!--<script src="assets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>-->
+        <script src="assets/layouts/layout4/scripts/layout.js" type="text/javascript"></script>
+        <script src="assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="assets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+        <!-- END APP LEVEL JQUERY SCRIPTS -->
+        <script src="js/toastr.min.js" type="text/javascript"></script>
+        <script src="js/jquery.fancybox-1.3.4.js" type="text/javascript"></script>
+        <script src="js/dirPagination.js" type="text/javascript"></script>
+        <script src="js/angular-locale_fr.js" type="text/javascript"></script>
+        <script src="js/angular-cookies.min.js"></script>
+        <script src="js/highlight.pack.js"></script>
+        <script src="js/filtrify.js"></script>
+        <script src="js/scrollintoview.js"></script>
+        <script src="js/kendo.all.min.js"></script>
+        <script src="js/qrcode.js"></script>
+        <script src="js/qrcode_UTF8.js"></script>
+        <script src="js/JsBarcode.all.min.js" type="text/javascript"></script>
+        <script src="js/scan.js" type="text/javascript"></script>
+        <!--Upload IMG-->
+        <script src="js/uploadimg/flow.js"></script>
+        <script src="js/uploadimg/fusty-flow.js"></script>
+        <script src="js/uploadimg/fusty-flow-factory.js"></script>
+        <script src="js/uploadimg/ng-flow.js"></script>
+        <script src="js/uploadimg/scale.fix.js"></script>
+        <script src="js/xls.core.min.js"></script>
+        <script src="js/xlsx.core.min.js"></script>
+        <script src="js/alasql.min.js"></script>
+        <script src="js/filter.js"></script>
+        <script src="js/angular-vs-repeat.min.js"></script>
+        <!--dashbord-->
+        <!--        <script src="assets/dashboard/multidatespicker.min" type="text/javascript"></script>
+                <script src="assets/dashboard/highstock.min" type="text/javascript"></script>
+                <script src="assets/dashboard/maps-amcharts/ammap/ammap.min" type="text/javascript"></script>
+                <script src="assets/dashboard/dashboard" type="text/javascript"></script>
+        -->
+        <!--geolocalisation-->
+        <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script src="js/jquery.simpleWeather.min.js"></script>
+        <script src="js/controllers/controller_caisse.js" type="text/javascript"></script>
+        <!--<script src="views/phone/webphone_api.js" type="text/javascript"></script>-->
+        <!--old carousel--> 
+        <!--<script src="js/angular-carousel/angular-carousel.js" type="text/javascript"></script>-->
+        <!--<script src="js/geolocalisation.js"></script>-->
+        <!--        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYrgBJbxmjoadjcMl5eTR5rdtQQGKMOKA&signed_in=true"
+                        async defer>
+                </script>-->
+        <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK0ID0wiYOBBEeNzgHQ9m9YOYN96rjMw8&signed_in=true&callback=initMap"
+        async defer>
+    </script>--> 
+        <!--        <style>
+                    
+                </style>-->
+        <script>
+                                        var interval = setInterval(function () {
+                                            if (document.readyState === 'complete') {
+                                                clearInterval(interval);
+                                                setTimeout(doneSidebar, 2000);
+                                            }
+                                        }, 100);
+                                                function doneSidebar() {
+//                                                    console.clear();
+                                                    (function ($) {
+                                                        jQuery.expr[':'].Contains = function (a, i, m) {
+                                                            return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+                                                        };
+
+                                                        function filterList(header, list) {
+
+                                                            var form = $("<form>").attr({"class": "filterform", "action": "#"}),
+                                                                    input = $("<input>").attr({"class": "filterinput", "type": "text"});
+                                                            $(form).append(input).appendTo(header);
+                                                            //console.log(form);
+                                                            $(input)
+                                                                    .change(function () {
+                                                                        var filter = $(this).val();
+                                                                        if (filter) {
+
+                                                                            $matches = $(list).find('a:Contains(' + filter + ')').parent();
+                                                                            $('li', list).not($matches).slideUp();
+                                                                            $matches.slideDown();
+
+                                                                        } else {
+                                                                            $(list).find("li").slideDown();
+                                                                        }
+                                                                        return false;
+                                                                    })
+                                                                    .keyup(function () {
+                                                                        $(this).change();
+                                                                    });
+                                                        }
+
+                                                        $(function () {
+                                                            filterList($("#form"), $("#list"));
+                                                        });
+                                                    }(jQuery));
+                                                    setTimeout(function () {
+                                                        //console.log('recherche');
+                                                        $("#wrap").find("input[class='filterinput']").attr('placeholder', 'produit, commande, etc...');
+                                                    }, 500);
+                                                }
+        </script>
+        <script type="text/javascript" async>
+                                    var _gscq = _gscq || [];
+                                    _gscq.push(['language', navigator.language]);
+                                    (function () {
+                                        var gscw = document.createElement('script');
+                                        gscw.type = 'text/javascript';
+                                        gscw.async = true;
+                                        gscw.src = 'js/script.js';
+                                        var s = document.getElementsByTagName('script')[0];
+                                        s.parentNode.insertBefore(gscw, s);
+                                    })();
+        </script>
+        <script type="text/javascript" async>
+                                    function transportView() {
+                                        document.location.href = "/#/module-transporteur", true;
+                                        var currentTab = sessionStorage.getItem('currentTab');
+                                        setTimeout(function () {
+                                            if (currentTab !== null) {
+                                                if (currentTab === "#tab3_3") {
+                                                    setBarcode();
+                                                }
+                                                $("ul.nav li a[data-target='" + currentTab + "']").tab('show');
+                                            }
+                                        }, 1000);
+                                    };
+                                    setInterval(function () {
+                                        var string = document.location.hash;
+                                        if (string.indexOf("login") == -1) {
+                                            if ($("body#logo-erp").hasClass('page-sidebar-closed') == true) {
+                                                $('.MenuTest').hide();
+//                                                $('.ScrolSidebar').attr('style', 'overflow: inherit !important');
+
+
+                                            } else {
+                                                $('.MenuTest').show();
+//                                                $('.ScrolSidebar').attr('style', 'overflow:  auto !important');
+                                            }
+                                        }
+                                    }, 100);
+//                                    $(window).scroll(function () {
+//                                        console.log('here');
+//                                        console.log(Math.max(0, 250 - $(this).scrollTop()));
+//                                        $("#ScrolSidebar").css("top", Math.max(0, 250 - $(this).scrollTop()));
+//                                    });
+////                                    $('html, body').animate({
+//                                        scrollTop: $("#ScrolSidebar").offset().top
+//                                    }, 2000);
+
+        </script>
+        <!-- END JAVASCRIPTS --> 
+    </body>
+    <!-- END BODY -->
+
+</html>

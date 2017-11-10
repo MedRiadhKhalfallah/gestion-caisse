@@ -1,0 +1,616 @@
+<style>
+    .panel {
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+    .panel-heading {
+        padding: 10px 15px;
+        border-bottom: 1px solid transparent;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+    }
+    .panel-heading > .dropdown .dropdown-toggle {
+        color: inherit;
+    }
+    .panel-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 16px;
+        color: inherit;
+    }
+    .panel-title > a,
+    .panel-title > small,
+    .panel-title > .small,
+    .panel-title > small > a,
+    .panel-title > .small > a {
+        color: inherit;
+    }
+    .panel-footer {
+        padding: 10px 15px;
+        background-color: #f5f5f5;
+        border-top: 1px solid #ddd;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    .panel > .list-group,
+    .panel > .panel-collapse > .list-group {
+        margin-bottom: 0;
+    }
+    .panel > .list-group .list-group-item,
+    .panel > .panel-collapse > .list-group .list-group-item {
+        border-width: 1px 0;
+        border-radius: 0;
+    }
+    .panel > .list-group:first-child .list-group-item:first-child,
+    .panel > .panel-collapse > .list-group:first-child .list-group-item:first-child {
+        border-top: 0;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+    }
+    .panel > .list-group:last-child .list-group-item:last-child,
+    .panel > .panel-collapse > .list-group:last-child .list-group-item:last-child {
+        border-bottom: 0;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    .panel > .panel-heading + .panel-collapse > .list-group .list-group-item:first-child {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+    .panel-heading + .list-group .list-group-item:first-child {
+        border-top-width: 0;
+    }
+    .list-group + .panel-footer {
+        border-top-width: 0;
+    }
+    .panel-group {
+        margin-bottom: 20px;
+    }
+    .panel-group .panel {
+        margin-bottom: 0;
+        border-radius: 4px;
+    }
+    .panel-group .panel + .panel {
+        margin-top: 5px;
+    }
+    .panel-group .panel-heading {
+        border-bottom: 0;
+    }
+    .panel-group .panel-heading + .panel-collapse > .panel-body,
+    .panel-group .panel-heading + .panel-collapse > .list-group {
+        border-top: 1px solid #ddd;
+    }
+    .panel-group .panel-footer {
+        border-top: 0;
+    }
+    .panel-group .panel-footer + .panel-collapse .panel-body {
+        border-bottom: 1px solid #ddd;
+    }
+    .panel-default {
+        border-color: #ddd;
+    }
+    .panel-default > .panel-heading {
+        color: #333333;
+        background-color: #f5f5f5;
+        border-color: #ddd;
+    }
+    .panel-default > .panel-heading + .panel-collapse > .panel-body {
+        border-top-color: #ddd;
+    }
+    .panel-default > .panel-heading .badge {
+        color: #f5f5f5;
+        background-color: #333333;
+    }
+    .panel-default > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #ddd;
+    }
+    .panel-primary {
+        border-color: #337ab7;
+    }
+    .panel-primary > .panel-heading {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #337ab7;
+    }
+    .panel-primary > .panel-heading + .panel-collapse > .panel-body {
+        border-top-color: #337ab7;
+    }
+    .panel-primary > .panel-heading .badge {
+        color: #337ab7;
+        background-color: #fff;
+    }
+    .panel-primary > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #337ab7;
+    }
+    .panel-success {
+        border-color: #d6e9c6;
+    }
+    .panel-success > .panel-heading {
+        color: #3c763d;
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+    }
+    .panel-success > .panel-heading + .panel-collapse > .panel-body {
+        border-top-color: #d6e9c6;
+    }
+    .panel-success > .panel-heading .badge {
+        color: #dff0d8;
+        background-color: #3c763d;
+    }
+    .panel-success > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #d6e9c6;
+    }
+    .panel-info {
+        border-color: #bce8f1;
+    }
+    .panel-info > .panel-heading {
+        color: #31708f;
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+    }
+    .panel-info > .panel-heading + .panel-collapse > .panel-body {
+        border-top-color: #bce8f1;
+    }
+    .panel-info > .panel-heading .badge {
+        color: #d9edf7;
+        background-color: #31708f;
+    }
+    .panel-info > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #bce8f1;
+    }
+    .panel-warning {
+        border-color: #faebcc;
+    }
+    .panel-warning > .panel-heading {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+    }
+    .panel-warning > .panel-heading + .panel-collapse > .panel-body {
+        border-top-color: #faebcc;
+    }
+    .panel-warning > .panel-heading .badge {
+        color: #fcf8e3;
+        background-color: #8a6d3b;
+    }
+    .panel-warning > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #faebcc;
+    }
+    .panel-danger {
+        border-color: #ebccd1;
+    }
+    .panel-danger > .panel-heading {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+    .panel-danger > .panel-heading + .panel-collapse > .panel-body {
+        border-top-color: #ebccd1;
+    }
+    .panel-danger > .panel-heading .badge {
+        color: #f2dede;
+        background-color: #a94442;
+    }
+    .panel-danger > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #ebccd1;
+    }
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->  
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa icon-settings"></i>Configuration de l'application 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/gestion-reglages" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Réglages
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal form-bordered">
+                    <div class="form-group col-sm-6">
+                        <div class="page-header" style="margin: 0;">
+                            <h3 class="col-md-12"><span class="glyphicon glyphicon-user"></span> Information générale:</h3>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="panel-content">
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Addresse</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-map-marker"></i>
+                                        </span>
+                                        <input type="text" id="Addresse" ng-model="config.Configuration.adresse" placeholder="Addresse" name="Addresse" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Agence</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-location-arrow"></i>
+                                        </span>
+                                        <input type="text" id="Agence" ng-model="config.Configuration.agence" placeholder="Agence" name="Agence" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Siege</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-map-marker"></i>
+                                        </span>
+                                        <input type="text" id="siege" ng-model="config.Configuration.siege" placeholder="siege" name="siege" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Email</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-envelope"></i>
+                                        </span>
+                                        <input type="email" id="email" ng-model="config.Configuration.email" placeholder="email" name="email" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Informations</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-info"></i>
+                                        </span>
+                                        <input type="text" id="Informations" ng-model="config.Configuration.informations" placeholder="Informations" name="Informations" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Logo</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        <input type="file" file-model="myFile" />
+                                        <!--<input type="text" id="code_barre" placeholder="Code Barres" ng-model="currentProduct.Product.code_barres" name="code barre" class="form-control" /> </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Matricule Fiscale</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="matricule_fiscale" ng-model="config.Configuration.matricule_fiscale" placeholder="matricule fiscale" name="matricule_fiscale" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Nom</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-building"></i>
+                                        </span>
+                                        <input type="text" id="name" ng-model="config.Configuration.name" placeholder="Nom" name="name" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <!--                            <div class="form-group col-sm-12">
+                                                            <label class="col-sm-4 control-label">Objet</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </span>
+                                                                    <input type="text" id="objet" ng-model="config.Configuration.objet" placeholder="objet" name="objet" class="form-control" /> </div>
+                                                            </div>
+                                                        </div>-->
+                            <!--                            <div class="form-group col-sm-12">
+                                                            <label class="col-sm-4 control-label">Timbre Fiscale</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </span>
+                                                                    <input type="text" id="price_timbre" ng-model="config.Configuration.price_timbre" placeholder="Timbre Fiscale" name="price_timbre" class="form-control" /> </div>
+                                                            </div>
+                                                        </div>-->
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Raison social</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-building"></i>
+                                        </span>
+                                        <input type="text" id="raison_social" ng-model="config.Configuration.raison_social" placeholder="Raison social" name="raison_social" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Rib</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="rib" ng-model="config.Configuration.rib" placeholder="Rib" name="rib" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Telephone 1</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </span>
+                                        <input type="text" id="telephone_1" ng-model="config.Configuration.telephone_1" placeholder="telephone_1" name="telephone_1" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Telephone 2</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </span>
+                                        <input type="text" id="telephone_2" ng-model="config.Configuration.telephone_2" placeholder="telephone_2" name="telephone_2" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-4 control-label">Telephone 3</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </span>
+                                        <input type="text" id="telephone_3" ng-model="config.Configuration.telephone_3" placeholder="telephone_3" name="telephone_3" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <!--                            <div class="form-group col-sm-12">
+                                                            <label class="col-sm-4 control-label">Seuil Prime</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-phone"></i>
+                                                                    </span>
+                                                                    <input type="text" id="seuil_prime" ng-model="config.Configuration.seuil_prime" placeholder="Seuil Prime" name="Seuil Prime" class="form-control" /> </div>
+                                                            </div>
+                                                        </div>-->
+                            <!--                            <div class="form-group col-sm-12">
+                                                            <label class="col-sm-4 control-label">Seuil Chèque</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-phone"></i>
+                                                                    </span>
+                                                                    <input type="text" id="seuil_cheque" ng-model="config.Configuration.seuil_cheque" placeholder="Seuil Chèque" name="Seuil Chèque" class="form-control" /> </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <label class="col-sm-4 control-label">Prime Commercial</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-phone"></i>
+                                                                    </span>
+                                                                    <input type="text" id="Prime_Commercial" ng-model="config.Configuration.prime" placeholder="Prime Commercial" name="Prime Commercial" class="form-control" /> </div>
+                                                            </div>
+                                                        </div>-->
+                            <!--                            <div class="form-group col-sm-12" id="groupActivite" data-value="{{config.Configuration.seuil_prime}}">
+                                                            <label class="col-sm-4 control-label">Type d'activité</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-tag"></i>
+                                                                    </span>
+                                                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Type Activité..."  ng-change='TypeActivite()' ng-model="config.Configuration.type_activite" id="TypeActivite">
+                                                                        <option value=""></option>
+                                                                        <option>Commerce de gros</option>
+                                                                        <option>Commerce de gros/détail</option>
+                                                                        <option>Industriel</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-sm-12" id="fodecBloc">
+                                                            <label class="col-sm-4 control-label">Fodec</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-phone"></i>
+                                                                    </span>
+                                                                    <input type="text" id="fodec" ng-model="config.Configuration.fodec" placeholder="fodec" name="fodec" class="form-control" /> </div>
+                                                            </div>
+                                                        </div>-->
+                        </div> 
+
+                        <div class="clearfix"></div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="submit" class="btn purple" ng-click="editConfig($event)" style="float: right">
+                                        <i class="fa fa-check"></i> Mettre à jour</button>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="form-group col-sm-12">
+                    <div class="page-header" style="margin: 20px 0 20px;">
+                        <h3 class="col-md-12"><span class="glyphicon glyphicon-user"></span> Module gestion commerciale:</h3>
+                        <div class="clearfix"></div>
+                    </div> 
+                    <div class="panel-content">
+                        <!--                        <div class="form-group col-sm-12">
+                                                    <label class="col-sm-4 control-label">Objet</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </span>
+                                                            <input type="text" id="objet" ng-model="config.Configuration.objet" placeholder="objet" name="objet" class="form-control" /> </div>
+                                                    </div>
+                                                </div>-->
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-4 control-label">Timbre Fiscale</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="price_timbre" ng-model="config.Configuration.price_timbre" placeholder="Timbre Fiscale" name="price_timbre" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-4 control-label">Tva par defaut</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                    <input type="text" id="default_tva" ng-model="config.Configuration.default_tva" placeholder="Tva par defaut" name="Tva par defaut" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-4 control-label">Seuil Prime</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                    <input type="text" id="seuil_prime" ng-model="config.Configuration.seuil_prime" placeholder="Seuil Prime" name="Seuil Prime" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-4 control-label">Seuil Chèque</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                    <input type="text" id="seuil_cheque" ng-model="config.Configuration.seuil_cheque" placeholder="Seuil Chèque" name="Seuil Chèque" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-4 control-label">Prime Commercial</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                    <input type="text" id="Prime_Commercial" ng-model="config.Configuration.prime" placeholder="Prime Commercial" name="Prime Commercial" class="form-control" /> </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12" id="groupActivite" data-value="{{config.Configuration.seuil_prime}}">
+                            <label class="col-sm-4 control-label">Type d'activité</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tag"></i>
+                                    </span>
+                                    <select class="form-control input-xlarge select2me col-sm-12" data-placeholder="Select Type Activité..."  ng-change='TypeActivite()' ng-model="config.Configuration.type_activite" id="TypeActivite">
+                                        <option value=""></option>
+                                        <option>Commerce de gros</option>
+                                        <option>Commerce de gros/détail</option>
+                                        <option>Industriel</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12" id="fodecBloc">
+                            <label class="col-sm-4 control-label">Fodec</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                    <input type="text" id="fodec" ng-model="config.Configuration.fodec" placeholder="fodec" name="fodec" class="form-control" /> </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="clearfix"></div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+                <div class="form-group col-sm-12">
+                    <div class="page-header">
+                        <h3 class="col-md-12"><span class="glyphicon glyphicon-user"></span> Information Email:</h3>
+                        <div class="clearfix"></div>
+                    </div> 
+                    <div class="panel-content">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-4 control-label">Host</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <input type="text" id="email_host" ng-model="config.Configuration.email_host" placeholder="host email" name="email_host" class="form-control" /> </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="clearfix"></div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<!-- END MAIN CONTENT -->
+<script>
+            // Polling for the sake of my intern tests
+            var intervalActivite = setInterval(function () {
+                if (document.readyState === 'complete') {
+                    clearInterval(intervalActivite);
+                    doneActivite();
+                }
+            }, 100);
+            function doneActivite() {
+//        toastr.info("PAGE LOADED");
+                setTimeout(function () {
+                    //Cp
+                    var activiteValue = $("#groupActivite").attr('data-value');
+//            $("#groupCp .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + cpValue + "</p>");
+                    $("#groupActivite .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + activiteValue + "</p>");
+                    var Type = $('#TypeActivite :selected').text();
+                    if (Type === "Industriel") {
+                        $('#fodecBloc').show();
+                    } else {
+                        $('#fodecBloc').hide();
+                    }
+                    var pointageValue = $("#groupPointage").attr('data-value');
+                    $("#groupPointage .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + pointageValue + "</p>");
+                }, 1500);
+            }
+</script>

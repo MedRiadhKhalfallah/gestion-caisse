@@ -1,0 +1,226 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="#/dashboard">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li class="active"> Liste Produits </li>
+</ul>-->
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<style>
+    .sous-menu{
+        color: #000 !important;font-weight: bold !important;font-size: 14px !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste Produits </div>
+                <div class="actions">
+                    <a href="javascript:;" class="btn btn-default btn-sm">
+                        <i class="fa fa-print"></i> <button ng-click="" style="color: #fff;background: none; border: none;">Importer</button> 
+                    </a>
+                    <!--                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                                            <i class="fa fa-print"></i> Dashboard
+                                        </a>-->
+                    <a href="javascript:;" class="btn btn-default btn-sm">
+                        <i class="fa fa-print"></i> <button ng-click="exportData()" style="color: #fff;background: none; border: none;">Exporter</button> 
+                    </a>
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm" style="float: right;">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                    <a href="#/ajout-produit" class="btn btn-default btn-sm" style="float: right;">
+                        <i class="fa fa-plus"></i> Créer
+                    </a>
+                    <div class="page-toolbar" style="float: right;">
+                        <!-- BEGIN THEME PANEL -->
+                        <div class="btn-group btn-theme-panel" style="margin-top: 3px;padding-left: 3px;padding-right: 3px;">
+                            <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown" style="background: 0 0!important;border: 1px solid #fff;color: #fff;opacity: 1;height: 27px;margin-top: -2px;padding-top: 3px;">
+                                <i class="fa fa-list" style="color: #fff;font-size: 12px;"></i> Accès produits
+                            </a>
+                            <div class="dropdown-menu theme-panel pull-right col-md-2 dropdown-custom hold-on-click" style="min-width: 200px !important;border: 2px solid #4285F4; padding-top: 5px;padding-left: 0px;">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ul class="theme-colors">
+                                            <li class="theme-color theme-color-default active" data-theme="default"> 
+                                                <i class="fa fa-tags" aria-hidden="true" style="color: #000;"></i> 
+                                                <a href="#/gestion-categories" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name">Catégories</span></a>
+                                            </li>
+                                            <li class="theme-color theme-color-light" data-theme="light">
+                                                <i class="fa fa-tag" aria-hidden="true" style="color: #000;"></i> 
+                                                <a href="#/gestion-familles" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name">Familles</span></a>
+                                            </li>
+                                            <li class="theme-color theme-color-light" data-theme="light">
+                                                <i class="fa fa-list" aria-hidden="true" style="color: #000;"></i> 
+                                                <a href="#/gestion-unites" class="btn btn-default btn-sm sous-menu"><span class="theme-color-name">Unités</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-inline" style="float: right">
+                    <div class="form-group">
+                        <label >Recherche</label>
+                        <input type="text" ng-model="search" ng-change="searchResult(search)" class="form-control" placeholder="Recherche..." ng-trim="false">
+                    </div>
+                </form>
+                <div class="clearfix"></div><br>
+                <div class="pull-right">
+                    <button id="previousPage" ng-click="previousPage()" class="btn btn-default">Précédent</button>
+                    <button id="firstPage" ng-click="firstPage()" class="btn btn-default">1</button>
+                    <button class="btn btn-default active" disabled="disabled" id="currentPage"><strong>{{currentPage}}</strong></button>
+                    <div id="otherPages" style="clear: none;display: initial;"></div><button class="btn btn-default" id="nextPage" ng-click="nextPage()">Suivant</button>
+                </div>
+                <div class="clearfix"></div>
+                <button class="pull-left btn btn-info" ng-click="showAdvancedSearch()">Recherche Avancée <i class="fa fa-search"></i></button>
+                <div class="clearfix"></div>
+                <br>
+                <br>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="exportable">
+                    <thead>
+                        <tr>
+                            <th> Image </th>
+                            <th> REF </th>
+                            <th> Nom </th>
+                            <th> Prix U.HT </th>
+                            <th> Marge </th>
+                            <th> Tva </th>
+                            <th> Prix TTC </th>
+                            <th> Fournisseur </th>
+                            <th> Catégorie </th>
+                            <th> Famille </th>
+                            <th> Actions </th>
+                        </tr>
+                        <tr id="filterSearch">
+                            <th colspan="7"></th>
+                            <th> 
+                                <select id="listFournisseur" ng-model="fournisseur" ng-change="filterByFournisseur(fournisseur)">
+                                    <option value="">Tous</option>
+                                    <option ng-repeat="($index,fournisseur) in fournisseurs" value="{{fournisseur.Fournisseur.id}}">{{fournisseur.Fournisseur.name}}</option>
+                                </select> 
+                            </th>
+                            <th>
+                                <select id="listCategory" ng-model="categorie" ng-change="filterByCategory(categorie)">
+                                    <option value="">Tous</option>
+                                    <option ng-repeat="($index,categorie) in categories" value="{{categorie.Category.id}}">{{categorie.Category.name}}</option>
+                                </select> 
+                            </th>
+                            <th> 
+                                <select id="listFamille" ng-model="famille" ng-change="filterByFamille(famille)">
+                                    <option value="">Tous</option>
+                                    <option ng-repeat="($index,famille) in familles" value="{{famille.Famille.id}}">{{famille.Famille.name}}</option>
+                                </select> 
+                            </th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left;">
+                        <tr class="odd gradeX" ng-repeat="product in products" id="ProductRows">
+                            <td style="width: 120px;"><img src="http://api.amyevolution.com/img/{{product.Product.url}}" style="width: 100px; border: none !important;" class="thumbnail center-block img-responsive" /></td>
+                            <td style="width: 110px;">{{product.Product.ref}}</td>
+                            <td>{{product.Product.name}}</td>
+                            <td>{{product.Product.price}}</td>
+                            <td>({{product.Product.price - product.Product.prix_achat| number:3}}) {{product.Product.marge}} %</td> 
+                            <td>{{product.Tva.name}}</td> 
+                            <td>{{product.Product.price * (1 + product.Tva.value / 100) | number:3}}</td> 
+                            <td>{{product.Fournisseur.name}}</td>
+                            <td>{{product.Category.name}}</td>
+                            <td>{{product.Famille.name}}</td>
+                            <td style="width: 150px;"> 
+                                <ul class="nav nav-pills">
+                                    <li>
+                                        <div>
+                                            <a href="#/fiche-produit/{{product.Product.id}}"  class="btn btn-sm btn-info">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div ng-click="editProduct(product.Product.id)">
+                                            <a href="#/edit-product/{{product.Product.id}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                                        </div>                                        
+                                    </li>
+                                    <li>
+                                        <div ng-controller="ModalCtrl">
+                                            <button id="productSumbit" data-index="{{$index}}" data-product="{{product.Product.id}}"  ng-click="open(product.Product.id, $index)" data-name="{{product.Product.name}}" data-cmd="{{product.Product.id}}" class="btn btn-sm btn-danger btn-embossed btn-sm">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </li>                                    
+                                </ul>               
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pull-right">
+                    <button id="previousPage" ng-click="previousPage()" class="btn btn-default">Précédent</button>
+                    <button id="firstPage" ng-click="firstPage()" class="btn btn-default">1</button>
+                    <button class="btn btn-default active" disabled="disabled"><strong>{{currentPage}}</strong></button>
+                    <div id="otherPages" style="clear: none;display: initial;"></div><button class="btn btn-default" id="nextPage" ng-click="nextPage()">Suivant</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+        <div id="login-box" class="login-popup" data-id="" data-index="" ng-controller="ModalCtrl">
+            <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+            <form method="post" class="signin" action="#">
+                <fieldset class="textbox">
+                    <label class="password">
+                        <span>Code Validation</span>
+                        <input id="codeRoot" ng-model="codeRoot" value="" type="password" placeholder="Code Validation">
+                    </label>
+                    <button class="submit button" type="button" ng-click="validateAction($event)">Activer</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="deleteProduct.html">
+    <div class="modal-dialog" id="DeleteProduct" data-id="" data-index="">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé Produit</h4>
+    </div>
+    <div class="modal-body">
+    <p>Voulez vous vraiment supprimé ce produit ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteProduct(product.Product.id)">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+    </div>
+    </div>
+</script>
+<script>
+    setTimeout(function () {
+//        console.clear();
+    }, 1000);
+</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->

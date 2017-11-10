@@ -1,0 +1,258 @@
+2017-08-15 14:30:01 Error: [MissingActionException] Action AppController::index() could not be found.
+Exception Attributes: array (
+  'controller' => 'AppController',
+  'action' => 'index',
+)
+Request URL: /amy_erp/app/
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AppController), Object(CakeRequest))
+#2 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-10-16 09:59:41 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Accès refusé pour l\'utilisateur: \'amy\'@\'@localhost\' (mot de passe: OUI)',
+  'enabled' => true,
+)
+Request URL: /amy_erp/
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3653): Model->setSource('configurations')
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\amy_erp\app\Controller\AppController.php(160): Model->find('first')
+#8 C:\wamp64\www\amy_erp\app\Controller\AppController.php(139): AppController->getConfiguration()
+#9 C:\wamp64\www\amy_erp\app\Controller\UsersController.php(11): AppController->beforeFilter()
+#10 [internal function]: UsersController->beforeFilter(Object(CakeEvent))
+#11 C:\wamp64\www\amy_erp\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#12 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#13 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#14 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#15 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2017-10-16 10:01:06 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Accès refusé pour l\'utilisateur: \'amy\'@\'@localhost\' (mot de passe: OUI)',
+  'enabled' => true,
+)
+Request URL: /amy_erp/notifications/index
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3653): Model->setSource('configurations')
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\amy_erp\app\Controller\AppController.php(160): Model->find('first')
+#8 C:\wamp64\www\amy_erp\app\Controller\AppController.php(139): AppController->getConfiguration()
+#9 C:\wamp64\www\amy_erp\app\Controller\NotificationsController.php(14): AppController->beforeFilter()
+#10 [internal function]: NotificationsController->beforeFilter(Object(CakeEvent))
+#11 C:\wamp64\www\amy_erp\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#12 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#13 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#14 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(NotificationsController), Object(CakeRequest))
+#15 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2017-10-16 10:01:06 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Accès refusé pour l\'utilisateur: \'amy\'@\'@localhost\' (mot de passe: OUI)',
+  'enabled' => true,
+)
+Request URL: /amy_erp/pages/purge_cache
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3653): Model->setSource('configurations')
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\amy_erp\app\Controller\AppController.php(160): Model->find('first')
+#8 C:\wamp64\www\amy_erp\app\Controller\AppController.php(139): AppController->getConfiguration()
+#9 C:\wamp64\www\amy_erp\app\Controller\PagesController.php(9): AppController->beforeFilter()
+#10 [internal function]: PagesController->beforeFilter(Object(CakeEvent))
+#11 C:\wamp64\www\amy_erp\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#12 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#13 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#14 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#15 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2017-10-16 10:01:06 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Accès refusé pour l\'utilisateur: \'amy\'@\'@localhost\' (mot de passe: OUI)',
+  'enabled' => true,
+)
+Request URL: /amy_erp/pages/show_config
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3653): Model->setSource('configurations')
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\amy_erp\app\Controller\AppController.php(160): Model->find('first')
+#8 C:\wamp64\www\amy_erp\app\Controller\AppController.php(139): AppController->getConfiguration()
+#9 C:\wamp64\www\amy_erp\app\Controller\PagesController.php(9): AppController->beforeFilter()
+#10 [internal function]: PagesController->beforeFilter(Object(CakeEvent))
+#11 C:\wamp64\www\amy_erp\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#12 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#13 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#14 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#15 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2017-10-16 10:02:53 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Accès refusé pour l\'utilisateur: \'amy\'@\'@localhost\' (mot de passe: OUI)',
+  'enabled' => true,
+)
+Request URL: /amy_erp/pages/purge_cache
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3653): Model->setSource('configurations')
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\amy_erp\app\Controller\AppController.php(160): Model->find('first')
+#8 C:\wamp64\www\amy_erp\app\Controller\AppController.php(139): AppController->getConfiguration()
+#9 C:\wamp64\www\amy_erp\app\Controller\PagesController.php(9): AppController->beforeFilter()
+#10 [internal function]: PagesController->beforeFilter(Object(CakeEvent))
+#11 C:\wamp64\www\amy_erp\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#12 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#13 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#14 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#15 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2017-10-16 10:02:53 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Accès refusé pour l\'utilisateur: \'amy\'@\'@localhost\' (mot de passe: OUI)',
+  'enabled' => true,
+)
+Request URL: /amy_erp/pages/show_config
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3653): Model->setSource('configurations')
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\amy_erp\app\Controller\AppController.php(160): Model->find('first')
+#8 C:\wamp64\www\amy_erp\app\Controller\AppController.php(139): AppController->getConfiguration()
+#9 C:\wamp64\www\amy_erp\app\Controller\PagesController.php(9): AppController->beforeFilter()
+#10 [internal function]: PagesController->beforeFilter(Object(CakeEvent))
+#11 C:\wamp64\www\amy_erp\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#12 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#13 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#14 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#15 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2017-10-16 10:02:53 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Accès refusé pour l\'utilisateur: \'amy\'@\'@localhost\' (mot de passe: OUI)',
+  'enabled' => true,
+)
+Request URL: /amy_erp/notifications/index
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3653): Model->setSource('configurations')
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\amy_erp\app\Controller\AppController.php(160): Model->find('first')
+#8 C:\wamp64\www\amy_erp\app\Controller\AppController.php(139): AppController->getConfiguration()
+#9 C:\wamp64\www\amy_erp\app\Controller\NotificationsController.php(14): AppController->beforeFilter()
+#10 [internal function]: NotificationsController->beforeFilter(Object(CakeEvent))
+#11 C:\wamp64\www\amy_erp\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#12 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#13 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#14 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(NotificationsController), Object(CakeRequest))
+#15 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2017-10-16 10:02:53 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Accès refusé pour l\'utilisateur: \'amy\'@\'@localhost\' (mot de passe: OUI)',
+  'enabled' => true,
+)
+Request URL: /amy_erp/pages/show_config
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3653): Model->setSource('configurations')
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\amy_erp\app\Controller\AppController.php(160): Model->find('first')
+#8 C:\wamp64\www\amy_erp\app\Controller\AppController.php(139): AppController->getConfiguration()
+#9 C:\wamp64\www\amy_erp\app\Controller\PagesController.php(9): AppController->beforeFilter()
+#10 [internal function]: PagesController->beforeFilter(Object(CakeEvent))
+#11 C:\wamp64\www\amy_erp\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#12 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#13 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#14 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#15 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2017-10-18 23:50:30 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 Erreur de syntaxe prÃ¨s de 'NULL' Ã  la ligne 1
+Request URL: /amy_erp/commandes/achats_finalisee_produit/206
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Command...', Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(664): DboSource->execute('SELECT `Command...', Array, Array)
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(1113): DboSource->fetchAll('SELECT `Command...', false)
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Commande), Array)
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('all', Array)
+#6 C:\wamp64\www\amy_erp\app\Controller\CommandesController.php(2073): Model->find('all', Array)
+#7 [internal function]: CommandesController->achats_finalisee_produit('206')
+#8 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(491): ReflectionMethod->invokeArgs(Object(CommandesController), Array)
+#9 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(CommandesController), Object(CakeRequest))
+#11 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-10-18 23:50:30 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 Erreur de syntaxe prÃ¨s de 'NULL' Ã  la ligne 1
+Request URL: /amy_erp/commandes/ventes_finalisee_produit/206
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Command...', Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(664): DboSource->execute('SELECT `Command...', Array, Array)
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(1113): DboSource->fetchAll('SELECT `Command...', false)
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Commande), Array)
+#5 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(3003): Model->_readDataSource('all', Array)
+#6 C:\wamp64\www\amy_erp\app\Controller\CommandesController.php(2123): Model->find('all', Array)
+#7 [internal function]: CommandesController->ventes_finalisee_produit('206')
+#8 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(491): ReflectionMethod->invokeArgs(Object(CommandesController), Array)
+#9 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(CommandesController), Object(CakeRequest))
+#11 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-10-19 00:11:21 Error: [PDOException] SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '? undefined:undefined ?' for column 'payment_id' at row 1
+Request URL: /amy_erp/devis/bon_livraison_facture
+Stack Trace:
+#0 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('INSERT INTO `am...', Array)
+#2 C:\wamp64\www\amy_erp\lib\Cake\Model\Datasource\DboSource.php(1019): DboSource->execute('INSERT INTO `am...')
+#3 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1933): DboSource->create(Object(Facture), Array, Array)
+#4 C:\wamp64\www\amy_erp\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 C:\wamp64\www\amy_erp\app\Controller\DevisController.php(367): Model->save(Array)
+#6 [internal function]: DevisController->bon_livraison_facture()
+#7 C:\wamp64\www\amy_erp\lib\Cake\Controller\Controller.php(491): ReflectionMethod->invokeArgs(Object(DevisController), Array)
+#8 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 C:\wamp64\www\amy_erp\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(DevisController), Object(CakeRequest))
+#10 C:\wamp64\www\amy_erp\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}

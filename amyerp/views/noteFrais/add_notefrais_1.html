@@ -1,0 +1,211 @@
+<style>
+    #fancybox-content{
+        background: #fff !important;
+    }
+    table thead tr:first-child {
+        background: #0097A7;
+        color: #fff;
+        border: 1px solid #080a0a !important;
+    }
+    .center-block {
+        display: block;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .control-label{
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    #date {
+        width: 150px;
+        margin-left: 15px;
+        margin-bottom: 10px;
+    }
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+    .datepicker table tr td.new, .datepicker table tr td.old {
+        color: #000 !important; 
+    }
+    .datepicker table tr td.disabled, .datepicker table tr td.disabled{
+        color: #999 !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Ajout note frais
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="row">
+                    <div class="container-fluid" style="padding-left: 50px !important;padding-right: 50px !important;">
+                        <div class="page-header" style="margin: 20px 0 20px !important;">
+                            <h3 class="col-md-5">Saisie Note de frais</h3>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <form action="#" class="form-horizontal form-bordered">
+                                    <div class="form-body">
+                                        <div class="form-group" style="border-bottom: none !important;">
+                                            <label class="control-label col-md-4">Choisir date </label>
+                                            <div class="col-md-7">
+                                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-end-date="+0d">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" ng-model="dateChanger" id="dateChanger" ng-change="dateChanged()" class="form-control" readonly>
+                                                </div>
+                                                <!-- /input-group -->
+                                                <!--<span class="help-block"> Select date </span>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Désignation</th>
+                                    <th>Motif</th>
+                                    <th>Montant</th>
+                                    <th>Pièce justificative</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listNoteFrais">
+                                <tr ng-repeat="($index, frai) in frais" id="NoteFrais">
+                                    <td>{{frai.Frai.designation}}</td>
+                                    <td>{{frai.Frai.motif}}</td>
+                                    <td>{{frai.Frai.montant}}</td>
+                                    <td style="width: 280px;">
+                                        <div ng-if="frai.Frai.img != null">
+                                            <a href="https://api.amyevolution.com/img/{{frai.Frai.img}}" id="preuve">
+                                                <img class='thumbnail' src='https://api.amyevolution.com/img/{{frai.Frai.img}}' style='max-width: 75px;'/>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-controller="ModalFraisCtrl">
+                                            <button id="fraisSumbit" data-index="{{$index}}" data-product="{{frai.Frai.id}}"  ng-click="open(frai.Frai.id, $index)" data-name="{{frai.Frai.designation}}" data-cmd="{{frai.Frai.id}}" class="btn btn-sm btn-danger btn-embossed btn-sm">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <!--<a href='#' id='deleteNote' class='btn btn-sm btn-danger'><i class='fa fa-times'></i></a>-->
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="Désignation" id="designation" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="Motif" id="motif" />
+                                    </td>
+                                    <td>
+                                        <input type="number" min="0" class="form-control" placeholder="Montant" id="montant" />
+                                    </td>
+                                    <!--<td ng-controller="imgPreviewController" style="max-width: 300px;">-->
+                                    <td style="width: 280px;">
+                                        <img ng-src="{{image_source}}" id="imgPreview" class="thumbnail" style="float: left;width: 20%;margin-right: 10px;height: 40px;">
+                                        <!--<input type="file" file-model="myFile" />-->
+                                        <input style="width: 165px !important;" type="file" file-model="myFile" class="form-control" id="trigger" onchange="angular.element(this).scope().setFile(this)" accept="image/*"/>
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                                <tr><td colspan="5"><addbuttonnotefrais></addbuttonnotefrais></td></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+        <div id="login-box" class="login-popup" data-id="" data-index="" ng-controller="ModalFraisCtrl">
+            <a href="#" class="close"><img src="{{closeUrl}}" class="btn_close" title="Close Window" alt="Close" /></a>
+            <form method="post" class="signin" action="#">
+                <fieldset class="textbox">
+                    <label class="password">
+                        <span>Code Validation</span>
+                        <input id="codeRoot" ng-model="codeRoot" value="" type="password" placeholder="Code Validation">
+                    </label>
+                    <button class="submit button" type="button" ng-click="validateAction($event)">Activer</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="deleteFrais.html">
+
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Supprimé note de frais</h4>
+    </div>
+    <div class="modal-body">
+    <p>Voulez vous vraiment supprimé ce note de frais ?</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteFrais()">
+    <i class="fa fa-check" ></i> Supprimé</button>
+    </div>
+</script>
+<!-- END MAIN CONTENT -->
+<script>
+    function deleteNote() {
+        $("a#deleteNote").on('click', function (e) {
+            e.preventDefault();
+            $(this).parent().parent().fadeOut('slow', function () {
+                $(this).remove();
+            });
+        });
+    }
+</script>
+<script>
+    ComponentsDateTimePickers.init(); // init todo page
+</script>
+<script>
+    function preuvePreview() {
+        $("a#preuve").fancybox({
+            'titleShow': false,
+            'transitionIn': 'elastic',
+            'transitionOut': 'elastic',
+            'easingIn': 'easeOutBack',
+            'easingOut': 'easeInBack'
+        });
+    }
+    setTimeout(preuvePreview, 1000);
+//    setTimeout(function () {
+//        $('#dateChanger').datepicker({
+//            altField: "#dateChanger",
+//            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+//            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+//            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
+//        });
+//    }, 500);
+$("#dateChanger").datepicker({language : "fr"});
+
+</script>

@@ -1,0 +1,389 @@
+<style>
+    .input-group .select2-container--bootstrap{
+        width: 100% !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green-turquoise">
+            <div class="portlet-title">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Modifier Client 
+                </div>
+                <div class="actions">
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Gestion commerciale
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="#" id="form-username" class="form-horizontal form-bordered">
+                    <div class="col-md-6">
+                        <div class="page-header">
+                            <h3 class="col-md-12"><span class="glyphicon glyphicon-user"></span> Information générale:</h3>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="panel-content">
+                            <div class="form-group col-md-12" id="groupClient" data-value="{{client.User.type_client}}">
+                                <label class="col-md-4 control-label">Type Client</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-check"></i> 
+                                        </span>
+                                        <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Type Client..." ng-change='TypeClient()' ng-model="client.User.type_client" id="TypeClient">
+                                            <option value=""></option>
+                                            <option>Professionnel</option>
+                                            <option>Particulier</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" id="groupEtatClient" data-value="{{client.User.etat_client}}">
+                                <label class="col-md-4 control-label">État Client</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-check"></i> 
+                                        </span>
+                                        <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select État Client..." ng-model="client.User.etat_client" id="EtatClient">
+                                            <option value=""></option>
+                                            <option>Normal</option>
+                                            <option>Sous Surveillance</option>
+                                            <option>Bloqué</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" id="HiddenForType">
+                                <label class="col-md-4 control-label">Raison Sociale</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="raison_social" ng-model="client.User.raison_social" placeholder="Raison Social" name="raison_social" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" id="HiddenCommercial" style="display: none;">
+                                <label class="col-md-4 control-label">Nom commercial</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="nom_commercial" ng-model="client.User.nom_commercial" placeholder="Nom commercial" name="nom_commercial" class="form-control" /> </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Nom</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="first_name" ng-model="client.User.first_name" placeholder="Nom Client" name="first name" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Téléphone</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="phone" ng-model="client.User.phone" placeholder="Téléphone" name="Telephone" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Prénom</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="last_name" ng-model="client.User.last_name" placeholder="Prénom Client" name="name" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Email</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="email" id="email" ng-model="client.User.email" placeholder="Email" name="email" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Adresse</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="adress" ng-model="client.User.adress" placeholder="Adresse" name="addresse" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Code Postal</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="postal" ng-model="client.User.postal" placeholder="Code Postal" name="Code Postal" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12"  id="groupVille" data-value="{{client.Ville.name}}" data-data-id="{{client.Ville.id}}">
+                                <label class="col-md-4 control-label">Ville</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-tag"></i>
+                                        </span>
+                                        <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Ville..." ng-model="ville.User.ville_id" id="villeValue">
+                                            <option value=""></option>
+                                            <option ng-model="ville.User.ville_id" value="{{item.Ville.id}}" ng-repeat="item in villes">{{item.Ville.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" id="groupCommerciale" data-value="{{client.Commercial.full_name}}" data-data-id="{{client.Commercial.id}}">
+                                <label class="col-md-4 control-label">Commercial</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-tag"></i>
+                                        </span>
+                                        <select class="form-control input-xlarge select2me col-md-12" data-placeholder="Select Commercial..." ng-model="client.User.commerciale_id" id="commercialeValue">
+                                            <option value=""></option>
+                                            <option  value="{{item.User.id}}" ng-repeat="item in commerciales">{{item.User.full_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Frais de livraison</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="frais_livraison" ng-model="client.User.frais_livraison" placeholder="Frais de livraison" name="Frais de livraison" class="form-control" /> </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-label">Frais d'annulation</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        <input type="text" id="frais_annulation" ng-model="client.User.frais_annulation" placeholder="Frais d'annulation" name="Frais d'annulation" class="form-control" /> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h3 class="col-md-12"><span class="glyphicon glyphicon-user"></span> Information de connexion:</h3>
+                                <div class="clearfix"></div>
+                            </div> 
+                            <div class="panel-content">
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-4 control-label"><a href="#" onclick="generateLogin();"><i class="fa fa-refresh"></i></a> Login</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <input type="text" id="username" placeholder="Login*" ng-model="client.User.username" name="username" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-4 control-label"><a href="#" onclick="generatePwd();"><i class="fa fa-refresh"></i></a> Mot de passe</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <input type="password" id="password" placeholder="Mot de passe*" name="password" class="form-control" /> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-footer">
+                                <div class="form-actions"> 
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type="submit" class="btn purple" ng-click="editConnectionClient($event)" style="float: right">
+                                                <i class="fa fa-check"></i> Modifier</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="form-group col-md-6" style="width: 100% !important;">
+                    </div>
+                    <div class="form-group col-md-12" style="width: 100% !important; height: 30px !important;">
+                    </div>
+                    <!--<div>-->
+                    <div class="col-md-3" id="HiddenMFForType">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><strong>Matricule</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="matricule" ng-model="client.User.matricule" placeholder="Matricule Fiscale" name="Matricule Fiscale" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="HiddenCTVAForType">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><strong>Code TVA</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="codetva" ng-model="client.User.codetva" placeholder="Code Tva" name="Code Tva" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="HiddenCategoryForType">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><strong>Code Catégorie</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="code_category" ng-model="client.User.code_category" placeholder="Code Catégorie" name="Code Catégorie" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="HiddenEtabForType">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><strong>N° Établissement</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <input type="text" id="num_etab" ng-change="identite_fiscale()" ng-model="client.User.num_etab" placeholder="N° Établissement" name="N° Établissement" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p id="Fiscale"><strong>Identité Fiscale: </strong><span id="IdentiteFiscale"></span></p>
+                    </div>
+                    <br>
+                    <div class="col-md-6">
+                        <form>
+                            <fieldset>
+                                <legend>Mode de réglement non autorisé:</legend>
+                                <ul class="nav" id="PaymentUser">
+                                    <li class="choice" ng-repeat="($index, item) in PaymentUser"><input id="checkbox{{$index}}" value="{{item.valide}}" ng-model="item.valide" data-data-id="{{item.id}}" type="checkbox" />  {{item.name}}</li> 
+                                </ul> 
+                            </fieldset>
+                        </form>  
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn purple" ng-click="editClient($event)" style="float: right">
+                                    <i class="fa fa-check"></i> Modifier</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<script>
+    // Polling for the sake of my intern tests
+    var intervalFiscale = setInterval(function () {
+        if (document.readyState === 'complete') {
+            clearInterval(intervalFiscale);
+            doneFiscale();
+            $('#password').hidePassword(true);
+        }
+    }, 100);
+    function doneFiscale() {
+        setTimeout(function () {
+            var matricule = $("#matricule").val();
+            var code_tva = $("#codetva").val();
+            var code_category = $("#code_category").val();
+            var num_etab = $("#num_etab").val();
+            $("#IdentiteFiscale").text(matricule + "/" + code_tva + "/" + code_category + "/" + num_etab);
+            // type client select
+            var clientValue = $("#groupClient").attr('data-value');
+            var commercialeValue = $("#groupCommerciale").attr('data-value');
+            var commercialeD = $("#groupCommerciale").attr('data-data-id');
+            $("#commercialeValue option[value='" + commercialeD + "']").attr('selected', 'selected');
+            var EtatClientValue = $("#groupEtatClient").attr('data-value');
+            var villeValue = $("#groupVille").attr('data-value');
+            var villeID = $("#groupVille").attr('data-data-id');
+            $("#villeValue option[value='" + villeID + "']").attr('selected', 'selected');
+//            $("#groupCp .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'><span class='select2-selection__clear'>×</span>" + cpValue + "</p>");
+            $("#groupClient .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + clientValue + "</p>");
+            $("#groupEtatClient .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + EtatClientValue + "</p>");
+            $("#groupVille .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + villeValue + "</p>");
+            $("#groupCommerciale .select2-selection__placeholder").html("<p style='color: #555;padding: 0;'>" + commercialeValue + "</p>");
+            var Type = $('#TypeClient :selected').text();
+            if (Type === "Particulier") {
+                //                        console.log(Type);
+                $('#HiddenForType').hide();
+                $('#HiddenCommercial').show();
+                $('#HiddenCTVAForType').hide();
+                $('#HiddenMFForType').hide();
+                $('#HiddenCategoryForType').hide();
+                $('#HiddenEtabForType').hide();
+                $('#Fiscale').hide();
+            } else {
+                //                        console.log(Type);
+                $('#HiddenForType').show();
+                $('#HiddenCommercial').hide();
+                $('#HiddenCTVAForType').show();
+                $('#HiddenMFForType').show();
+                $('#HiddenCategoryForType').show();
+                $('#HiddenEtabForType').show();
+                $('#Fiscale').show();
+
+            }
+        }, 1500);
+    }
+</script>

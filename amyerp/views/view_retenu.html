@@ -1,0 +1,265 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<style>
+    @media print {
+
+        table, .table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, 
+        .table-bordered>tfoot>tr>td, 
+        .table-bordered>tfoot>tr>th, 
+        .table-bordered>thead>tr>td, 
+        .table-bordered>thead>tr>th{
+            border: 1px solid #adabab !important;
+        }
+        .no-print{
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+
+        }
+        body{
+            height: 100% !important;
+            width: 100% !important;
+        }
+        html{
+            height: 100% !important;
+            width: 100% !important;
+            /*border: 2px solid #000 !important;*/
+        }
+        @page
+        { 
+            margin: 1mm 1mm 1mm 1mm; 
+        }
+        .portlets{
+            margin: 0 !important;
+            margin-top: -20px !important;
+        }
+        .RetenuText{
+            margin-top: -20px !important;
+        }
+        .RetenuText1{
+            margin-top: -30px !important;
+        }
+        main-content, main-content-inner, .portlet{
+            width: 100% !important
+        }
+        .retenu, .certificat{
+            font-size: 12px !important; 
+        }
+    }
+</style>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<!--<div class="main-content">
+    <div class="main-content-inner">
+         BEGIN EXAMPLE TABLE PORTLET
+        <div class="portlet">-->
+<div class="portlet box green-turquoise  no-print">
+    <div class="portlet-title">
+        <div style="width: 50px;float: left !important;" class="actions">
+            <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+            </a>
+        </div>
+        <div class="caption">
+            <div id="breadcrumb">
+                <ul>
+                    <li class="first"><a href="#" title="Demande de prix" style="text-decoration: none;"><strong>Demande de prix</strong></a><span class="end">&nbsp;</span></li>
+                    <li><span style="color: #aaa"><strong>Commande d'achat</strong></span><span class="end">&nbsp;</span></li>
+                    <li><span style="color: #aaa"><strong>Confirmer commande</strong></span><span class="end">&nbsp;</span></li>
+                    <li><span style="color: #aaa"><strong>Bon de réception</strong></span><span class="end">&nbsp;</span></li>
+                    <!--<li><a href="#" title="Back to item 2">item 2</a><span class="end">&nbsp;</span></li>-->
+                    <li><span style="color: #aaa"><strong>Facture d'achat</strong></span><span class="end">&nbsp;</span></li>
+                </ul>
+            </div>
+        </div> 
+        <div class="actions">
+            <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick=""><i class="fa fa-send-o"></i> Envoyer par mail </a>
+            <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick="print('block_border')"><i class="fa fa-print"></i> Imprimer </a>
+            <button class="no-print btn btn-primary btn-sm" style="background-color: transparent;border-color: #fff;" onclick="generatePDF()"><i class="fa fa-file-pdf-o"></i> Exporter en PDF </button>
+            <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                <i class="fa fa-align-right"></i> Dashboard
+            </a>
+            <a href="#/app-gestion-commercials" class="btn btn-default btn-sm">
+                <i class="fa fa-align-right"></i> Gestion commerciale
+            </a>
+            <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+            </a>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-xs-12 portlets" style="width: 100%;margin: -10px 10px 10px 10px; background: #fff;">
+    <div class="col-md-12 col-sm-12"> 
+        <div class="col-md-4 col-sm-4 col-xs-6">
+            <p class="text-center retenu" style="font-weight: 600;">REPUBLIQUE TUNISIENNE <br> MINISTERE DU PLAN ET DES FINANCES </p>
+            <p class="text-center retenu RetenuText" style="line-height: 20px; font-weight: 600;">DIRECTION GENERALE DU CONTROLE FISCAL </p>
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-6 pull-right">
+            <h2 class="text-center certificat" style="font-size: 17px; font-weight: 600; line-height: 25px;">CERTIFICAT DE RETENUE D'IMPOT SUR LE REVENU <br> OU D'IMPOT SUR LES SOCIETES</h2>
+        </div>
+        <div class="col-md-12 col-xs-12 RetenuText1">
+            <p class="text-left" style="font-size: 13px;">Retenue effectuée le: {{retenu.Retenus.date}}</p>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!--<div id="facturePrint" style="/*width: 70%;height: auto;*/ padding: 0;" class="panel-content col-md-12 offset1">-->
+    <!--<div class="clearfix"></div>-->
+    <div class="" style="border: 1px solid #adabab">
+        <div class="col-md-12 col-xs-12">
+            <!--<div class="pull-left">-->
+            <h2 class="text-center certificat" style="font-size: 18px;font-weight: 600; text-align: left;">A- PERSONNE OU ORGANISME PAYEUR</h2>
+            <!--</div>-->
+
+        </div><br>
+        <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10" >
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-3 text-center">Matricule fiscal</th>
+                        <th class="col-md-3 text-center">Code T.V.A</th>
+                        <th class="col-md-3 text-center">Code catégorie</th>
+                        <th class="col-md-3 text-center">N° Etab.secondaire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td>{{matricule}}</td>
+                        <td>{{code_tva}}</td>
+                        <td>{{code_category}}</td>
+                        <td>{{num_etab}}</td>                                   
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: -20px;">
+            <p>Dénomination de la personne ou de l'organisme payeur: <strong> {{retenu.Fournisseur.name}}</strong></p>
+            <p ng-if="retenu.Fournisseur.adresse != null">Adresse: <strong> {{retenu.Fournisseur.adresse}}</strong></p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <!--<div class="col-md-12 col-lg-12">-->
+    <table class="table table-bordered table-hover" style="margin-top: 10px;">
+        <thead>
+            <tr>
+                <th><strong style="float: left">B.- RETENUES EFFECTUES SUR:</strong></th>
+                <th style="width: 120px;">Montant brut</th>
+                <th style="width: 110px;">Retenue</th>
+                <th style="width: 120px;">Montant net</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>* Honoraires, comminications, couratge, vacations et loyers</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>* Retenue 1,5 % sur mantant >= 1000</td>
+                <td>{{retenu.Retenus.montant|number:3}}</td>
+                <td>{{retenu.Retenus.montant * 1.5 / 100|number:3}}</td>
+                <td>{{retenu.Retenus.montant - (retenu.Retenus.montant * 1.5 / 100) | number
+                            :3}} </td>
+            </tr>
+            <tr>
+                <td>* Revenus des comptes spéciaux d'épargne ouverts après des banques</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>* Revenus des capitaux mobiliers</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>* Revenus des bons de caisse au porteur</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="background-color: rgba(181, 179, 179, 0.58);">
+                <td><strong>Total général</strong></td>
+                <td>{{retenu.Retenus.montant|number:3}}</td>
+                <td>{{retenu.Retenus.montant * 1.5 / 100|number:3}}</td>
+                <td>{{retenu.Retenus.montant - (retenu.Retenus.montant * 1.5 / 100) | number
+                            :3}} </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered table-hover" style="margin-top: -10px;">
+        <thead>
+            <tr>
+                <th>Facture N°</th>
+                <th>Date</th>
+                <th>Montant Brut</th>
+                <th>Retenus</th>
+                <th>Montant net</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="odd gradeX" ng-repeat="($index, facture) in dataRetenu" id="CommandeRows" data-facture="{{facture.id}}">
+                <td>{{facture.code_facture}}</td>
+                <td>{{facture.created}}</td>
+                <td>{{facture.total_brut}}</td>
+                <td>{{facture.retenu}}</td>
+                <td>{{facture.net_peyee}}</td> 
+            </tr>
+
+        </tbody>
+    </table>
+    <!--</div>-->
+    <div class="clearfix"></div>
+
+    <div style="border: 1px solid #adabab; margin: 0 !important;">
+        <div class="col-md-5">
+            <h2 class="text-left certificat" style="font-size: 18px;font-weight: 600;">C- BENEFICIAIRE</h2>
+            <!--                                <p class="text-left"> N° de carte d'itentité <br> ou <br> de séjour pour les etrangers</p>
+                                            <div class="pull-left">
+                                            </div>-->
+        </div>
+        <div class="col-md-offset-1 col-md-10  col-xs-offset-1 col-xs-10" style="position: relative; top: 10px;">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-3 text-center">Matricule fiscal</th>
+                        <th class="col-md-3 text-center">Code T.V.A</th>
+                        <th class="col-md-3 text-center">Code catégorie</th>
+                        <th class="col-md-3 text-center">N° Etab.secondaire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td>{{matricule}}</td>
+                        <td>{{code_tva}}</td>
+                        <td>{{code_category}}</td>
+                        <td>{{num_etab}}</td>                                   
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <p>Nom et Prenom ou raison sociale :<strong> SECURITY SOURCING &  TRAINING</strong></p>
+            <p>Adresse professionnelle : <strong> 9, Rue Ezzouhour jardins l'Aouina Tunis.</strong></p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="cb no-print"></div>
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-12" style=" margin: 0 !important;">-->
+    <!--<div class="col-md-8 col-md-offset-2">-->
+    <p class="text-center"><strong> Je soussigné, certifie exacte les renseignements figurants sur le présent certificat et m'expose aux sanctions prévues par le loi pour toute inexactitude. </strong><br>A TUNIS, le {{retenu.Retenus.date}} <br><strong> Cachet et Signature du payeur</strong></p>
+    <!--</div>-->
+    <!--</div>-->
+</div>
+<!--        </div>
+    </div>
+    <div class="cb no-print"></div><br>
+</div>-->
+

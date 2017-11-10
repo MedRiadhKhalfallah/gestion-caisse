@@ -1,0 +1,125 @@
+<style type='text/css'>
+    table.pave {
+        border-collapse: collapse;
+        background-color: #32c5d2;
+    }
+
+    table, td, th {
+        border: 2px solid black;
+    }
+    td {cursor:pointer;}
+
+    .up {	//border: outset 2 px gray;
+          height:60px;
+          width:60px;
+          font-family:verdana;
+          text-align:center;
+    }
+
+    .down {//border: inset 2 px gray;
+           height:60px;
+           width:60px;
+           font-family:verdana;
+           background-color: #ffffff;
+           text-align:center;
+    }
+    td:hover {background-color:#0000ff;
+    }
+</style>
+<script type='text/javascript'>
+    var activeinput
+
+
+    function highlightActive(obj) {
+        var inputcollection = document.getElementsByTagName('input')
+        for (i = 0; i < inputcollection.length; i++) {
+
+            inputcollection[i].style.backgroundColor = (inputcollection[i] == obj) ? "lime" : ""
+        }
+    }
+
+</script>
+<div class="hidden-print col-md-2">
+    <div class="portlet-body" >
+        <table class="pave">
+            <tr>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td colspan=2>0</td>
+                <td>.</td>
+            </tr>
+            <tr>
+                <td colspan=2>CE</td>
+                <td>CA</td>
+            </tr>
+        </table>
+
+        <!--        <input type='text' onfocus="highlightActive(this); activeinput = this" /><br/>-->
+
+
+
+
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        var tdcollection = document.getElementsByTagName('table')[0].getElementsByTagName('td');
+        console.log(tdcollection.length);
+        for (i = 0; i < tdcollection.length; i++) {
+            tdcollection[i].indice = i
+            tdcollection[i].className = 'up'
+            tdcollection[i].onmousedown = function () {
+                this.className = 'down';
+            }
+            tdcollection[i].onmouseup = function () {
+                this.className = 'up';
+            }
+            tdcollection[i].onclick = function () {
+                if (activeinput) {
+                    console.log(activeinput.getAttribute('data-index'));
+                    
+//                    
+//                    var pu = parseFloat(activeinput.parentNode.parentNode.children[3].textContent);
+//                    var ttc = parseFloat(activeinput.parentNode.parentNode.children[6].textContent)
+//                    activeinput.parentNode.parentNode.children[7].textContent = ttc * pu;
+//                    console.log(pu);
+                    if (this.indice < 11) {
+                        if (activeinput.value.length < 2)
+                        {
+                            activeinput.value += this.innerHTML;
+                            variable_test = activeinput.value;
+                            activeinput.focus();
+                        }
+
+
+                    }
+                    if (this.indice == 11) {
+                        activeinput.value = activeinput.value.substr(0, activeinput.value.length - 1);
+                        variable_test = activeinput.value;
+                        activeinput.focus();
+                    }
+                    if (this.indice == 12) {
+                        activeinput.value = "";
+                        variable_test = activeinput.value;
+                        activeinput.focus();
+                    }
+                }
+            }
+
+        }
+    });
+</script>

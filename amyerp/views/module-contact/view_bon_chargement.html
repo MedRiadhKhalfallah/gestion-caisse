@@ -1,0 +1,322 @@
+<style>
+    .dateCHR{position: relative; right: 210px !important;}
+    #secondTable{display: none !important;}
+    #titleBCH{display: none !important;}
+    /*.print{display: none !important;}*/
+    /*.no-print{display: block !important;}*/
+    @media print {
+        #footer{ 
+            display: block !important;
+            font-size: 9px !important;
+            position: fixed; 
+            bottom: 5px;
+            /*            left: 60px;*/
+            width: 100%;
+            text-align: center;
+        }
+        .Condition{display: none !important;}
+        .PourcentageDevis{display: none !important;}
+        .merci{display: none !important;}
+        table, .table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, 
+        .table-bordered>tfoot>tr>td, 
+        .table-bordered>tfoot>tr>th, 
+        .table-bordered>thead>tr>td, 
+        .table-bordered>thead>tr>th{
+            border: 1px solid #adabab !important;
+            font-size: 11px; 
+            font-weight: bold;
+        }
+        .no-print{
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+
+        }
+        body{
+            height: 100% !important;
+            width: 100% !important;
+        }
+        html{
+            height: 100% !important;
+            width: 100% !important;
+            /*border: 2px solid #000 !important;*/
+        }
+        @page
+        { 
+            /*margin: 2.5mm 2.5mm 2.5mm 2.5mm;*/ 
+            size: landscape;
+            margin: 0mm; 
+        } 
+        .portlets{
+            margin: 0 !important;
+            margin-top: -20px !important;
+        }
+        .RetenuText{
+            margin-top: -20px !important;
+        }
+        .RetenuText1{
+            margin-top: -30px !important;
+        }
+        main-content, main-content-inner, .portlet{
+            width: 100% !important
+        }
+        .retenu, .certificat{
+            font-size: 12px !important; 
+        }
+        .logo-amyevolut{
+            max-width: 350px !important;
+            margin-left: 0 !important;
+            position: relative;
+            /*left: 50px !important;*/
+            top: -20px;
+        }
+        .image{margin-left: 0 !important;}
+        .portlet.box.green-turquoise{border: none !important;}
+        /*html{border: solid 2px;}*/
+        .expediteur{padding-left: 50px !important;margin-left: 12px !important; }
+        .expediteur strong{color:#26619C !important;}
+        .expediteur span{color:#26619C !important;}
+        .expediteur1{padding-left: 50px !important;margin-left: 12px !important; }
+        .expediteur1 strong{color:#26619C !important;}
+        .expediteur1 span{color:#26619C !important;}
+        .DateCommande{
+            color: #26619C !important;
+            position: relative;
+            right: 80px;
+        }
+        .DateCommande strong{
+            color: #26619C !important;
+        }
+        .border-client{
+            border: solid #000 2px !important;
+            height: 130px !important;
+        }
+        .table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th{
+            background: #ddd !important;
+        } 
+        .portlet.box.red{border: none !important;}
+        .titleBCH{color: #110246 !important;font-weight: 700 !important;}
+        .dateCHR{position: relative; right: 120px !important; top: -10px;}
+
+        html{
+            zoom : 95%;
+            /*overflow: visible !important;*/
+            height: 100% !important;
+        }
+        table thead th,table tbody tr td {
+            padding: 5px !important;
+        }
+        .page-break {display: block !important; page-break-after: always !important;}
+        .print{display: block !important;}
+        .no-print{display: none !important;}
+        #secondTable{display: block !important;}
+        #titleBCH{display: block !important;}
+    }
+
+    .qrcode{width: 120px !important;}
+
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title no-print">
+                <div style="width: 50px;float: left !important;" class="actions">
+                    <a href="javascript:history.go(-1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i> 
+                    </a>
+                </div>
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Bon chargement : {{ref_cex}} </div>
+                <div class="actions">
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick=""><i class="fa fa-send-o"></i> Envoyer par mail </a>
+                    <a class="no-print btn btn-success btn-sm" style="margin-right: 10px;background-color: transparent;border-color: #fff;" onclick="print('block_border')"><i class="fa fa-print"></i> Imprimer </a>
+                    <button class="no-print btn btn-primary btn-sm" style="background-color: transparent;border-color: #fff;" onclick="generatePDF()"><i class="fa fa-file-pdf-o"></i> Exporter en PDF </button>
+                    <a href="#/dashboard.html" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Dashboard
+                    </a>
+                    <a href="#/module-transporteur" class="btn btn-default btn-sm">
+                        <i class="fa fa-align-right"></i> Transporteur
+                    </a>
+                    <a href="javascript:history.go(+1)" class="btn btn-default btn-sm">
+                        <i class="fa fa-2x fa-arrow-right" aria-hidden="true"></i> 
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body" id="formConfirmation">
+                <div  class="col-xs-12">
+                    <!--<strong style="color:#26619C;" class="DateCommande">--> 
+                    <div class="image" style="/* margin-left: 53px; */">
+                        <img src="assets/pages/img/logo-chams-horizontale.jpg" class="pull-left img-responsive logo-amyevolut" style="max-width:440px;margin-left: 15px;">
+                    </div>
+                    <!--<h3 class="text-center" style="color: #110246;"><strong my-current-time="formatCreated" class="dateCHR"></strong> </strong><br>-->
+                </div>
+                <div class="clearfix"></div>
+                <div  class="col-xs-12" style="margin-top: -65px;">
+                    <h3 class="text-center titleBCH" style="color: #110246;font-weight: 700;">BON DE SORTIE / LIVRAISON N° {{ref_cex}}</h3>
+                </div>
+                <div class="clearfix"></div>
+                <div  class="col-xs-12" style="line-height: 20px;padding-right: 0;">
+                    <p class="text-left livreurBCH col-xs-12" style="color: #110246;font-weight: 700;padding-right: 0;margin-bottom: 5px;font-family: 'Arial Black', Gadget, sans-serif;">
+                        <strong class="col-xs-2" style="padding-left: 0;">Agence : </strong>
+                        <strong class="col-xs-2">{{bonchargement.Chargement.agence}}</strong>
+
+                        <strong style="color:#26619C; text-align: right !important;padding-right: 0;" class="DateCommande col-xs-5">Tunis le : 
+                            <span my-current-time="formatCreated" style="color:#26619C !important;"></span>
+                        </strong>
+                    </p>
+                    <p class="text-left livreurBCH" style="color: #110246;font-weight: 700;"><strong class="col-xs-4">Nom : {{bonchargement.Livreur.full_name}}</strong><strong class="col-xs-4">Tel : {{bonchargement.Livreur.phone}}</strong></p>
+                    <br> <p class="text-left col-xs-12" style="padding-left: 0;"><strong class="col-xs-4">Marque de la voiture : {{bonchargement.Livreur.marque_voiture}}</strong>
+                        <!--<strong class="col-xs-2"></strong>-->
+                        <strong class="col-xs-3">Matricule de la voiture : {{bonchargement.Livreur.matricule_voiture}}</strong>
+                        <!--<strong class="col-xs-2"></strong>-->
+                        <strong class="col-xs-3" style="text-transform: uppercase;">ZONE : {{bonchargement.Chargement.destination}}</strong></p>
+                </div>
+                <div class="clearfix"></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column print" style="display: none;" id="mainTable">
+                    <thead>
+                        <tr>
+                            <th> Num </th>
+                            <th style="width: 135px;"> Référence </th>
+                            <th> Nom commercial </th>
+                            <th> Destinataire </th>
+                            <th> Tel </th>
+                            <th> Adresse de destinataire</th>
+                            <th> Ville </th>
+                            <th> Code postal </th>
+                            <th> Contre renbourcement </th>
+                            <th> État de livraison </th>
+                            <th> Signature </th>
+                            <!--<th> </th>-->
+                        </tr>
+                    </thead>
+                    <tbody id="listItem">
+                        <tr class="odd gradeX" ng-repeat="($index, commande) in bonchargement.Commande" id="CommandeRowsBonCargement">
+                            <td>{{$index - (-1)}}</td>
+                            <td>{{commande.ref}}</td>
+                            <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td>
+                            <td>{{commande.Receiver.full_name}}</td>
+                            <td>{{commande.Receiver.phone}}</td>
+                            <td>{{commande.Receiver.adresse}}</td>
+                            <td>{{commande.Receiver.Ville.name}}</td>
+                            <td>{{commande.Receiver.code_postal}}</td>
+                            <td ng-if="commande.isContreRembourcement == 0 || commande.isContreRembourcement == false"></td>
+                            <td ng-if="commande.isContreRembourcement == 1 || commande.isContreRembourcement == true">{{commande.mantant| number:3}}</td>
+                            <td ng-if="commande.state == 'Livrée'">Livrée</td>
+                            <td ng-if="commande.state == 'Annulée'">{{commande.cause_nonlivraison}}</td>
+                            <td ng-if="commande.state == 'Retour'">{{commande.cause_nonlivraison}}</td>
+                            <td ng-if="commande.state == 'Retour Expéditeur'">Retour Expéditeur</td>
+                            <td ng-if="commande.state == 'Facturée'">Facturée</td>
+                            <td ng-if="commande.state == 'AttenteLivraison'"></td>
+                            <td></td>
+                        </tr>
+                    </tbody> 
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" style="text-align: right; padding-right: 20px;">Nbres de commandes: {{nbresCommandes}}</td>
+                            <td colspan="3">Montant Total: {{mantantChargement}}</td> 
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column no-print" id="displayNone">
+                    <thead>
+                        <tr>
+                            <th> Num </th>
+                            <th style="width: 135px;"> Référence </th>
+                            <th> Nom commercial </th>
+                            <th> Destinataire </th>
+                            <th> Tel </th>
+                            <th> Adresse de destinataire</th>
+                            <th> Ville </th>
+                            <th> Code postal </th>
+                            <th> Contre renbourcement </th>
+                            <th> État de livraison </th>
+                            <th> Signature </th>
+                            <!--<th> </th>-->
+                        </tr>
+                    </thead>
+                    <tbody id="listItem" class="listItemCommande">
+                        <tr class="odd gradeX" ng-repeat="($index, commande) in bonchargement.Commande" id="CommandeRowsBonCargement">
+                            <td>{{$index - (-1)}}</td>
+                            <td>{{commande.ref}}</td>
+                            <td>{{commande.User.nom_commercial}} {{commande.User.raison_social}}</td>
+                            <td>{{commande.Receiver.full_name}}</td>
+                            <td>{{commande.Receiver.phone}}</td>
+                            <td>{{commande.Receiver.adresse}}</td>
+                            <td>{{commande.Receiver.Ville.name}}</td>
+                            <td>{{commande.Receiver.code_postal}}</td>
+                            <td ng-if="commande.isContreRembourcement == 0 || commande.isContreRembourcement == false"></td>
+                            <td ng-if="commande.isContreRembourcement == 1 || commande.isContreRembourcement == true">{{commande.mantant| number:3}}</td>
+                            <td ng-if="commande.state == 'Livrée'">Livrée</td>
+                            <td ng-if="commande.state == 'Annulée'">{{commande.cause_nonlivraison}}</td>
+                            <td ng-if="commande.state == 'Retour'">{{commande.cause_nonlivraison}}</td>
+                            <td ng-if="commande.state == 'Retour Expéditeur'">Retour Expéditeur</td>
+                            <td ng-if="commande.state == 'Facturée'">Facturée</td>
+                            <td ng-if="commande.state == 'AttenteLivraison'"></td>
+                            <td></td>
+                        </tr>
+                    </tbody> 
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" style="text-align: right; padding-right: 20px;">Nbres de commandes: {{nbresCommandes}}</td>
+                            <td colspan="3">Montant Total: {{mantantChargement}}</td> 
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET--> 
+    </div>
+</div>
+
+
+<script>
+            setTimeout(function () {
+//        console.clear();
+            }, 1000);
+</script>
+<script>
+            kendo.pdf.defineFont({
+                "DejaVu Sans": "//kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans.ttf",
+                "DejaVu Sans|Bold": "//kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+                "DejaVu Sans|Bold|Italic": "//kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+                "DejaVu Sans|Italic": "//kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
+            });
+            var generatePDF = function () {
+                console.log("generatePDF");
+                kendo.drawing.drawDOM($("#formConfirmation")).then(function (group) {
+                    kendo.drawing.pdf.saveAs(group, "bon_chargement.pdf");
+                });
+            }
+            var intervalChargement = setInterval(function () {
+                if (document.readyState === 'complete') {
+                    clearInterval(intervalChargement);
+                    setTimeout(function () {
+                        var count = 0;
+                        $(".listItemCommande tr").each(function (i, v) {
+                            count = count + 1;
+                        });
+                        console.log(count);
+                        if (count > 13) {
+                            var textHead = "SUITE " + $(".titleBCH").text();
+                            var $mainTable = $("#mainTable");
+                            var splitBy = 15;
+                            var rows = $mainTable.find("tr").slice(splitBy);
+                            var $secondTable = $("#mainTable").parent().append("<br><br><br><br><br><h3 id='titleBCH' class='text-center titleBCH ng-binding' style='color: #110246;font-weight: 700;'>" + textHead + "</h3><br><table class='table table-bordered' id='secondTable'><thead><tr><th> Num </th><th style='width: 135px;'> Référence </th><th> Nom commercial </th><th> Destinataire </th><th> Tel </th><th> Adresse de destinataire</th><th> Ville </th><th> Code postal </th><th> Contre renbourcement </th><th> État de livraison </th><th> Signature </th></tr></thead><tbody></tbody></table>");
+                            $secondTable.find("#secondTable tbody").append(rows);
+                            $mainTable.find("tr").slice(splitBy).remove();
+
+                        }
+                    }, 1000);  
+                }
+            }, 100);
+</script>
+<!--<script>
+    TableDatatablesManaged.init();
+</script>-->
+<!-- END MAIN JS -->
